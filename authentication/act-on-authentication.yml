@@ -1,0 +1,33 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.act-on.com/reference/api-overview + live probe of https://restapi.actonsoftware.com/token
+api: Act-On REST API
+summary: >-
+  Act-On's REST API authenticates with OAuth 2.0. Clients exchange credentials at
+  the token endpoint for a short-lived bearer access_token (sent as
+  Authorization: Bearer <token>) plus a refresh_token used to obtain new access
+  tokens. Three grant types are documented.
+token_endpoint: https://restapi.actonsoftware.com/token
+token_endpoint_probe:
+  method: POST
+  status: 401
+  body: '{"error":"access_denied","error_description":"Unauthorized"}'
+  note: Unauthenticated POST returns an OAuth2 error object, confirming OAuth2.
+schemes:
+- type: oauth2
+  name: oauth2
+  flows:
+  - grant_type: password
+    doc: https://developer.act-on.com/reference/grant-type-password
+    description: Exchange username and password for an access_token and refresh_token.
+  - grant_type: refresh_token
+    doc: https://developer.act-on.com/reference/grant-type-refresh
+    description: Exchange a refresh_token for a new access_token and refresh_token.
+  - grant_type: authorization_code
+    doc: https://developer.act-on.com/reference/grant-type-code
+    description: Exchange an authorization code for an access_token and refresh_token.
+  transmit: Authorization header, Bearer scheme
+docs: https://developer.act-on.com/reference/api-overview
+notes:
+- Developer/API access requires an Act-On developer account (see request-a-developer-account).
+- No API-key-only scheme was documented; OAuth 2.0 is the sole documented mechanism.
