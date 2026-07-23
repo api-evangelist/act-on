@@ -1,0 +1,33 @@
+generated: '2026-07-17'
+method: searched
+source: https://developer.act-on.com/ (llms.txt index) + live probes of restapi.actonsoftware.com
+api: Act-On REST API
+auth:
+  style: oauth2
+  transmit: Authorization header, Bearer scheme
+  token_endpoint: https://restapi.actonsoftware.com/token
+  ref: authentication/act-on-authentication.yml
+base_url: https://restapi.actonsoftware.com
+versioning:
+  style: uri-path
+  current: /api/1
+  evidence: Documented resource paths and live endpoints sit under /api/1 (e.g. /api/1/ping -> 401).
+  ref: lifecycle/act-on-lifecycle.yml
+error_envelope:
+  style: custom-json
+  fields: [httpCode, httpMessage, moreInformation]
+  ref: errors/act-on-problem-types.yml
+content_types:
+  requests: application/x-www-form-urlencoded and multipart/form-data (form-encoded posts are common per docs)
+  responses: application/json
+idempotency:
+  supported: false
+  note: No idempotency-key header documented in the captured surface.
+pagination:
+  style: unknown
+  note: Not documented in the captured llms.txt index.
+rate_limiting:
+  signaling: unknown
+  note: Not documented in the captured surface.
+notes:
+- Many write endpoints require URL-form-encoded or multipart/form-data bodies per the docs descriptions.

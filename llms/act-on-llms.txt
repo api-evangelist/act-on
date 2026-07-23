@@ -1,0 +1,166 @@
+# Act-On Documentation
+
+> Documentation for Act-On
+
+## API Reference
+- [API Overview](https://developer.act-on.com/reference/api-overview.md)
+- [Request a Developer Account](https://developer.act-on.com/reference/request-a-developer-account.md)
+- [Userspecs Overview](https://developer.act-on.com/reference/userspecs-overview.md): Userspecs is a JSON object to describe the users that are to be created. You pass the userspecs as a form parameter. The userspecs can contain any number of users to create. However, the each account has a maximum number of users that can be created.
+- [Create new account user](https://developer.act-on.com/reference/create-new-account-user.md): Create one or more users for an account.
+- [Delete account users](https://developer.act-on.com/reference/delete-account-users.md): Delete one or more users from an account.
+- [Get defined email senders](https://developer.act-on.com/reference/get-defined-email-senders.md): Get a list of all defined email senders for the account.
+- [Upload custom events](https://developer.act-on.com/reference/upload-custom-events.md): Upload a set of custom events with a simple HTTP POST to the Fact API.
+- [Get upload custom event status](https://developer.act-on.com/reference/get-upload-custom-event-status.md): Get the status of a custom event upload a simple HTTP GET to the Fact & Reporting API
+- [Get logo list](https://developer.act-on.com/reference/get-logo-list.md): Get a list of the logos in the account.
+- [Add a logo](https://developer.act-on.com/reference/add-a-logo.md): Add a logo image file or URL to your account.
+- [Get a logo](https://developer.act-on.com/reference/get-a-logo.md): Gets the specified logo from your account.
+- [Update a logo](https://developer.act-on.com/reference/update-a-logo.md): Updates the information for an existing logo in your logo repository.
+- [Delete a logo](https://developer.act-on.com/reference/delete-a-logo.md): Delete the specified logo from your account.
+- [Get header list](https://developer.act-on.com/reference/get-header-list.md): Get a list of headers in the account.
+- [Get a header](https://developer.act-on.com/reference/get-a-header.md): Get the specified header from your account.
+- [Update a header](https://developer.act-on.com/reference/update-a-header.md): Update the specified header.
+- [Delete a header](https://developer.act-on.com/reference/delete-a-header.md): Delete the specified header from your account.
+- [Add a header](https://developer.act-on.com/reference/add-a-header.md): Add a new header to your account.
+- [Get footer list](https://developer.act-on.com/reference/get-footer-list.md): Get a list of footers in your account.
+- [Get a footer](https://developer.act-on.com/reference/get-a-footer.md): Get the specified footer by ID. Act-On assigns integer IDs to footers in numerical order when added, starting with the default footer with ID of 0 at account initiation.
+- [Delete a footer](https://developer.act-on.com/reference/delete-a-footer.md): Delete an existing footer from the account.
+- [Update a footer](https://developer.act-on.com/reference/update-a-footer.md): Update an existing footer in the account.
+- [Add a new footer](https://developer.act-on.com/reference/add-a-new-footer.md): Add a new footer to your account. To view default formatting for footers, use the Get footer list API. The default footer (id 0) contains standard elements that you might want to re-use while creating a new footer. <p>When you add a new footer, Act-On automatically assigns an id. You can, however, assign a meaningful footer title of your choosing.</p> <p>NOTE: the request must be URL form encoded.</p>
+- [Get image list](https://developer.act-on.com/reference/get-image-list.md): Get a list of the images in your account.
+- [Add an image](https://developer.act-on.com/reference/add-an-image.md): Add a new image to your account. <p>NOTE: This is a "multipart/form-data" post.</p>
+- [Get an image](https://developer.act-on.com/reference/get-an-image.md): Get the image, specified by Act-On id, from the account. To obtain a list of all images in the account the associated ids, use Get image list.
+- [Update an image](https://developer.act-on.com/reference/update-an-image.md): Replace an existing image in the image repository.
+- [Delete an image](https://developer.act-on.com/reference/delete-an-image.md): Delete an image (by id) from your account. To obtain a list of all images in the account the associated ids, use Get image list
+- [Get media list](https://developer.act-on.com/reference/get-media-list.md): Get a listing of media objects stored in your account.
+- [Get media file](https://developer.act-on.com/reference/get-media-file.md): Gets a path to the specified media file that was previously added to your account.
+- [Update Media File](https://developer.act-on.com/reference/update-media-file.md): Update/replace an existing media file in your account.
+- [Delete a media object](https://developer.act-on.com/reference/delete-a-media-object.md): Delete a media file from your account.
+- [Add a media file](https://developer.act-on.com/reference/add-a-media-file.md): Add a media file to your account.
+- [Add a media link](https://developer.act-on.com/reference/add-a-media-link.md): Add a new URL as a trackable link in your media library. <p>NOTE: This is a "x-www-form-urlencoded" post </p>
+- [Get form list](https://developer.act-on.com/reference/get-form-list.md): Get a list of the forms in your Forms repository.
+- [Get classic form URLs](https://developer.act-on.com/reference/get-classic-form-urls.md): Get the promotional URLs associated with the specified form, by form ID. To get a listing of forms in an account with their associated IDs, use the Get Forms List API.
+- [Get landing page list](https://developer.act-on.com/reference/get-landing-page-list.md): Get a list of pages in the account.
+- [Get landing page](https://developer.act-on.com/reference/get-landing-page.md)
+- [Delete landing page](https://developer.act-on.com/reference/delete-landing-page.md): Delete a page
+- [Get landing page URLs](https://developer.act-on.com/reference/get-landing-page-urls.md): Get the URLs for the specified promotional page.
+- [Get list of programs](https://developer.act-on.com/reference/get-list-of-programs.md): Get a list of all programs of a specified type.
+- [Get message report](https://developer.act-on.com/reference/get-message-report.md): Get a report on the specified message.
+- [Get message report drilldown](https://developer.act-on.com/reference/get-message-report-drilldown.md): Get a drilldown report for a specific email message.
+- [Get message report by time period](https://developer.act-on.com/reference/get-message-report-by-time-period.md): Fetch the message rollup report from your account.
+- [Get media report](https://developer.act-on.com/reference/get-media-report.md): Get a report on the specified media from your account.
+- [Get media message report](https://developer.act-on.com/reference/get-media-message-report.md): Get a media message report from your account.
+- [Get a media view report](https://developer.act-on.com/reference/get-a-media-view-report.md): Get a media view report from your account.
+- [Get a media timeline report](https://developer.act-on.com/reference/get-a-media-timeline-report.md): Get a timeline report for specified media.
+- [Get form report](https://developer.act-on.com/reference/get-form-report.md): Get a report on a form by ID.
+- [Get landing page report](https://developer.act-on.com/reference/get-landing-page-report.md): Get a list of the pages listed in the account.
+- [Get message list](https://developer.act-on.com/reference/get-message-list.md): Use to retrieve a listing of emails by type.
+- [Add new template or draft message](https://developer.act-on.com/reference/add-new-template-or-draft-message.md): Add a draft message or template message to your account.
+- [Get Campaign](https://developer.act-on.com/reference/get-campaign.md): Use to retrieve a listing of emails by type.
+- [Get Campaigns List](https://developer.act-on.com/reference/get-campaigns-list.md): Use to retrieve a listing of emails by type.
+- [Send a message](https://developer.act-on.com/reference/send-a-message.md): Send the specified message with a simple HTTP POST to the Email Campaign API.
+- [Resend a message](https://developer.act-on.com/reference/resend-a-message.md): Update/resend the specified message.
+- [Update template or draft message](https://developer.act-on.com/reference/update-template-or-draft-message.md): Update an existing draft message or template in your account.
+- [Delete a message](https://developer.act-on.com/reference/delete-a-message.md): Delete a specified message or template.
+- [Get message HTML contents](https://developer.act-on.com/reference/get-message-html-contents.md): Get the HTML content of a Sent, Draft or Message Template
+- [ETE Request](https://developer.act-on.com/reference/ete-request.md)
+- [Get a new SEO report](https://developer.act-on.com/reference/get-a-new-seo-report.md): Run an SEO report on a website that you specify.
+- [Get SEO keywords](https://developer.act-on.com/reference/get-seo-keywords.md): Fetch the SEO keywords defined in your account.
+- [Add a contact](https://developer.act-on.com/reference/add-a-contact.md): Add a contact record to the specified list.
+- [Upsert a contact record by email](https://developer.act-on.com/reference/upsert-a-contact-record-by-email.md): Update an existing record or insert a new contact record using the email address that you specify using the following logic: <p>If the email address exists in the list, only the first record matching that email address is updated with the data you provide.</p><p>If the email address is not already in the list, a new record is added.</p><p>Please take note that this means that any duplicate records are NOT updated.</p>
+- [Get contact history and score](https://developer.act-on.com/reference/get-contact-history-and-score.md): Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record's recID and only have their email address, please review question #8 on our API FAQ</p>
+- [Get contact record](https://developer.act-on.com/reference/get-contact-record.md): Download a contact record from your account.
+- [Update a contact by record ID](https://developer.act-on.com/reference/update-a-contact-by-record-id.md): Update the specified contact record in the specified list. <p>NOTE: This only updates the identified record in list that you specify.</p>
+- [Delete a contact](https://developer.act-on.com/reference/delete-a-contact.md): Remove the specified contact record from the specified list.
+- [Delete multiple contacts](https://developer.act-on.com/reference/delete-multiple-contacts.md)
+- [Get contact record ID based on cookie value](https://developer.act-on.com/reference/get-contact-record-id-based-on-cookie-value.md): Gets a contact record ID from your account based on a cookie ID.
+- [Get contact from list based on cookie ID or e-mail](https://developer.act-on.com/reference/get-contact-from-list-based-on-cookie-id-or-e-mail.md): Gets a contact record from a list based on a cookie ID and/or email address.
+- [Set Multiple Subscriptions by email address](https://developer.act-on.com/reference/set-multiple-subscriptions-by-email-address.md): Add/remove individual records from a subscription category by email address.
+- [Update Subscription by Email](https://developer.act-on.com/reference/update-subscription-by-email.md): Add/remove individual records from a subscription category by email address.
+- [UploadSpecs Overview](https://developer.act-on.com/reference/uploadspecs-overview.md)
+- [Mergespecs Overview](https://developer.act-on.com/reference/mergespecs-overview.md)
+- [Delete records from a list](https://developer.act-on.com/reference/delete-records-from-a-list.md): Delete multiple records from the specified list.
+- [Get list of Act-On Assets](https://developer.act-on.com/reference/get-list-of-act-on-assets.md): Get listing of lists
+- [Create a new list](https://developer.act-on.com/reference/create-a-new-list.md): Create a new list in your account.
+- [Download List](https://developer.act-on.com/reference/download-list.md): Get listing of lists
+- [Update or merge a list](https://developer.act-on.com/reference/update-or-merge-a-list.md): Update or Merge to an existing Act-On list.
+- [Delete a list](https://developer.act-on.com/reference/delete-a-list.md): Delete the specified list from your account.
+- [Get list upload status](https://developer.act-on.com/reference/get-list-upload-status.md): Check on the status of a list upload.
+- [Get rejected records from an upload](https://developer.act-on.com/reference/get-rejected-records-from-an-upload.md): Download CSV file containing rejected upload records.
+- [Get Subscription Categories](https://developer.act-on.com/reference/get-subscription-categories.md): Returns the subscription categories defined in the account.
+- [Get subscription opt-outs by category](https://developer.act-on.com/reference/get-subscription-opt-outs-by-category.md): Download list of records specifically opted out of a specific category
+- [Get hard bounce list](https://developer.act-on.com/reference/get-hard-bounce-list.md): Get a list of hard bounces associated with the account.
+- [Get spam complaint list](https://developer.act-on.com/reference/get-spam-complaint-list.md): Get a list of spam complaints from your account.
+- [Get Opt Out List](https://developer.act-on.com/reference/get-opt-out-list.md): Get a list of opt opts from your account.
+- [Update optout list](https://developer.act-on.com/reference/update-optout-list.md): Update or Merge to an existing optout list.
+- [Remove Opt Outs](https://developer.act-on.com/reference/remove-opt-outs-1.md)
+- [Grant-Type Password](https://developer.act-on.com/reference/grant-type-password.md): Use Username and password to get access token and refresh token
+- [Grant-Type Refresh](https://developer.act-on.com/reference/grant-type-refresh.md): Uses refresh_token to get a new access_token and refresh_token
+- [Grant-Type Code](https://developer.act-on.com/reference/grant-type-code.md): Uses authorization code to generate access_token and refresh_token
+- [Import Contacts](https://developer.act-on.com/reference/import-contacts.md)
+- [Get Import Definitions](https://developer.act-on.com/reference/get-import-definitions.md)
+- [Create an Import Definition](https://developer.act-on.com/reference/create-an-import-definition.md)
+- [Get Import Definition by Id](https://developer.act-on.com/reference/get-import-definition-by-id.md)
+- [Update an Import Definition](https://developer.act-on.com/reference/update-an-import-definition.md)
+- [Delete Import Definition by Id](https://developer.act-on.com/reference/delete-import-definition-by-id.md)
+- [Get Import status](https://developer.act-on.com/reference/get-import-status.md)
+- [Get contacts from the Act-On Contacts List](https://developer.act-on.com/reference/get-contacts-from-the-act-on-contacts-list.md)
+- [Add a single contact to the Act-On Contacts List](https://developer.act-on.com/reference/add-a-single-contact-to-the-act-on-contacts-list.md)
+- [Get contacts from the Act-On Contacts List specifying the fields to be returned](https://developer.act-on.com/reference/get-contacts-from-the-act-on-contacts-list-specifying-the-fields-to-be-returned.md)
+- [Get contact in the Act-On Contacts List by cookie id](https://developer.act-on.com/reference/get-contact-in-the-act-on-contacts-list-by-cookie-id.md)
+- [Get contacts from the Act-On Contacts List by email address](https://developer.act-on.com/reference/get-contacts-from-the-act-on-contacts-list-by-email-address.md)
+- [Update contacts in the Act-On Contacts List by email address](https://developer.act-on.com/reference/update-contacts-in-the-act-on-contacts-list-by-email-address.md)
+- [Delete contact in the Act-On Contacts List by email address](https://developer.act-on.com/reference/delete-contact-in-the-act-on-contacts-list-by-email-address.md)
+- [Delete contacts in the Act-On Contacts List by emails](https://developer.act-on.com/reference/delete-contacts-in-the-act-on-contacts-list-by-emails.md)
+- [Get contact in the Act-On Contacts List by externalId and object type](https://developer.act-on.com/reference/get-contact-in-the-act-on-contacts-list-by-externalid-and-object-type.md)
+- [Update contact in the Act-On Contacts list by externalId & objectType, fallback to email match](https://developer.act-on.com/reference/update-contact-in-the-act-on-contacts-list-by-externalid-objecttype-fallback-to-email-match.md)
+- [Delete contact in the Act-On Contacts List by externalId and object type](https://developer.act-on.com/reference/delete-contact-in-the-act-on-contacts-list-by-externalid-and-object-type.md)
+- [Get contact in the Act-On Contacts List by id](https://developer.act-on.com/reference/get-contact-in-the-act-on-contacts-list-by-id.md)
+- [Update contact in the Act-On Contacts List by id](https://developer.act-on.com/reference/update-contact-in-the-act-on-contacts-list-by-id.md)
+- [Delete contacts in the Act-On Contacts List by ids](https://developer.act-on.com/reference/delete-contacts-in-the-act-on-contacts-list-by-ids.md)
+- [Get contact history by email address](https://developer.act-on.com/reference/get-contact-history-by-email-address.md)
+- [Get all scores for a contact by email address](https://developer.act-on.com/reference/get-all-scores-for-a-contact-by-email-address.md)
+- [Get all segments that the contact belong by email address](https://developer.act-on.com/reference/get-all-segments-that-the-contact-belong-by-email-address.md)
+- [Get contact history by externalId and object type](https://developer.act-on.com/reference/get-contact-history-by-externalid-and-object-type.md)
+- [Get all scores for a contact by externalId and object type](https://developer.act-on.com/reference/get-all-scores-for-a-contact-by-externalid-and-object-type.md)
+- [Get all segments that the contact belong by externalId and object type](https://developer.act-on.com/reference/get-all-segments-that-the-contact-belong-by-externalid-and-object-type.md)
+- [Get contact history by id](https://developer.act-on.com/reference/get-contact-history-by-id.md)
+- [Get all scores for a contact by id](https://developer.act-on.com/reference/get-all-scores-for-a-contact-by-id.md)
+- [Get all segments that the contact belong by id](https://developer.act-on.com/reference/get-all-segments-that-the-contact-belong-by-id.md)
+- [Get Schema](https://developer.act-on.com/reference/get-schema.md)
+- [Add Field](https://developer.act-on.com/reference/add-field.md)
+- [Update FieldDefinition](https://developer.act-on.com/reference/update-fielddefinition.md)
+- [Delete Field](https://developer.act-on.com/reference/delete-field.md)
+- [Get Segments](https://developer.act-on.com/reference/get-segments.md)
+- [Create a segment](https://developer.act-on.com/reference/create-a-segment.md)
+- [Get Segment by Id](https://developer.act-on.com/reference/get-segment-by-id.md)
+- [Update Segment. If it's a Direct Select Segment, only the name can be updated.](https://developer.act-on.com/reference/update-segment-if-its-a-direct-select-segment-only-the-name-can-be-updated.md)
+- [Delete Segment](https://developer.act-on.com/reference/delete-segment.md)
+- [Get Contacts from a Segment](https://developer.act-on.com/reference/get-contacts-from-a-segment.md)
+- [Add Contacts to a Direct Select Segment](https://developer.act-on.com/reference/add-contacts-to-a-direct-select-segment.md)
+- [Remove Contacts from Direct Select Segment](https://developer.act-on.com/reference/remove-contacts-from-direct-select-segment.md)
+- [Remove Contacts from Direct Select Segment by email](https://developer.act-on.com/reference/remove-contacts-from-direct-select-segment-by-email.md)
+- [Add Contacts to a Direct Select Segment By External id](https://developer.act-on.com/reference/add-contacts-to-a-direct-select-segment-by-external-id.md)
+- [Remove Contacts from Direct Select Segment by external id](https://developer.act-on.com/reference/remove-contacts-from-direct-select-segment-by-external-id.md)
+- [Overview - READ ME FIRST](https://developer.act-on.com/reference/overview.md)
+- [Query data from a Custom Data dataset](https://developer.act-on.com/reference/querydata.md): Performs a query on Custom Data dataset with a simple join with Account Object Context
+- [Creates a new dataset for a Custom Data schema](https://developer.act-on.com/reference/createdataset.md): Creates an empty dataset for a specific Custom Data schema
+- [Retrieves the details for a dataset using its ID or name](https://developer.act-on.com/reference/describedataset.md): Returns detailed information about a dataset
+- [Updates a dataset's name and description](https://developer.act-on.com/reference/updatedataset.md): Modifies metadata for an existing dataset
+- [Deletes the dataset based on the provided dataset Id](https://developer.act-on.com/reference/deletedataset.md): Permanently removes a dataset and all its data
+- [Ingests a JSON stream for a specific dataset or object](https://developer.act-on.com/reference/ingestjsonstream.md): Processes a JSON data stream for the specified dataset
+- [Ingests a CSV or JSON file for a specific dataset or object](https://developer.act-on.com/reference/ingestfile.md): Uploads and processes a data file for the specified dataset
+- [Validates a file against a schema without ingesting data](https://developer.act-on.com/reference/validatefile.md): Checks if a file is valid for the specified schema
+- [Retrieves a list of all datasets for a specific schema](https://developer.act-on.com/reference/listdatasetsbyschemaid.md): Returns all datasets for a specific custom object schema
+- [Retrieve the status for the Job Id](https://developer.act-on.com/reference/getjobstatus.md): If complete and not successful, also retrieves the report download endpoint
+- [Download the report for the provided Job Id](https://developer.act-on.com/reference/getjobreport.md): Returns a report for a completed job
+- [Retrieves a list of all datasets for the account](https://developer.act-on.com/reference/listalldatasets.md): Returns all datasets available for the account
+- [Delete records from a dataset based on the provided IDs or ID range](https://developer.act-on.com/reference/deleteids.md): Delete records from a dataset based on the provided IDs or ID range
+- [Returns a Custom Data schema](https://developer.act-on.com/reference/getschema.md): Get a Custom Data schema
+- [Updates a Custom Data schema basic properties](https://developer.act-on.com/reference/updateschema.md): Updates a Custom Data schema basic properties
+- [Deletes one Custom Data schema](https://developer.act-on.com/reference/deleteschema.md): Deletes one Custom Data schema
+- [Updates Custom Data schema field properties](https://developer.act-on.com/reference/updatefields.md): Updates a Custom Data schema fields basic properties
+- [Adds fields to Custom Data schemas](https://developer.act-on.com/reference/addfields.md): Adds fields to Custom Data schemas
+- [Deletes fields from Custom Data schemas](https://developer.act-on.com/reference/deletefields.md): Deletes fields from Custom Data schemas
+- [Create a Custom Data schema](https://developer.act-on.com/reference/createschema.md): Create a Custom Data schema
+- [Returns all Custom Data schemas](https://developer.act-on.com/reference/getallschemas.md): Get all Custom Data schemas
+- [Deletes all Custom Data schemas](https://developer.act-on.com/reference/deleteallschemas.md): Deletes all Custom Data schemas

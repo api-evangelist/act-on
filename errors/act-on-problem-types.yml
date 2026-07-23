@@ -1,0 +1,40 @@
+generated: '2026-07-17'
+method: derived
+source: live probes of https://restapi.actonsoftware.com/* + https://restapi.actonsoftware.com/token
+api: Act-On REST API
+format: custom-json
+note: >-
+  Act-On does NOT use RFC 9457 (application/problem+json). The REST API returns a
+  custom JSON envelope; the OAuth token endpoint returns the standard OAuth 2.0
+  error object. Both envelopes were observed via live unauthenticated probes.
+envelopes:
+- name: rest-error
+  media_type: application/json
+  fields:
+  - httpCode
+  - httpMessage
+  - moreInformation
+  example: '{"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources match requested URI"}'
+- name: oauth-error
+  media_type: application/json
+  scope: token endpoint (/token)
+  fields:
+  - error
+  - error_description
+  example: '{"error":"access_denied","error_description":"Unauthorized"}'
+problem_types:
+- status: 401
+  title: Unauthorized
+  envelope: rest-error
+  evidence: 'POST /api/1/ping -> {"httpCode":"401","httpMessage":"Unauthorized","moreInformation":""}'
+  remediation: 'Obtain an OAuth 2.0 access token from /token and send it as Authorization: Bearer.'
+- status: 404
+  title: Not Found
+  envelope: rest-error
+  evidence: 'POST / -> {"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources match requested URI"}'
+  remediation: Verify the request URI matches a documented /api/1 resource path.
+- status: 401
+  title: access_denied
+  envelope: oauth-error
+  evidence: 'POST /token -> {"error":"access_denied","error_description":"Unauthorized"}'
+  remediation: Supply valid grant_type + client credentials to the token endpoint.

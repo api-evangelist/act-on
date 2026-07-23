@@ -1,0 +1,20 @@
+generated: '2026-07-17'
+method: searched
+source: live probes of restapi.actonsoftware.com + https://status.act-on.com
+api: Act-On REST API
+versioning:
+  style: uri-path
+  current: '1'
+  base_path: /api/1
+  evidence: Live endpoints resolve under /api/1 (POST /api/1/ping -> 401).
+status_page:
+  url: https://status.act-on.com
+  vendor: Atlassian Statuspage
+  evidence: https://status.act-on.com/api/v2/status.json returns page id 2n7d73n45n13 name "Act-On Software".
+deprecation:
+  policy: unknown
+  sunset_header: not observed
+  note: No published deprecation/sunset (RFC 8594) policy located in the captured surface.
+sla:
+  published: unknown
+deprecated_operations: []

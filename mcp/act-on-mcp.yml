@@ -1,0 +1,56 @@
+generated: '2026-07-17'
+method: derived
+status: candidate
+source: derived from https://developer.act-on.com/llms.txt operation index
+api: Act-On REST API
+official_server: none-found
+note: >-
+  No official hosted/remote Act-On MCP server was found. The tools below are a
+  CANDIDATE grouping derived from the documented REST operations in llms.txt; they
+  are not published by Act-On. Grounding for a future generated server.
+transport: candidate
+tool_groups:
+- name: contacts
+  tools:
+  - add_contact
+  - upsert_contact_by_email
+  - get_contact_record
+  - update_contact_by_record_id
+  - delete_contact
+  - get_contact_history_and_score
+- name: lists
+  tools:
+  - create_list
+  - download_list
+  - update_or_merge_list
+  - delete_list
+  - get_list_upload_status
+- name: segments
+  tools:
+  - get_segments
+  - create_segment
+  - get_segment_by_id
+  - update_segment
+  - delete_segment
+  - get_contacts_from_segment
+- name: messages_campaigns
+  tools:
+  - get_message_list
+  - add_template_or_draft_message
+  - send_message
+  - resend_message
+  - delete_message
+  - get_campaigns_list
+- name: reporting
+  tools:
+  - get_message_report
+  - get_media_report
+  - get_form_report
+  - get_landing_page_report
+- name: custom_data
+  tools:
+  - query_data
+  - create_dataset
+  - ingest_json_stream
+  - ingest_file
+  - get_job_status

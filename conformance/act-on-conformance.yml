@@ -1,0 +1,24 @@
+generated: '2026-07-17'
+method: derived
+source: https://developer.act-on.com/reference/api-overview + live probes of restapi.actonsoftware.com
+api: Act-On REST API
+standards:
+- id: oauth2
+  conforms: true
+  evidence: >-
+    Token endpoint https://restapi.actonsoftware.com/token returns OAuth 2.0 error
+    objects; password, refresh_token, and authorization_code grant types documented.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Error responses use a custom {httpCode,httpMessage,moreInformation} JSON envelope,
+    not application/problem+json.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery document; /.well-known/openid-configuration returned 404.
+- id: pagination
+  conforms: unknown
+  evidence: Not documented in the captured llms.txt index; list endpoints exist but paging params were not verified.
+- id: idempotency
+  conforms: unknown
+  evidence: No idempotency-key mechanism documented in the captured surface.

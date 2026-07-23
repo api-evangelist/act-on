@@ -1,22 +1,65 @@
 aid: act-on
-name: Act-on
-description: 'Act-on is a company surfaced as a portfolio company of norwest-venture-partners and added
-  to the API Evangelist network as a stub for enrichment. Sector: unknown. This profile is a lead awaiting
-  the enrichment pipeline.'
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/act-on.png
+name: Act-On
+description: >-
+  Act-On Software is a cloud-based marketing automation platform used by B2B and
+  B2C marketing teams for email marketing, lead generation and nurturing, landing
+  pages and forms, website visitor tracking, lead scoring and segmentation, custom
+  data, and campaign reporting. Act-On exposes a documented OAuth 2.0 REST API
+  (base https://restapi.actonsoftware.com, versioned under /api/1) covering
+  contacts and lists, segments, messages and email campaigns, media and creative
+  assets, landing pages and forms, subscription management, custom data ingestion,
+  and reporting. Added to the API Evangelist network from a Norwest Venture
+  Partners portfolio lead and enriched from Act-On's public developer surface.
 url: https://raw.githubusercontent.com/api-evangelist/act-on/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - norwest-venture-partners
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: active
+x-tier-reason: public-oauth2-rest-api
 specificationVersion: '0.20'
 created: '2026-07-17'
 modified: '2026-07-17'
 tags:
 - Company
-- Unknown
-apis: []
+- Marketing
+- Marketing Automation
+- Email Marketing
+- Email
+- Marketing Technology
+- Lead Generation
+- Campaign Management
+- API
+apis:
+- name: Act-On REST API
+  description: >-
+    OAuth 2.0 REST API for Act-On marketing automation — contacts and lists,
+    segments, email messages and campaigns, media and creative assets, landing
+    pages and forms, subscriptions, custom data, and reporting.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://restapi.actonsoftware.com
+  properties:
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +68,36 @@ maintainers:
 common:
 - type: Website
   url: https://act-on.com
+- type: DeveloperPortal
+  url: https://developer.act-on.com
+- type: Documentation
+  url: https://developer.act-on.com
+- type: APIReference
+  url: https://developer.act-on.com/reference/api-overview
+- type: GettingStarted
+  url: https://developer.act-on.com/reference/request-a-developer-account
+- type: StatusPage
+  url: https://status.act-on.com
+- type: LLMsTxt
+  url: llms/act-on-llms.txt
+- type: Authentication
+  url: authentication/act-on-authentication.yml
+- type: Conventions
+  url: conventions/act-on-conventions.yml
+- type: ErrorCatalog
+  url: errors/act-on-problem-types.yml
+- type: Conformance
+  url: conformance/act-on-conformance.yml
+- type: Lifecycle
+  url: lifecycle/act-on-lifecycle.yml
+- type: MCPServer
+  url: mcp/act-on-mcp.yml
+- type: WellKnown
+  url: well-known/act-on-well-known.yml
+- type: DomainSecurity
+  url: security/act-on-domain-security.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
