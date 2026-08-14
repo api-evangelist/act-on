@@ -1,28 +1,35 @@
 aid: act-on
 accessModel:
-  pricing: unknown
-  onboarding: self-serve
+  pricing: paid
+  onboarding: sales-assisted
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Paid plan plus a free developer sandbox by request
+  confidence: high
   source:
+  - plans
+  - sandbox
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-08-13'
+  method: searched
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/act-on.png
 name: Act-On
 description: >-
   Act-On Software is a cloud-based marketing automation platform used by B2B and
   B2C marketing teams for email marketing, lead generation and nurturing, landing
   pages and forms, website visitor tracking, lead scoring and segmentation, custom
-  data, and campaign reporting. Act-On exposes a documented OAuth 2.0 REST API
-  (base https://restapi.actonsoftware.com, versioned under /api/1) covering
-  contacts and lists, segments, messages and email campaigns, media and creative
-  assets, landing pages and forms, subscription management, custom data ingestion,
-  and reporting. Added to the API Evangelist network from a Norwest Venture
-  Partners portfolio lead and enriched from Act-On's public developer surface.
+  data, and campaign reporting. Act-On publishes four OpenAPI 3.1 documents through
+  its developer portal covering 158 operations on one gateway host
+  (https://api.actonsoftware.com, with an EU region at api-eu.actonsoftware.com):
+  the legacy form-encoded /api/1 surface, the newer JSON Act-On Contacts layer at
+  /ucl/v2, a transactional email endpoint at /ete/v1, and a separately versioned
+  Custom Objects Service at /custom-objects/v1 that is in request-only beta.
+  Authentication is OAuth 2.0 with password, refresh_token and authorization_code
+  grants and no scopes. Act-On also ships a signed outgoing-webhook event surface
+  with nineteen documented event types. Added to the API Evangelist network from a
+  Norwest Venture Partners portfolio lead and enriched from Act-On's public
+  developer surface.
 url: https://raw.githubusercontent.com/api-evangelist/act-on/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -32,7 +39,7 @@ x-tier: active
 x-tier-reason: public-oauth2-rest-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-08-13'
 tags:
 - Company
 - Marketing
@@ -42,24 +49,78 @@ tags:
 - Marketing Technology
 - Lead Generation
 - Campaign Management
+- Customer Data
+- Webhooks
 - API
 apis:
 - name: Act-On REST API
   description: >-
     OAuth 2.0 REST API for Act-On marketing automation — contacts and lists,
     segments, email messages and campaigns, media and creative assets, landing
-    pages and forms, subscriptions, custom data, and reporting.
+    pages and forms, subscriptions, imports, custom events, and reporting. Covers
+    the /api/1, /ucl/v2 and /ete/v1 path generations, 134 operations in total.
   humanURL: https://developer.act-on.com/reference/api-overview
-  baseURL: https://restapi.actonsoftware.com
+  baseURL: https://api.actonsoftware.com
   properties:
+  - type: OpenAPI
+    url: openapi/act-on-rest-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/act-on-raw-body-api-openapi.yml
+  - type: OpenAPI
+    url: openapi/act-on-oauth-openapi.yml
   - type: Documentation
     url: https://developer.act-on.com
   - type: APIReference
     url: https://developer.act-on.com/reference/api-overview
   - type: Authentication
     url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: Overlay
+    url: overlays/act-on-rest-api-overlay.yaml
+  - type: Overlay
+    url: overlays/act-on-raw-body-api-overlay.yaml
+  - type: Overlay
+    url: overlays/act-on-oauth-overlay.yaml
   - type: LLMsTxt
     url: llms/act-on-llms.txt
+- name: Act-On Custom Objects Service
+  description: >-
+    Separately versioned (3.4.3) Custom Data service for defining custom object
+    schemas and fields, creating datasets, validating and ingesting CSV/JSON data,
+    polling ingest jobs, and querying custom data joined against Act-On Contacts
+    with offset or cursor pagination. Act-On states these endpoints are in BETA and
+    available on request only.
+  humanURL: https://developer.act-on.com/reference/overview
+  baseURL: https://api.actonsoftware.com/custom-objects
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-custom-objects-service-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: Overlay
+    url: overlays/act-on-custom-objects-service-overlay.yaml
+- name: Act-On Outgoing Webhooks
+  description: >-
+    Outgoing webhook event surface — nineteen documented event types across
+    contacts, consent, deliverability, lead scoring, subscriptions, automated
+    programs, messaging, forms and CRM connections. Payloads are JSON, POSTed to a
+    customer-configured endpoint and signed with HMAC SHA-256 using a per-endpoint
+    secret. Endpoints are configured in the Act-On UI, not through the REST API.
+  humanURL: https://connect.act-on.com/hc/en-us/sections/20585868662935-Outgoing-Incoming-Webhooks
+  properties:
+  - type: Webhooks
+    url: asyncapi/act-on-webhooks.yml
+  - type: Documentation
+    url: https://connect.act-on.com/hc/en-us/articles/20031106799383-Outgoing-Webhook-Event-Types
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -76,8 +137,22 @@ common:
   url: https://developer.act-on.com/reference/api-overview
 - type: GettingStarted
   url: https://developer.act-on.com/reference/request-a-developer-account
+- type: HelpCenter
+  url: https://connect.act-on.com/hc/en-us
+- type: Support
+  url: https://act-on.com/product/services/support-packages/
+- type: Blog
+  url: https://act-on.com/learn/blog/
+- type: Pricing
+  url: https://act-on.com/pricing/
+- type: TermsOfService
+  url: https://act-on.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://act-on.com/privacy-policy/
 - type: StatusPage
   url: https://status.act-on.com
+- type: ChangeLog
+  url: https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
 - type: LLMsTxt
   url: llms/act-on-llms.txt
 - type: Authentication
@@ -90,14 +165,30 @@ common:
   url: conformance/act-on-conformance.yml
 - type: Lifecycle
   url: lifecycle/act-on-lifecycle.yml
+- type: DataModel
+  url: data-model/act-on-data-model.yml
+- type: RateLimits
+  url: rate-limits/act-on-rate-limits.yml
+- type: Plans
+  url: plans/act-on-plans-pricing.yml
+- type: Sandbox
+  url: sandbox/act-on-sandbox.yml
+- type: ChangeLog
+  url: changelog/act-on-changelog.yml
+- type: Webhooks
+  url: asyncapi/act-on-webhooks.yml
+- type: AgentSkill
+  url: skills/_index.yml
 - type: MCPServer
   url: mcp/act-on-mcp.yml
-- type: WellKnown
-  url: well-known/act-on-well-known.yml
+- type: TrustCenter
+  url: security/act-on-trust-center.yml
+- type: Compliance
+  url: security/act-on-trust-center.yml
 - type: DomainSecurity
   url: security/act-on-domain-security.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 26
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
