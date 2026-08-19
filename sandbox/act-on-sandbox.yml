@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.act-on.com/reference/api-overview
+api: Act-On REST API
+docs: https://developer.act-on.com/reference/api-overview
+summary: >-
+  Act-On ships a real, free developer sandbox — a full Act-On account, deliberately
+  capped — provisioned when you request API credentials. It is not a mock or a
+  simulator: the docs describe it as "identical to a production account" apart from
+  the caps. There is no test-mode key prefix, no test card / test token catalog, and
+  no time-simulation tooling; test-vs-live is a matter of WHICH ACCOUNT the
+  username/password names, not which key you send.
+available: true
+model: separate-account
+mode_signal:
+  style: account-scoped
+  key_prefix: null
+  note: >-
+    Client ID / Client Secret credentials are issued per INTEGRATION and are "not
+    tied to a specific account" (docs, API Overview). The account being acted on is
+    selected by the username/password supplied in the OAuth password grant. There is
+    therefore no test/live prefix to inspect on a key — an integration can point the
+    same credentials at a sandbox account or a production account, which makes the
+    username the only thing separating a test send from a real one.
+accounts:
+- name: Sandbox account
+  cost: free
+  audience: developers
+  provisioning: >-
+    Provided when you sign up for API keys via the Request a Developer Account form;
+    provisioning generally completes within 24-48 hours.
+  limits:
+  - 1 user
+  - 10 Active Contacts
+  evidence: >-
+    "Sandbox account (free for developers). This is used for testing your
+    integrations before moving them to production. This account is identical to a
+    production account, but it is restricted to one user and 10 Active Contacts. We
+    provide this account when you sign up for your API keys."
+  rate_limits: >-
+    Same published limits as production — 5 calls/sec, 30,000 requests/day, 5 auth
+    calls/hour. The docs say "All accounts (developer and production) are limited for
+    API use."
+- name: Production account
+  cost: paid
+  audience: customers
+  provisioning: Paid Act-On subscription; API keys generated in-app under Settings >
+    Other Settings > Custom Account Settings > API Access Keys.
+request_url: https://developer.act-on.com/reference/request-a-developer-account
+provisioning_sla: 24-48 hours (stated on the developer account request page)
+test_values:
+  cards: []
+  bank_accounts: []
+  tokens: []
+  note: >-
+    Not applicable — Act-On is a marketing automation platform, not a payments API.
+    No published test-value catalog exists and none was invented.
+time_simulation:
+  available: false
+  note: No test clocks or time-travel fixtures are documented.
+fixtures:
+  available: false
+  note: >-
+    No fixture/trigger tooling is documented. The 10 Active Contact ceiling means
+    realistic list, segment and campaign volumes cannot be exercised in the sandbox.
+beta_program:
+  note: >-
+    A separate BETA enrollment exists for the newest endpoint group. The Custom Data
+    "Overview - READ ME FIRST" page states those endpoints "are currently in BETA and
+    are only available on request" via a form.
+  url: https://developer.act-on.com/reference/overview
+probes:
+- url: https://developer.act-on.com/reference/api-overview
+  status: 200
+- url: https://developer.act-on.com/reference/request-a-developer-account
+  status: 200

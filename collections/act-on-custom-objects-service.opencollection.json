@@ -1,0 +1,784 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Custom Objects Service",
+    "version": "3.4.3"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Custom Data Schema API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Returns a Custom Data schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data Schema Id for this request"
+              }
+            ]
+          },
+          "docs": "Get a Custom Data schema"
+        },
+        {
+          "info": {
+            "name": "Updates a Custom Data schema basic properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data schema Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Custom Data schema basic properties"
+        },
+        {
+          "info": {
+            "name": "Deletes one Custom Data schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data schema Id to delete"
+              },
+              {
+                "name": "hard",
+                "value": "",
+                "type": "query",
+                "description": "Whether to perform a hard delete"
+              }
+            ]
+          },
+          "docs": "Deletes one Custom Data schema"
+        },
+        {
+          "info": {
+            "name": "Adds fields to Custom Data schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId/field",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data schema Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds fields to Custom Data schemas"
+        },
+        {
+          "info": {
+            "name": "Updates Custom Data schema field properties",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId/field",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data schema Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a Custom Data schema fields basic properties"
+        },
+        {
+          "info": {
+            "name": "Deletes fields from Custom Data schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/:objectId/field",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data schema Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Deletes fields from Custom Data schemas"
+        },
+        {
+          "info": {
+            "name": "Create a Custom Data schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "dryRun",
+                "value": "",
+                "type": "query",
+                "description": "When true, validates the request without creating the schema"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a Custom Data schema"
+        },
+        {
+          "info": {
+            "name": "Returns all Custom Data schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/all",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              }
+            ]
+          },
+          "docs": "Get all Custom Data schemas"
+        },
+        {
+          "info": {
+            "name": "Deletes all Custom Data schemas",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/schema/all",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "hard",
+                "value": "",
+                "type": "query",
+                "description": "Whether to perform a hard delete"
+              }
+            ]
+          },
+          "docs": "Deletes all Custom Data schemas"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Data Query API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query data from a Custom Data dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/query/:objectId/:datasetId/joinWithOther",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data Schema Id for this request"
+              },
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Data Dataset Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a query on Custom Data dataset with a simple join with Account Object Context"
+        },
+        {
+          "info": {
+            "name": "Internal query data from a custom object dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/query/:objectId/:datasetId/joinWithOtherInternal",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Object Schema Id for this request"
+              },
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Object Dataset Id for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs an internal query on custom object data with a simple join with Account Object Context"
+        },
+        {
+          "info": {
+            "name": "Cache hydration preflight for query performance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/query/joinWithOtherPreflight",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "Account ID"
+              }
+            ]
+          },
+          "docs": "Performs cache hydration to optimize subsequent query performance"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Custom Data Dataset API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Creates a new dataset for a Custom Data schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The schema ID for this request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an empty dataset for a specific Custom Data schema"
+        },
+        {
+          "info": {
+            "name": "Retrieves the details for a dataset using its ID or name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Object Id"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name"
+              }
+            ]
+          },
+          "docs": "Returns detailed information about a dataset"
+        },
+        {
+          "info": {
+            "name": "Updates a dataset's name and description",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Object Id"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modifies metadata for an existing dataset"
+        },
+        {
+          "info": {
+            "name": "Deletes the dataset based on the provided dataset Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for the deletion request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom Object Id for the deletion request"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The custom object dataset Id or dataset name for the deletion request"
+              }
+            ]
+          },
+          "docs": "Permanently removes a dataset and all its data"
+        },
+        {
+          "info": {
+            "name": "Ingests a JSON stream for a specific dataset or object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier/json",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom ObjectId for this request"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name"
+              },
+              {
+                "name": "ingestMode",
+                "value": "",
+                "type": "query",
+                "description": "The ingest mode (upsert, replace, or delete)"
+              },
+              {
+                "name": "abortOnInvalidRow",
+                "value": "",
+                "type": "query",
+                "description": "Whether to abort processing on invalid data"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Optional description for the dataset"
+              },
+              {
+                "name": "createNewDataset",
+                "value": "",
+                "type": "query",
+                "description": "Whether to create a new dataset"
+              }
+            ]
+          },
+          "docs": "Processes a JSON data stream for the specified dataset"
+        },
+        {
+          "info": {
+            "name": "Ingests a CSV or JSON file for a specific dataset or object",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier/file",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The Custom ObjectId for this request"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The dataset ID or name"
+              },
+              {
+                "name": "ingestMode",
+                "value": "",
+                "type": "query",
+                "description": "The ingest mode (UPSERT, REPLACE, or DELETE)"
+              },
+              {
+                "name": "createNewDataset",
+                "value": "",
+                "type": "query",
+                "description": "Whether to create a new dataset"
+              },
+              {
+                "name": "abortOnInvalidRow",
+                "value": "",
+                "type": "query",
+                "description": "Whether to abort on invalid row"
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Dataset description"
+              },
+              {
+                "name": "fileType",
+                "value": "",
+                "type": "query",
+                "description": "File type (csv or json)"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "file",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads and processes a data file for the specified dataset"
+        },
+        {
+          "info": {
+            "name": "Validates a file against a schema without ingesting data",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/validate",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The schema Id for this request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Checks if a file is valid for the specified schema"
+        },
+        {
+          "info": {
+            "name": "Retrieves a list of all datasets for a specific schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/all",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The schema Id"
+              }
+            ]
+          },
+          "docs": "Returns all datasets for a specific custom object schema"
+        },
+        {
+          "info": {
+            "name": "Retrieve the status for the Job Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/status/:jobId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The custom object job Id for this request"
+              }
+            ]
+          },
+          "docs": "If complete and not successful, also retrieves the report download endpoint"
+        },
+        {
+          "info": {
+            "name": "Download the report for the provided Job Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/report/:jobId",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for this request"
+              },
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The custom object job Id for this request"
+              }
+            ]
+          },
+          "docs": "Returns a report for a completed job"
+        },
+        {
+          "info": {
+            "name": "Retrieves a list of all datasets for the account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/all",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id"
+              }
+            ]
+          },
+          "docs": "Returns all datasets available for the account"
+        },
+        {
+          "info": {
+            "name": "Delete records from a dataset based on the provided IDs or ID range",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.actonsoftware.com/custom-objects/v1/:accountId/data/:objectId/:identifier/ids",
+            "params": [
+              {
+                "name": "accountId",
+                "value": "",
+                "type": "path",
+                "description": "The Act-On account Id for the deletion request"
+              },
+              {
+                "name": "objectId",
+                "value": "",
+                "type": "path",
+                "description": "The custom object schema Id for the deletion request"
+              },
+              {
+                "name": "identifier",
+                "value": "",
+                "type": "path",
+                "description": "The custom object dataset Id or name for the deletion request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete records from a dataset based on the provided IDs or ID range"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

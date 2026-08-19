@@ -1,33 +1,170 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: searched
-source: https://developer.act-on.com/ (llms.txt index) + live probes of restapi.actonsoftware.com
+source: https://developer.act-on.com/reference/api-overview + openapi/ (158 operations
+  across 4 published documents) + live probes of api.actonsoftware.com
 api: Act-On REST API
+summary: >-
+  Act-On's REST surface is three generations of API served from one gateway host.
+  /api/1 is the original form-encoded API, /ucl/v2 is the newer JSON Act-On Contacts
+  layer, and /v1 (custom-objects) is a separately versioned Spring service. They do
+  not share conventions: pagination, error envelope, content type and account
+  scoping all differ by generation. An integrator must learn three sets of rules, and
+  an agent must be told which one it is on.
+base_url: https://api.actonsoftware.com
+base_url_hosts:
+- host: api.actonsoftware.com
+  role: canonical
+  evidence: servers[] in all four published OpenAPI documents; docs imply it is the
+    default by telling EU customers to change it
+  probe: {url: 'https://api.actonsoftware.com/api/1/message', status: 401}
+- host: api-eu.actonsoftware.com
+  role: EU region
+  evidence: '"If you are in Europe, you will want to update your base url to api-eu.actonsoftware.com"
+    — API Overview'
+  probe: {url: 'https://api-eu.actonsoftware.com/token', status: 401}
+- host: restapi.actonsoftware.com
+  role: alias, live
+  evidence: >-
+    Answers the same OAuth 2.0 and /api/1 routes (POST /token -> 401
+    access_denied; POST /api/1/ping -> 401). It is not named in any published
+    OpenAPI servers[] block or on the API Overview page. Recorded as a live alias,
+    not the canonical base.
+  probe: {url: 'https://restapi.actonsoftware.com/api/1/ping', status: 401}
+gateway:
+  vendor: IBM API Connect (envoy)
+  evidence: 'api.actonsoftware.com resolves to custom.us-east-a.apiconnect.ibmappdomain.cloud;
+    responses carry server: envoy, x-global-transaction-id, x-envoy-upstream-service-time'
 auth:
   style: oauth2
-  transmit: Authorization header, Bearer scheme
-  token_endpoint: https://restapi.actonsoftware.com/token
+  transmit: 'Authorization header, Bearer scheme'
+  token_endpoint: https://api.actonsoftware.com/token
+  grants: [password, refresh_token, authorization_code]
+  credential_model: >-
+    Client ID/Secret identify the INTEGRATION and are not tied to an account; the
+    username/password in the password grant selects the account acted on.
   ref: authentication/act-on-authentication.yml
-base_url: https://restapi.actonsoftware.com
 versioning:
   style: uri-path
-  current: /api/1
-  evidence: Documented resource paths and live endpoints sit under /api/1 (e.g. /api/1/ping -> 401).
+  surfaces:
+  - {path_prefix: /api/1, generation: legacy, spec: openapi/act-on-rest-api-openapi.yml,
+    info_version: '2.0'}
+  - {path_prefix: /ucl/v2, generation: 'Act-On Contacts (UCL)', spec: openapi/act-on-rest-api-openapi.yml,
+    info_version: '2.0'}
+  - {path_prefix: /ete/v1, generation: transactional email, spec: openapi/act-on-rest-api-openapi.yml}
+  - {path_prefix: /custom-objects/v1, generation: Custom Data, spec: openapi/act-on-custom-objects-service-openapi.yml,
+    info_version: 3.4.3}
+  header_negotiation: none
   ref: lifecycle/act-on-lifecycle.yml
-error_envelope:
-  style: custom-json
-  fields: [httpCode, httpMessage, moreInformation]
-  ref: errors/act-on-problem-types.yml
+account_scoping:
+  api_1: inferred from the access token — no account parameter
+  ucl_v2: '{accountId} required as a PATH parameter (45 operations)'
+  custom_objects: '{accountId} required as a PATH parameter'
+  note: >-
+    The split matters for agents: a /ucl/v2 or /v1 call cannot be made from the token
+    alone; the account id has to be carried in session state.
 content_types:
-  requests: application/x-www-form-urlencoded and multipart/form-data (form-encoded posts are common per docs)
-  responses: application/json
+  api_1_requests: application/x-www-form-urlencoded and multipart/form-data (many write
+    operations are form posts; the docs say so explicitly on several endpoints)
+  ucl_v2_requests: application/json
+  custom_objects_requests: application/json (plus multipart/form-data for file ingest)
+  responses: application/json; several /ucl/v2 error responses are text/plain with an
+    empty body
+error_envelope:
+  style: three incompatible envelopes
+  envelopes:
+  - {name: numeric-code, fields: [errorCode, message], scope: /api/1, media_type: application/json}
+  - {name: gateway, fields: [httpCode, httpMessage, moreInformation], scope: gateway-level
+      401/404, media_type: application/json}
+  - {name: spring, fields: [errorId, requestUri, errorMessage, errorList, status], scope: /custom-objects/v1,
+    media_type: application/json}
+  - {name: oauth, fields: [error, error_description], scope: /token, media_type: application/json}
+  - {name: named-exception, fields: [errorName, message], scope: /ete/v1 transactional
+      email, media_type: application/json}
+  rfc9457: false
+  ref: errors/act-on-problem-types.yml
+pagination:
+  style: two incompatible offset styles, plus cursor support in Custom Data
+  variants:
+  - surface: /api/1
+    params: [offset, count]
+    response_fields: [offset, count, totalCount, result]
+    evidence: 8 operations declare offset+count; GET /api/1/logo, GET /api/1/list/{listid}
+      and the message reports return the offset/count/totalCount/result envelope
+  - surface: /ucl/v2
+    params: [page, pageSize]
+    response_fields: unspecified
+    evidence: 5 operations declare page+pageSize (GET /ucl/v2/{accountId}/contact/,
+      POST .../contact/byFields, GET .../segment/)
+  - surface: /custom-objects/v1
+    params: [pagination.page, pagination.size, pagination.nextPageToken, pagination.pageStrategy]
+    strategies: [OFFSET, CURSOR]
+    default: OFFSET
+    evidence: PaginationDTO in openapi/act-on-custom-objects-service-openapi.yml; the
+      flat `page`/`size` body fields on DataQueryRequestDTO are marked deprecated in
+      favour of the pagination object
+  cursor_available: only on Custom Data query
+  note: >-
+    Most list operations declare no paging parameters at all — an agent cannot assume
+    a page loop is available.
+sorting:
+  custom_objects: SortFieldDTO {field, direction asc|desc}; field must be prefixed
+    'aoc.' (Act-On Contacts) or 'co.' (custom object)
+  api_1: not documented
+field_selection:
+  custom_objects: DataQueryRequestDTO.selectFields, max 2000 entries, same aoc./co.
+    prefixes; 'aoc.*' / 'co.*' select all
+  ucl_v2: POST /ucl/v2/{accountId}/contact/byFields returns a caller-specified field
+    set
+  api_1: not supported
 idempotency:
   supported: false
-  note: No idempotency-key header documented in the captured surface.
-pagination:
-  style: unknown
-  note: Not documented in the captured llms.txt index.
+  header: null
+  evidence: >-
+    No Idempotency-Key or equivalent header appears on any of the 158 published
+    operations, and the docs never mention one. PUT operations are naturally
+    idempotent; POST /api/1/message/{msgid}/send is not, and a retried send is a
+    second send.
+  note: >-
+    This is the sharpest agent-safety gap in the contract. Act-On sends email; there
+    is no safe retry.
+request_tracing:
+  headers_returned: [x-request-id, x-global-transaction-id]
+  client_supplied: not documented
+  evidence: observed on a live 401 from https://api.actonsoftware.com/api/1/message
+  note: >-
+    The gateway returns both identifiers on every response, so they are usable when
+    opening a support ticket even though Act-On documents neither.
 rate_limiting:
-  signaling: unknown
-  note: Not documented in the captured surface.
-notes:
-- Many write endpoints require URL-form-encoded or multipart/form-data bodies per the docs descriptions.
+  signaling: none
+  documented_limits: 5 req/s, 30,000 req/day, 5 auth calls/hour, 400MB per file
+  response_headers: none observed
+  status_on_exhaustion: not documented; no 429 declared on any operation
+  ref: rate-limits/act-on-rate-limits.yml
+metadata:
+  supported: partial
+  note: >-
+    Act-On Contacts carries a `customFields` object on the contact record, and Custom
+    Data lets an account define arbitrary schemas and fields. There is no generic
+    key/value `metadata` bag on other resources.
+expansion:
+  supported: partial
+  note: Custom Data query supports a join against Act-On Contacts (JoinStrategyDTO)
+    with configurable duplicate handling; no expansion mechanism elsewhere.
+async_jobs:
+  present: true
+  note: >-
+    List uploads, contact imports, custom-event uploads and Custom Data ingest all
+    return a job id and are polled — GET /api/1/list/{jobid}/status, GET
+    /ucl/v2/{accountId}/import/status/{importId}, GET
+    /api/1/customevents/{id}/status, GET /v1/{accountId}/data/status/{jobId}. No
+    webhook fires on job completion, so a client must poll.
+events:
+  ref: asyncapi/act-on-webhooks.yml
+  note: 19 outgoing webhook event types, HMAC SHA-256 signed, configured in the UI —
+    not through this API.
+probes:
+- {url: 'https://api.actonsoftware.com/api/1/message', status: 401}
+- {url: 'https://api.actonsoftware.com/api/1/ping', status: 401}
+- {url: 'https://api-eu.actonsoftware.com/token', status: 401}
+- {url: 'https://restapi.actonsoftware.com/api/1/ping', status: 401}
+- {url: 'https://developer.act-on.com/reference/api-overview', status: 200}

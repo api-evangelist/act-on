@@ -1,0 +1,76 @@
+generated: '2026-08-13'
+method: searched
+source: https://developer.act-on.com/reference/api-overview
+api: Act-On REST API
+docs: https://developer.act-on.com/reference/api-overview
+summary: >-
+  Act-On publishes hard numeric API limits on its API Overview page and applies
+  them to every account, developer and production alike. Four separate limits are
+  documented: a per-second call rate, a daily request quota, an hourly cap on
+  authentication calls, and a per-file upload size ceiling.
+limit_count: 4
+limits:
+- name: request-rate
+  scope: per-account
+  window: 1s
+  limit: 5
+  unit: requests
+  applies_to: All accounts (developer and production)
+  evidence: '"Rate Limit: 5 API calls per second"'
+- name: daily-quota
+  scope: per-account
+  window: 1d
+  limit: 30000
+  unit: requests
+  applies_to: All accounts (developer and production)
+  evidence: '"Usage Limit: 30,000 total requests per day"'
+- name: auth-requests
+  scope: per-account
+  window: 1h
+  limit: 5
+  unit: authentication calls
+  applies_to: The OAuth 2.0 token endpoint (POST /token)
+  evidence: '"Auth Requests: 5 authentication calls per hour"'
+  note: >-
+    The tightest limit in practice. Five token calls an hour means an integration
+    must cache and reuse its access_token and refresh only on expiry — a fresh
+    token per request will exhaust the hourly budget almost immediately.
+- name: file-upload-size
+  scope: per-request
+  window: null
+  limit: 400
+  unit: MB per file
+  applies_to: Upload endpoints (media, images, list uploads)
+  evidence: '"File Upload: 400MB per file"'
+  note: >-
+    The published OpenAPI carries a 413 example on POST
+    /ucl/v2/{accountId}/import/contacts/{importDefinitionId} that reads "File size
+    exceeds the maximum limit of 200MB." The docs and the contract disagree on the
+    ceiling; both values are recorded verbatim rather than reconciled.
+response_headers:
+  documented: false
+  observed: []
+  note: >-
+    Act-On documents no RateLimit-*, X-RateLimit-* or Retry-After response header.
+    Live unauthenticated probes of https://api.actonsoftware.com/api/1/message and
+    https://restapi.actonsoftware.com/api/1/ping returned 401 with no rate-limit
+    headers of any kind (envoy/IBM API Connect gateway headers only:
+    x-request-id, x-global-transaction-id, x-envoy-upstream-service-time). A client
+    cannot read remaining quota at runtime; it must count locally against the
+    published numbers.
+exhaustion:
+  status_code: unknown
+  body: unknown
+  note: >-
+    The published OpenAPI declares no 429 response on any of its 158 operations,
+    and the docs do not state which status is returned when a limit is exceeded.
+    Not verifiable without an authenticated account.
+probes:
+- url: https://api.actonsoftware.com/api/1/message
+  status: 401
+  rate_limit_headers: none
+- url: https://developer.act-on.com/reference/api-overview
+  status: 200
+regional_note: >-
+  European customers use https://api-eu.actonsoftware.com as their base host; the
+  docs state the same limits with no regional variation.

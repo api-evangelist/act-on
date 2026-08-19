@@ -1,0 +1,3020 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "act-on-api-1",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Delete account user",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/user/:email",
+        "params": [
+          {
+            "name": "email",
+            "value": "",
+            "type": "path",
+            "description": "Enter the email address of the user"
+          }
+        ]
+      },
+      "docs": "Delete one user from an account."
+    },
+    {
+      "info": {
+        "name": "Get defined email senders",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/account/senders"
+      },
+      "docs": "Get a list of all defined email senders for the account."
+    },
+    {
+      "info": {
+        "name": "Upload custom events",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/customevents",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Upload a set of custom events with a simple HTTP POST to the Fact API."
+    },
+    {
+      "info": {
+        "name": "Get upload custom event status",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/customevents/:id/status",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The jobId returned from the \"Upload Custom Event\" request."
+          }
+        ]
+      },
+      "docs": "Get the status of a custom event upload a simple HTTP GET to the Fact & Reporting API"
+    },
+    {
+      "info": {
+        "name": "Get logo list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/logo"
+      },
+      "docs": "Get a list of the logos in the account."
+    },
+    {
+      "info": {
+        "name": "Add a logo",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/logo",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a logo image file or URL to your account."
+    },
+    {
+      "info": {
+        "name": "Get a logo",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/logo/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the logo"
+          }
+        ]
+      },
+      "docs": "Gets the specified logo from your account."
+    },
+    {
+      "info": {
+        "name": "Update a logo",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/logo/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the logo"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Updates the information for an existing logo in your logo repository."
+    },
+    {
+      "info": {
+        "name": "Delete a logo",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/logo/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the logo"
+          }
+        ]
+      },
+      "docs": "Delete the specified logo from your account."
+    },
+    {
+      "info": {
+        "name": "Get header list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/header"
+      },
+      "docs": "Get a list of headers in the account."
+    },
+    {
+      "info": {
+        "name": "Get a header",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/header/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the header"
+          }
+        ]
+      },
+      "docs": "Get the specified header from your account."
+    },
+    {
+      "info": {
+        "name": "Update a header",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/header/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the header"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update the specified header."
+    },
+    {
+      "info": {
+        "name": "Delete a header",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/header/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the header"
+          }
+        ]
+      },
+      "docs": "Delete the specified header from your account."
+    },
+    {
+      "info": {
+        "name": "Add a header",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/header/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a new header to your account."
+    },
+    {
+      "info": {
+        "name": "Get footer list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/footer"
+      },
+      "docs": "Get a list of footers in your account."
+    },
+    {
+      "info": {
+        "name": "Get a footer",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/footer/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the footer"
+          }
+        ]
+      },
+      "docs": "Get the specified footer by ID. Act-On assigns integer IDs to footers in numerical order when added, starting with the default footer with ID of 0 at account initiation."
+    },
+    {
+      "info": {
+        "name": "Update a footer",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/footer/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the footer"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update an existing footer in the account."
+    },
+    {
+      "info": {
+        "name": "Delete a footer",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/footer/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the footer to be deleted"
+          }
+        ]
+      },
+      "docs": "Delete an existing footer from the account."
+    },
+    {
+      "info": {
+        "name": "Add a new footer",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/footer/",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a new footer to your account. To view default formatting for footers, use the Get footer list API. The default footer (id 0) contains standard elements that you might want to re-use while creating a new footer. <p>When you add a new footer, Act-On automatically assigns an id. You can, however, assign a meaningful footer title of your choosing.</p> <p>NOTE: the request must be URL form encoded.</p>"
+    },
+    {
+      "info": {
+        "name": "Get image list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/image"
+      },
+      "docs": "Get a list of the images in your account."
+    },
+    {
+      "info": {
+        "name": "Add an image",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/image",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a new image to your account. <p>NOTE: This is a \"multipart/form-data\" post.</p>"
+    },
+    {
+      "info": {
+        "name": "Get an image",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/image/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the image"
+          }
+        ]
+      },
+      "docs": "Get the image, specified by Act-On id, from the account. To obtain a list of all images in the account the associated ids, use Get image list."
+    },
+    {
+      "info": {
+        "name": "Update an image",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/image/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the image"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Replace an existing image in the image repository."
+    },
+    {
+      "info": {
+        "name": "Delete an image",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/image/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the image"
+          }
+        ]
+      },
+      "docs": "Delete an image (by id) from your account. To obtain a list of all images in the account the associated ids, use Get image list"
+    },
+    {
+      "info": {
+        "name": "Get media list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/"
+      },
+      "docs": "Get a listing of media objects stored in your account."
+    },
+    {
+      "info": {
+        "name": "Get media file",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media file"
+          }
+        ]
+      },
+      "docs": "Gets a path to the specified media file that was previously added to your account."
+    },
+    {
+      "info": {
+        "name": "Update Media File",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/media/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media file"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update/replace an existing media file in your account."
+    },
+    {
+      "info": {
+        "name": "Delete a media object",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/media/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the media object you want to delete"
+          }
+        ]
+      },
+      "docs": "Delete a media file from your account."
+    },
+    {
+      "info": {
+        "name": "Add a media file",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/media",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a media file to your account."
+    },
+    {
+      "info": {
+        "name": "Add a media link",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/medialink",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a new URL as a trackable link in your media library. <p>NOTE: This is a \"x-www-form-urlencoded\" post </p>"
+    },
+    {
+      "info": {
+        "name": "Get form list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/form"
+      },
+      "docs": "Get a list of the forms in your Forms repository."
+    },
+    {
+      "info": {
+        "name": "Get classic form URLs",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/form/:id/urls",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the classic form"
+          }
+        ]
+      },
+      "docs": "Get the promotional URLs associated with the specified form, by form ID. To get a listing of forms in an account with their associated IDs, use the Get Forms List API."
+    },
+    {
+      "info": {
+        "name": "Get landing page list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/page"
+      },
+      "docs": "Get a list of pages in the account."
+    },
+    {
+      "info": {
+        "name": "Get landing page",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/page/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the landing page"
+          }
+        ]
+      },
+      "docs": "Get landing page"
+    },
+    {
+      "info": {
+        "name": "Delete landing page",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/page/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the landing page"
+          }
+        ]
+      },
+      "docs": "Delete a page"
+    },
+    {
+      "info": {
+        "name": "Get landing page URLs",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/page/:id/urls",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the landing page."
+          }
+        ]
+      },
+      "docs": "Get the URLs for the specified promotional page."
+    },
+    {
+      "info": {
+        "name": "Get list of programs",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/program",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "query",
+            "description": "Specify the type of program you would like returned. (\"TRACK\" for automated programs, \"EVENT\" for webinars, \"LIST_MAINT\" for list maintenance)"
+          }
+        ]
+      },
+      "docs": "Get a list of all programs of a specified type."
+    },
+    {
+      "info": {
+        "name": "Get message report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/message/:id/report",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the message"
+          }
+        ]
+      },
+      "docs": "Get a report on the specified message."
+    },
+    {
+      "info": {
+        "name": "Get message report drilldown",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/message/:id/report/:drilldown",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the message"
+          },
+          {
+            "name": "drilldown",
+            "value": "",
+            "type": "path",
+            "description": "Specify the type to be returned. (\"SENT\", \"SUPPRESSED\", \"OPENED\", \"CLICKED\", \"BOUNCED\", \"OPT_OUT\", \"SPAM\")"
+          },
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch. (Default=0)"
+          },
+          {
+            "name": "responseformat",
+            "value": "",
+            "type": "query",
+            "description": "Specify the desired response format. (\"JSON\", \"CSV\")"
+          }
+        ]
+      },
+      "docs": "Get a drilldown report for a specific email message."
+    },
+    {
+      "info": {
+        "name": "Get message report by time period",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/message/report",
+        "params": [
+          {
+            "name": "period",
+            "value": "",
+            "type": "query",
+            "description": "Specify the time period for the report. (Format: YYMM, eg. \"1401\")"
+          }
+        ]
+      },
+      "docs": "Fetch the message rollup report from your account."
+    },
+    {
+      "info": {
+        "name": "Get media report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/:id/report/",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media object"
+          }
+        ]
+      },
+      "docs": "Get a report on the specified media from your account."
+    },
+    {
+      "info": {
+        "name": "Get media message report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/:id/report/messages",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media object"
+          }
+        ]
+      },
+      "docs": "Get a media message report from your account."
+    },
+    {
+      "info": {
+        "name": "Get a media view report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/:id/report/views",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media object"
+          }
+        ]
+      },
+      "docs": "Get a media view report from your account."
+    },
+    {
+      "info": {
+        "name": "Get a media timeline report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/media/:id/report/timeline",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the media object"
+          }
+        ]
+      },
+      "docs": "Get a timeline report for specified media."
+    },
+    {
+      "info": {
+        "name": "Get form report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/form/:id/report",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the form"
+          }
+        ]
+      },
+      "docs": "Get a report on a form by ID."
+    },
+    {
+      "info": {
+        "name": "Get landing page report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/page/:id/report",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the landing page"
+          }
+        ]
+      },
+      "docs": "Get a list of the pages listed in the account."
+    },
+    {
+      "info": {
+        "name": "Get message list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/message?",
+        "params": [
+          {
+            "name": "type",
+            "value": "",
+            "type": "query",
+            "description": "Specify the type of message to return. <p>(\"DRAFT\", \"TEMPLATE\", \"SENT\", \"TRIGGERED\", \"FAILED\", \"SCHEDULED\")</p>"
+          },
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch. (Default=0)"
+          }
+        ]
+      },
+      "docs": "Use to retrieve a listing of emails by type."
+    },
+    {
+      "info": {
+        "name": "Add new template or draft message",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/message",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a draft message or template message to your account."
+    },
+    {
+      "info": {
+        "name": "Get Campaign",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/campaigns/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the Campaign"
+          }
+        ]
+      },
+      "docs": "Use to retrieve a listing of emails by type."
+    },
+    {
+      "info": {
+        "name": "Get Campaigns List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/campaigns"
+      },
+      "docs": "Use to retrieve a listing of emails by type."
+    },
+    {
+      "info": {
+        "name": "Send a message",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/message/:msgid/send",
+        "headers": [
+          {
+            "name": "Content-Type",
+            "value": ""
+          }
+        ],
+        "params": [
+          {
+            "name": "msgid",
+            "value": "",
+            "type": "path",
+            "description": "If custom set the value to \"custom\" otherwise specify the ID of the Draft, Template, or Previously Sent Message."
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Send the specified message with a simple HTTP POST to the Email Campaign API."
+    },
+    {
+      "info": {
+        "name": "Resend a message",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/message/:msgid/send",
+        "params": [
+          {
+            "name": "msgid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the previously sent message."
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update/resend the specified message."
+    },
+    {
+      "info": {
+        "name": "Update template or draft message",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/message/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the template or draft message"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update an existing draft message or template in your account."
+    },
+    {
+      "info": {
+        "name": "Delete a message",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/message/:id",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the message"
+          }
+        ]
+      },
+      "docs": "Delete a specified message or template."
+    },
+    {
+      "info": {
+        "name": "Get message HTML contents",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/message/:id/:recid",
+        "params": [
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "Specify the ID of the message"
+          },
+          {
+            "name": "recid",
+            "value": "",
+            "type": "path",
+            "description": "To see the personalization of a specific record specify a recipient ID"
+          }
+        ]
+      },
+      "docs": "Get the HTML content of a Sent, Draft or Message Template"
+    },
+    {
+      "info": {
+        "name": "ETE Request",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ete/v1/email/:accountid/:templateid",
+        "params": [
+          {
+            "name": "accountid",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "templateid",
+            "value": "",
+            "type": "path"
+          }
+        ]
+      },
+      "docs": "ETE Request"
+    },
+    {
+      "info": {
+        "name": "Get a new SEO report",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/seoreport",
+        "params": [
+          {
+            "name": "keyword",
+            "value": "",
+            "type": "query",
+            "description": "Specify a keyword for the SEO report"
+          },
+          {
+            "name": "url",
+            "value": "",
+            "type": "query",
+            "description": "Specify a URL encoded URL"
+          }
+        ]
+      },
+      "docs": "Run an SEO report on a website that you specify."
+    },
+    {
+      "info": {
+        "name": "Get SEO keywords",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/seokeywords",
+        "params": [
+          {
+            "name": "url",
+            "value": "",
+            "type": "query",
+            "description": "Specify a URL encoded URL"
+          }
+        ]
+      },
+      "docs": "Fetch the SEO keywords defined in your account."
+    },
+    {
+      "info": {
+        "name": "Get contact history and score",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record/:recordid/facts",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "recordid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the record id. (\"{listid}:{recordid}\")"
+          }
+        ]
+      },
+      "docs": "Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record's recID and only have their email address, please review question #8 on our API FAQ</p>"
+    },
+    {
+      "info": {
+        "name": "Get contact record",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record/:recordid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "recordid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the record id (\"{listid}:{recordid}\")"
+          }
+        ]
+      },
+      "docs": "Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record's recID and only have their email address, please review question #8 on our API FAQ</p>"
+    },
+    {
+      "info": {
+        "name": "Delete a contact",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record/:recordid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "recordid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the id of the record (\"{listid}:{recordid}\")"
+          }
+        ]
+      },
+      "docs": "Remove the specified contact record from the specified list."
+    },
+    {
+      "info": {
+        "name": "Delete records from a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specift the list ID"
+          },
+          {
+            "name": "contactids",
+            "value": "",
+            "type": "query",
+            "description": "Up to 100 record ids in the format of l-0001:1,l-0001:2,l-0001:a"
+          }
+        ]
+      },
+      "docs": "Delete multiple records from the specified list."
+    },
+    {
+      "info": {
+        "name": "Get contact record ID based on cookie value",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/lookup",
+        "params": [
+          {
+            "name": "cookie",
+            "value": "",
+            "type": "query",
+            "description": "Specify the cookie id"
+          }
+        ]
+      },
+      "docs": "Gets a contact record ID from your account based on a cookie ID."
+    },
+    {
+      "info": {
+        "name": "Get contact from list based on cookie ID or e-mail",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/lookup/:listid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the List ID that contains the record"
+          },
+          {
+            "name": "email",
+            "value": "",
+            "type": "query",
+            "description": "Specify the email address of the record"
+          },
+          {
+            "name": "cookieid",
+            "value": "",
+            "type": "query",
+            "description": "Specify the Cookie id"
+          }
+        ]
+      },
+      "docs": "Gets a contact record from a list based on a cookie ID and/or email address."
+    },
+    {
+      "info": {
+        "name": "Set Multiple Subscriptions by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/subscription/setcategories",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add/remove individual records from a subscription category by email address."
+    },
+    {
+      "info": {
+        "name": "Get subscription opt-outs by category",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/subscription/optout",
+        "params": [
+          {
+            "name": "category",
+            "value": "",
+            "type": "query",
+            "description": "Subscription Category Name"
+          },
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch. (Default=0)"
+          }
+        ]
+      },
+      "docs": "Download list of records specifically opted out of a specific category"
+    },
+    {
+      "info": {
+        "name": "Update Subscription by Email",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/subscription/optout",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add/remove individual records from a subscription category by email address."
+    },
+    {
+      "info": {
+        "name": "Get list of Act-On Assets",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list",
+        "params": [
+          {
+            "name": "listingtype",
+            "value": "",
+            "type": "query",
+            "description": "Specify the type of assets to pull using one of the following values: \"contact_list\", \"header\", \"footer\", \"sender\", \"media\", \"pages\", \"custom_events\", \"template_message\", \"draft_message\", \"landing_page\", \"sent_message\", \"triggered_message\", \"test_message\", \"failed_message\", \"scheduled_message\""
+          },
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch"
+          }
+        ]
+      },
+      "docs": "Get listing of lists"
+    },
+    {
+      "info": {
+        "name": "Create a new list",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/list",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a new list in your account."
+    },
+    {
+      "info": {
+        "name": "Download List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch."
+          },
+          {
+            "name": "modbefore",
+            "value": "",
+            "type": "query",
+            "description": "Filter records modified before the specified date. Unix timestamps"
+          },
+          {
+            "name": "modafter",
+            "value": "",
+            "type": "query",
+            "description": "Filter records modified after the specified date. Unix timestamps"
+          },
+          {
+            "name": "createdbefore",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created before the specified date. Unix timestamps"
+          },
+          {
+            "name": "createdafter",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created after the specified date. Unix timestamps"
+          },
+          {
+            "name": "fields",
+            "value": "",
+            "type": "query",
+            "description": "Using a semicolon as the delimiter specify the fields (URLEncoded Required) you would like returned. <p>The query parameter \"datequalifiers\" cannot be used in conjunction with this option.</p>"
+          },
+          {
+            "name": "datequalifiers",
+            "value": "",
+            "type": "query",
+            "description": "A \"true\" values return the dates created and modified. These columns will be headed with the names \"created_date\" and \"modified_date\". <p>The query parameter \"fields\" cannot be used in conjunction with this option.</p>"
+          },
+          {
+            "name": "responseformat",
+            "value": "",
+            "type": "query",
+            "description": "Specify the desired response format. <p>(\"JSON\", \"CSV\")</p>"
+          }
+        ]
+      },
+      "docs": "Get listing of lists"
+    },
+    {
+      "info": {
+        "name": "Update or merge a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update or Merge to an existing Act-On list."
+    },
+    {
+      "info": {
+        "name": "Delete a list",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list ID"
+          }
+        ]
+      },
+      "docs": "Delete the specified list from your account."
+    },
+    {
+      "info": {
+        "name": "Get list upload status",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/:jobid/status",
+        "params": [
+          {
+            "name": "jobid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the \"jobId\" of the list being uploaded."
+          }
+        ]
+      },
+      "docs": "Check on the status of a list upload."
+    },
+    {
+      "info": {
+        "name": "Get rejected records from an upload",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/rejectedUploadRecords",
+        "params": [
+          {
+            "name": "filename",
+            "value": "",
+            "type": "query",
+            "description": "Use the name of the file in the response of the endpoint \"Get List Upload Status\" if there were records to failed."
+          }
+        ]
+      },
+      "docs": "Download CSV file containing rejected upload records."
+    },
+    {
+      "info": {
+        "name": "Get Subscription Categories",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/subscription/category"
+      },
+      "docs": "Returns the subscription categories defined in the account."
+    },
+    {
+      "info": {
+        "name": "Get hard bounce list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/hardbounce",
+        "params": [
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch."
+          },
+          {
+            "name": "createdbefore",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created before the specified date."
+          },
+          {
+            "name": "createdafter",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created after the specified date."
+          }
+        ]
+      },
+      "docs": "Get a list of hard bounces associated with the account."
+    },
+    {
+      "info": {
+        "name": "Get spam complaint list",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/spamcomplaint",
+        "params": [
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch."
+          },
+          {
+            "name": "createdbefore",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created before the specified date. UNIX timestamp"
+          },
+          {
+            "name": "createdafter",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created after the specified date. UNIX timestamp"
+          }
+        ]
+      },
+      "docs": "Get a list of spam complaints from your account."
+    },
+    {
+      "info": {
+        "name": "Get Opt Out List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/api/1/list/optout",
+        "params": [
+          {
+            "name": "count",
+            "value": "",
+            "type": "query",
+            "description": "Specify the number of elements to fetch. (Maximum=1000)"
+          },
+          {
+            "name": "offset",
+            "value": "",
+            "type": "query",
+            "description": "Specify the element offset to begin the fetch."
+          },
+          {
+            "name": "createdbefore",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created before the specified date. UNIX timestamp"
+          },
+          {
+            "name": "createdafter",
+            "value": "",
+            "type": "query",
+            "description": "Filter records created after the specified date. UNIX timestamp"
+          }
+        ]
+      },
+      "docs": "Get a list of spam complaints from your account."
+    },
+    {
+      "info": {
+        "name": "Update optout list",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/list/optout",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update or Merge to an existing optout list."
+    },
+    {
+      "info": {
+        "name": "Remove Opt Outs",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/list/optin",
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Remove Opt Outs"
+    },
+    {
+      "info": {
+        "name": "Import Contacts",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/contacts/:importDefinitionId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "accountId"
+          },
+          {
+            "name": "importDefinitionId",
+            "value": "",
+            "type": "path",
+            "description": "The id of the import definition"
+          },
+          {
+            "name": "cleanupImportDefinition",
+            "value": "",
+            "type": "query",
+            "description": "Whether to delete the import definition after the import"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Import Contacts"
+    },
+    {
+      "info": {
+        "name": "Get Import Definitions",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/definition",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          }
+        ]
+      },
+      "docs": "Get Import Definitions"
+    },
+    {
+      "info": {
+        "name": "Create an Import Definition",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/definition",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create an Import Definition"
+    },
+    {
+      "info": {
+        "name": "Get Import Definition by Id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/definition/:importDefinitionId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "importDefinitionId",
+            "value": "",
+            "type": "path",
+            "description": "The Id of the import definition to retrieve"
+          }
+        ]
+      },
+      "docs": "Get Import Definition by Id"
+    },
+    {
+      "info": {
+        "name": "Update an Import Definition",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/definition/:importDefinitionId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "importDefinitionId",
+            "value": "",
+            "type": "path",
+            "description": "The Id of the import definition to update"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update an Import Definition"
+    },
+    {
+      "info": {
+        "name": "Delete Import Definition by Id",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/definition/:importDefinitionId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "importDefinitionId",
+            "value": "",
+            "type": "path",
+            "description": "The Id of the import definition to delete"
+          }
+        ]
+      },
+      "docs": "Delete Import Definition by Id"
+    },
+    {
+      "info": {
+        "name": "Get Import status",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/import/status/:importId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "importId",
+            "value": "",
+            "type": "path",
+            "description": "The Id of the import to retrieve"
+          }
+        ]
+      },
+      "docs": "Get Import status"
+    },
+    {
+      "info": {
+        "name": "Get contacts from the Act-On Contacts List",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "createdAfter",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records created after the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>"
+          },
+          {
+            "name": "createdBefore",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records created before the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page number to retrieve"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of records to retrieve per page"
+          },
+          {
+            "name": "updatedAfter",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records updated after the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>"
+          },
+          {
+            "name": "updatedBefore",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records updated before the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>"
+          }
+        ]
+      },
+      "docs": "Get contacts from the Act-On Contacts List"
+    },
+    {
+      "info": {
+        "name": "Add a single contact to the Act-On Contacts List",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "createContactMethod",
+            "value": "",
+            "type": "query",
+            "description": "The method used for creating a new contact"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add a single contact to the Act-On Contacts List"
+    },
+    {
+      "info": {
+        "name": "Get contacts from the Act-On Contacts List specifying the fields to be returned",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/byFields",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "createdAfter",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records created after the specified timestamp in seconds <p>Use example value: Unix Timestamp in seconds</p>"
+          },
+          {
+            "name": "createdBefore",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records created before the specified timestamp in seconds"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page number to retrieve"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of records to retrieve per page"
+          },
+          {
+            "name": "updatedAfter",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records updated after the specified timestamp in seconds  <p>Use example value: Unix Timestamp in seconds</p>"
+          },
+          {
+            "name": "updatedBefore",
+            "value": "",
+            "type": "query",
+            "description": "Optional filter for retrieving records updated before the specified timestamp in seconds  <p>Use example value: Unix Timestamp in seconds</p>"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Get contacts from the Act-On Contacts List specifying the fields to be returned"
+    },
+    {
+      "info": {
+        "name": "Get contact in the Act-On Contacts List by cookie id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/cookieId/:cookieId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "cookieId",
+            "value": "",
+            "type": "path",
+            "description": "The cookieId of the contact to retrieve"
+          }
+        ]
+      },
+      "docs": "Get contact in the Act-On Contacts List by cookie id"
+    },
+    {
+      "info": {
+        "name": "Get contacts from the Act-On Contacts List by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/email/:emailAddress",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to retrieve"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page number to retrieve"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of records to retrieve per page"
+          }
+        ]
+      },
+      "docs": "Get contacts from the Act-On Contacts List by email address"
+    },
+    {
+      "info": {
+        "name": "Update contacts in the Act-On Contacts List by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/email/:emailAddress",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to update"
+          },
+          {
+            "name": "upsertContactPolicy",
+            "value": "",
+            "type": "query",
+            "description": "The policy to update the contacts"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update contacts in the Act-On Contacts List by email address"
+    },
+    {
+      "info": {
+        "name": "Delete contact in the Act-On Contacts List by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/email/:emailAddress",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to delete"
+          },
+          {
+            "name": "deleteContactPolicy",
+            "value": "",
+            "type": "query",
+            "description": "The policy to delete the contact"
+          }
+        ]
+      },
+      "docs": "Delete contact in the Act-On Contacts List by email address"
+    },
+    {
+      "info": {
+        "name": "Delete contacts in the Act-On Contacts List by emails",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/emails",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "deleteContactPolicy",
+            "value": "",
+            "type": "query",
+            "description": "The policy to delete the contacts"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Delete contacts in the Act-On Contacts List by emails"
+    },
+    {
+      "info": {
+        "name": "Get contact in the Act-On Contacts List by externalId and object type",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/externalId/:objectType/:externalId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to retrieve"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The object type of the contact to retrieve"
+          }
+        ]
+      },
+      "docs": "Get contact in the Act-On Contacts List by externalId and object type"
+    },
+    {
+      "info": {
+        "name": "Update contact in the Act-On Contacts list by externalId & objectType, fallback to email match",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/externalId/:objectType/:externalId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to update"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The object type of the contact to update"
+          },
+          {
+            "name": "upsertContactPolicy",
+            "value": "",
+            "type": "query",
+            "description": "The policy to update the contacts"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update contact in the Act-On Contacts list by externalId & objectType, fallback to email match"
+    },
+    {
+      "info": {
+        "name": "Delete contact in the Act-On Contacts List by externalId and object type",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/externalId/:objectType/:externalId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to delete"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The object type of the contact to delete"
+          }
+        ]
+      },
+      "docs": "Delete contact in the Act-On Contacts List by externalId and object type"
+    },
+    {
+      "info": {
+        "name": "Get contact in the Act-On Contacts List by id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/id/:id",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the contact to retrieve"
+          }
+        ]
+      },
+      "docs": "Get contact in the Act-On Contacts List by id"
+    },
+    {
+      "info": {
+        "name": "Update contact in the Act-On Contacts List by id",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/id/:id",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the contact to update"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update contact in the Act-On Contacts List by id"
+    },
+    {
+      "info": {
+        "name": "Delete contacts in the Act-On Contacts List by ids",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contact/ids",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Delete contacts in the Act-On Contacts List by ids"
+    },
+    {
+      "info": {
+        "name": "Get contact history by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/email/:emailAddress/activity",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to retrieve the timeline data"
+          },
+          {
+            "name": "monthsOfPastData",
+            "value": "",
+            "type": "query",
+            "description": "The number of past months of data to retrieve the activities"
+          }
+        ]
+      },
+      "docs": "Get contact history by email address"
+    },
+    {
+      "info": {
+        "name": "Get all scores for a contact by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/email/:emailAddress/scores",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to retrieve the score cards"
+          }
+        ]
+      },
+      "docs": "Get all scores for a contact by email address"
+    },
+    {
+      "info": {
+        "name": "Get all segments that the contact belong by email address",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/email/:emailAddress/segments",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "emailAddress",
+            "value": "",
+            "type": "path",
+            "description": "The email address of the contact to find the segments it belongs"
+          }
+        ]
+      },
+      "docs": "Get all segments that the contact belong by email address"
+    },
+    {
+      "info": {
+        "name": "Get contact history by externalId and object type",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/externalId/:objectType/:externalId/activity",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to retrieve the timeline data"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The objectType of the contact to retrieve the timeline data"
+          },
+          {
+            "name": "monthsOfPastData",
+            "value": "",
+            "type": "query",
+            "description": "The number of past months of data to retrieve the activities"
+          }
+        ]
+      },
+      "docs": "Get contact history by externalId and object type"
+    },
+    {
+      "info": {
+        "name": "Get all scores for a contact by externalId and object type",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/externalId/:objectType/:externalId/scores",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to retrieve the score cards"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The objectType of the contact to retrieve the score cards"
+          }
+        ]
+      },
+      "docs": "Get all scores for a contact by externalId and object type"
+    },
+    {
+      "info": {
+        "name": "Get all segments that the contact belong by externalId and object type",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/externalId/:objectType/:externalId/segments",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "externalId",
+            "value": "",
+            "type": "path",
+            "description": "The externalId of the contact to find the segments it belongs"
+          },
+          {
+            "name": "objectType",
+            "value": "",
+            "type": "path",
+            "description": "The objectType of the contact to find the segments it belongs"
+          }
+        ]
+      },
+      "docs": "Get all segments that the contact belong by externalId and object type"
+    },
+    {
+      "info": {
+        "name": "Get contact history by id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/id/:id/activity",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the contact to retrieve the timeline data"
+          },
+          {
+            "name": "monthsOfPastData",
+            "value": "",
+            "type": "query",
+            "description": "The number of past months of data to retrieve the activities"
+          }
+        ]
+      },
+      "docs": "Get contact history by id"
+    },
+    {
+      "info": {
+        "name": "Get all scores for a contact by id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/id/:id/scores",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the contact to retrieve the score cards"
+          }
+        ]
+      },
+      "docs": "Get all scores for a contact by id"
+    },
+    {
+      "info": {
+        "name": "Get all segments that the contact belong by id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/contactReport/id/:id/segments",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "id",
+            "value": "",
+            "type": "path",
+            "description": "The id of the contact to find the segments it belongs"
+          }
+        ]
+      },
+      "docs": "Get all segments that the contact belong by id"
+    },
+    {
+      "info": {
+        "name": "Get Schema",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/schema/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "skipHidden",
+            "value": "",
+            "type": "query",
+            "description": "If hidden columns should be included in the response"
+          },
+          {
+            "name": "skipReadOnly",
+            "value": "",
+            "type": "query",
+            "description": "If read-only columns should be included in the response"
+          }
+        ]
+      },
+      "docs": "Get Schema"
+    },
+    {
+      "info": {
+        "name": "Add Field",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/schema/field/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add Field"
+    },
+    {
+      "info": {
+        "name": "Update FieldDefinition",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/schema/field/:fieldId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "fieldId",
+            "value": "",
+            "type": "path",
+            "description": "The fieldId of the field to update"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update FieldDefinition"
+    },
+    {
+      "info": {
+        "name": "Delete Field",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/schema/field/:fieldId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "fieldId",
+            "value": "",
+            "type": "path",
+            "description": "The fieldId of the field to delete"
+          }
+        ]
+      },
+      "docs": "Delete Field"
+    },
+    {
+      "info": {
+        "name": "Get Segments",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page number to retrieve"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of results to return per page"
+          }
+        ]
+      },
+      "docs": "Get Segments"
+    },
+    {
+      "info": {
+        "name": "Create a segment",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Create a segment"
+    },
+    {
+      "info": {
+        "name": "Get Segment by Id",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ]
+      },
+      "docs": "Get Segment by Id"
+    },
+    {
+      "info": {
+        "name": "Update Segment. If it's a Direct Select Segment, only the name can be updated.",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Update Segment. If it's a Direct Select Segment, only the name can be updated."
+    },
+    {
+      "info": {
+        "name": "Delete Segment",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ]
+      },
+      "docs": "Delete Segment"
+    },
+    {
+      "info": {
+        "name": "Get Contacts from a Segment",
+        "type": "http"
+      },
+      "http": {
+        "method": "GET",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/contacts",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          },
+          {
+            "name": "page",
+            "value": "",
+            "type": "query",
+            "description": "The page number to return"
+          },
+          {
+            "name": "pageSize",
+            "value": "",
+            "type": "query",
+            "description": "The number of results to return per page"
+          }
+        ]
+      },
+      "docs": "Get Contacts from a Segment"
+    },
+    {
+      "info": {
+        "name": "Add Contacts to a Direct Select Segment",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/contacts",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add Contacts to a Direct Select Segment"
+    },
+    {
+      "info": {
+        "name": "Remove Contacts from Direct Select Segment",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/contacts",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Remove Contacts from Direct Select Segment"
+    },
+    {
+      "info": {
+        "name": "Remove Contacts from Direct Select Segment by email",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/email/contact",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          },
+          {
+            "name": "email",
+            "value": "",
+            "type": "query",
+            "description": "The contact email for this request"
+          },
+          {
+            "name": "policy",
+            "value": "",
+            "type": "query",
+            "description": "The policy for this request"
+          }
+        ]
+      },
+      "docs": "Remove Contacts from Direct Select Segment by email"
+    },
+    {
+      "info": {
+        "name": "Add Contacts to a Direct Select Segment By External id",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/externalId/contacts",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Add Contacts to a Direct Select Segment By External id"
+    },
+    {
+      "info": {
+        "name": "Remove Contacts from Direct Select Segment by external id",
+        "type": "http"
+      },
+      "http": {
+        "method": "DELETE",
+        "url": "https://api.actonsoftware.com/ucl/v2/:accountId/segment/:segmentId/externalId/contacts",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On account Id for this request"
+          },
+          {
+            "name": "segmentId",
+            "value": "",
+            "type": "path",
+            "description": "The Act-On segment Id for this request"
+          }
+        ],
+        "body": {
+          "type": "json",
+          "data": "{}"
+        }
+      },
+      "docs": "Remove Contacts from Direct Select Segment by external id"
+    }
+  ],
+  "bundled": true
+}

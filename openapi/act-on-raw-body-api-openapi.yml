@@ -1,0 +1,399 @@
+openapi: 3.1.0
+info:
+  title: act-on-api-raw-body
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+security:
+- sec0: []
+paths:
+  /api/1/user:
+    post:
+      summary: Create new account user
+      description: Create one or more users for an account.
+      operationId: create-new-account-user
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: '"[{\n\"userType\":\"Marketing\",\n\"email\":\"name3@act-on.net\",\n\"firstName\":\"fName1\",\n\"lastName\":\"Surname1\",\n\"password\":\"pwxxx123\",\n\"title\":\"Marketing
+                    Manager\",\n\"phoneNumber\":\"111-111-1111\",\n\"mobileNumber\":\"111-111-1111\",\n\"faxNumber\":\"111-111-1111\",\n\"timeZone\":\"PT\",\n\"sendEmailConfirmation\":\"Y\"\n}\n]"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"email\": \"first.last@example.com\",\n        \"status\"\
+                    : \"ok\",\n        \"privilegeResponses\": []\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: first.last@example.com
+                    status:
+                      type: string
+                      example: ok
+                    privilegeResponses:
+                      type: array
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type:\
+            \ application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n  \
+            \  {\n        \"userType\": \"Marketing\",\n        \"email\": \"first.last@example.com\"\
+            ,\n        \"firstName\": \"First\",\n        \"lastName\": \"Last\",\n        \"password\"\
+            : \"theFirstWillBeLast\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\"\
+            : \"111-111-1111\",\n        \"mobileNumber\": \"222-222-2222\",,\n        \"timeZone\": \"\
+            PT\",\n        \"sendEmailConfirmation\": \"N\"\n    }\n]'"
+        samples-languages:
+        - text
+  /api/1/user/delete:
+    post:
+      summary: Delete account users
+      description: Delete one or more users from an account.
+      operationId: delete-account-users
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: '"[{\"email\":\"name3@act-on.net\"}]"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+  /api/1/list/{listid}/record:
+    post:
+      summary: Add a contact
+      description: Add a contact record to the specified list.
+      operationId: add-a-contact
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value <p>"{\n    \"EMAIL\": \"name@domain.com\",\n    \"FIRSTNAME\":
+                    \"John\",\n    \"LASTNAME\": \"Smith\"\n}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record inserted\",\n   \
+                    \ \"id\": \"l-0001:12\",\n    \"contact_id\": \"l-0001:12\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record inserted
+                  id:
+                    type: string
+                    example: l-0001:12
+                  contact_id:
+                    type: string
+                    example: l-0001:12
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid Column Specified:
+                  value: "{\n    \"errorCode\": \"10010\",\n    \"message\": \"Invalid Column Specified\"\
+                    ,\n}"
+      deprecated: false
+    put:
+      summary: Upsert a contact record by email
+      description: 'Update an existing record or insert a new contact record using the email address that
+        you specify using the following logic: <p>If the email address exists in the list, only the first
+        record matching that email address is updated with the data you provide.</p><p>If the email address
+        is not already in the list, a new record is added.</p><p>Please take note that this means that
+        any duplicate records are NOT updated.</p>'
+      operationId: upsert-a-contact-record-by-email
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: email
+        in: query
+        description: Specify the email address
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value: <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"John\",\"LASTNAME\":\"Joe\"}"
+                    </p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+  /api/1/list/{listid}/record/{recordid}:
+    put:
+      summary: Update a contact by record ID
+      description: 'Update the specified contact record in the specified list. <p>NOTE: This only updates
+        the identified record in list that you specify.</p>'
+      operationId: update-a-contact-by-record-id
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: recordid
+        in: path
+        description: Specify the record id ("{listid}:{recordid}")
+        schema:
+          type: string
+        required: true
+      - name: returncontact
+        in: query
+        description: Return the data of the updated contact in the response? <p>("Y"/"N")</p>
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value : <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"Joe\",\"LASTNAME\":\"Joe\"}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record updated\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record updated
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid List:
+                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n\
+                    }"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10004
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or missing list
+      deprecated: false
+  /token:
+    post:
+      summary: Grant-Type Password (Scott)
+      description: ''
+      operationId: grant-type-password-scott
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+  /ucl/v2/ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
+    post:
+      summary: Import Contacts
+      description: Create one or more users for an account. Each user is sent as an element in a JSON
+        array.
+      operationId: test-api
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: importDefinitionId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'JSON object with the following required keys: userType, email, firstName,
+                    lastName, password.'
+                filter:
+                  type: object
+                  required:
+                  - type
+                  - expressionEvaluationType
+                  properties:
+                    type:
+                      type: string
+                    expressionEvaluationType:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                      - CUSTOM
+                    customBooleanExpression:
+                      type: string
+                      default: 'NULL'
+                    expressions:
+                      type: array
+                      items:
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - profile
+                            - system
+                          id:
+                            type: string
+                          field:
+                            type: string
+                          condition:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              comparison:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                        type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"success\",\n    \"keyPoint\": \"blank\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  keyPoint:
+                    type: string
+                    example: blank
+        '400':
+          description: '400'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: '{boo}'
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type:\
+            \ application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n  \
+            \  {\n        \"userType\": \"Marketing\",\n        \"email\": \"name3@act-on.net\",\n   \
+            \     \"firstName\": \"fName1\",\n        \"lastName\": \"Surname1\",\n        \"password\"\
+            : \"pwxxx123\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\": \"111-111-1111\"\
+            ,\n        \"mobileNumber\": \"111-111-1111\",\n        \"faxNumber\": \"111-111-1111\",\n\
+            \        \"timeZone\": \"PT\",\n        \"sendEmailConfirmation\": \"Y\"\n    }\n]'"
+          name: Example 1
+        samples-languages:
+        - curl
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

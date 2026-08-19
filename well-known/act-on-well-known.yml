@@ -1,26 +1,78 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: probed
-source: live HTTP probes
-note: No /.well-known/ resources returned 200 on any Act-On host; recorded for auditability.
+source: live HTTP probes of every Act-On host in apis.yml and in openapi/ servers[]
+note: >-
+  NO /.well-known/ resource returned a real document on any Act-On host. This file
+  records a measured ABSENCE, not a presence — no WellKnown, SecurityTxt or
+  AgentCard pointer is emitted in apis.yml on the strength of it.
+  IMPORTANT SOFT-200: act-on.com answers HTTP 200 with the 415,734-byte marketing
+  homepage for EVERY unknown path, including every /.well-known/* path and a control
+  path (/nonexistent-zzz-test/) that returned the identical byte count and the
+  identical <title>Marketing Automation Platform - Act-On</title>. Those 200s are
+  the WordPress catch-all, not documents, and are recorded as misses.
+hosts_probed:
+- api.actonsoftware.com
+- restapi.actonsoftware.com
+- developer.act-on.com
+- act-on.com
+real_documents_found: 0
 probes:
-- host: developer.act-on.com
+- host: api.actonsoftware.com
+  note: canonical API host declared in every published OpenAPI servers[] block
   results:
   - {path: /.well-known/security.txt, status: 404, file: null}
   - {path: /.well-known/openid-configuration, status: 404, file: null}
   - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
   - {path: /.well-known/api-catalog, status: 404, file: null}
   - {path: /.well-known/ai-plugin.json, status: 404, file: null}
-- host: act-on.com
-  results:
-  - {path: /.well-known/security.txt, status: 404, file: null}
-  - {path: /.well-known/openid-configuration, status: 301, file: null}
-  - {path: /.well-known/oauth-authorization-server, status: 301, file: null}
-  - {path: /.well-known/api-catalog, status: 301, file: null}
-  - {path: /.well-known/ai-plugin.json, status: 301, file: null}
+  - {path: /.well-known/agent-card.json, status: 404, file: null}
+  - {path: /.well-known/agent.json, status: 404, file: null}
 - host: restapi.actonsoftware.com
   results:
   - {path: /.well-known/security.txt, status: 404, file: null}
   - {path: /.well-known/openid-configuration, status: 404, file: null}
   - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
   - {path: /.well-known/api-catalog, status: 404, file: null}
   - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+  - {path: /.well-known/agent-card.json, status: 404, file: null}
+  - {path: /.well-known/agent.json, status: 404, file: null}
+- host: developer.act-on.com
+  results:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/openid-configuration, status: 404, file: null}
+  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
+  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
+  - {path: /.well-known/api-catalog, status: 404, file: null}
+  - {path: /.well-known/ai-plugin.json, status: 404, file: null}
+  - {path: /.well-known/agent-card.json, status: 404, file: null}
+  - {path: /.well-known/agent.json, status: 404, file: null}
+- host: act-on.com
+  soft_404: true
+  soft_404_evidence: 'control probe https://act-on.com/nonexistent-zzz-test/ -> 200,
+    415734 bytes, <title>Marketing Automation Platform - Act-On</title> — byte-identical
+    to every /.well-known/* response below'
+  results:
+  - {path: /.well-known/security.txt, status: 404, file: null}
+  - {path: /.well-known/openid-configuration, status: 200, file: null, verdict: soft-404
+      HTML shell, not a document}
+  - {path: /.well-known/oauth-authorization-server, status: 200, file: null, verdict: soft-404
+      HTML shell, not a document}
+  - {path: /.well-known/oauth-protected-resource, status: 200, file: null, verdict: soft-404
+      HTML shell, not a document}
+  - {path: /.well-known/api-catalog, status: 200, file: null, verdict: soft-404 HTML
+      shell, not a document}
+  - {path: /.well-known/ai-plugin.json, status: 200, file: null, verdict: soft-404
+      HTML shell, not a document}
+  - {path: /.well-known/agent-card.json, status: 200, file: null, verdict: soft-404
+      HTML shell, not a document}
+  - {path: /.well-known/agent.json, status: 200, file: null, verdict: soft-404 HTML
+      shell, not a document}
+oauth_discovery:
+  published: false
+  note: >-
+    Act-On runs OAuth 2.0 (password, refresh_token and authorization_code grants at
+    POST /token) but publishes no RFC 8414 authorization-server metadata and no RFC
+    9728 protected-resource metadata. An agent cannot discover the token endpoint;
+    it has to read the prose docs.

@@ -1,40 +1,124 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: derived
-source: live probes of https://restapi.actonsoftware.com/* + https://restapi.actonsoftware.com/token
+source: openapi/act-on-rest-api-openapi.yml, openapi/act-on-custom-objects-service-openapi.yml,
+  openapi/act-on-oauth-openapi.yml + live unauthenticated probes of api.actonsoftware.com
 api: Act-On REST API
 format: custom-json
-note: >-
-  Act-On does NOT use RFC 9457 (application/problem+json). The REST API returns a
-  custom JSON envelope; the OAuth token endpoint returns the standard OAuth 2.0
-  error object. Both envelopes were observed via live unauthenticated probes.
+rfc9457: false
+summary: >-
+  Act-On does NOT use RFC 9457 (application/problem+json). It returns FIVE different
+  error shapes depending on which generation of the API — and which layer of the
+  stack — answered. A client cannot write one error handler; it needs a discriminator
+  on the response body. The /api/1 surface additionally carries a numeric errorCode
+  vocabulary that is published only as inline OpenAPI examples, never as a reference
+  table.
 envelopes:
-- name: rest-error
+- name: numeric-code
   media_type: application/json
-  fields:
-  - httpCode
-  - httpMessage
-  - moreInformation
-  example: '{"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources match requested URI"}'
-- name: oauth-error
+  scope: /api/1
+  fields: [errorCode, message]
+  example: '{"errorCode": 10054, "message": "The id is invalid"}'
+  source: openapi/act-on-rest-api-openapi.yml response examples
+- name: gateway
   media_type: application/json
-  scope: token endpoint (/token)
-  fields:
-  - error
-  - error_description
+  scope: gateway-level rejections on any path (auth failure, unrouted URI)
+  fields: [httpCode, httpMessage, moreInformation]
+  example: '{"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources
+    match requested URI"}'
+  source: live probe of https://api.actonsoftware.com/openapi.json and /api/1/ping
+- name: spring
+  media_type: application/json
+  scope: /custom-objects/v1
+  fields: [errorId, requestUri, errorMessage, errorList, status]
+  schema_ref: '#/components/schemas/HttpErrorResponse'
+  note: >-
+    `status` is a string enum of 70 HTTP reason phrases ("400 BAD_REQUEST",
+    "404 NOT_FOUND", ...) — the status line repeated inside the body. errorList[]
+    carries per-field validation messages.
+  source: openapi/act-on-custom-objects-service-openapi.yml
+- name: named-exception
+  media_type: application/json
+  scope: /ete/v1 transactional email
+  fields: [errorName, message]
+  example: '{"errorName": "EmailServiceException", "message": "A transactional subscription
+    is required in order to send transactional messages. Account: 46100"}'
+  source: openapi/act-on-rest-api-openapi.yml
+- name: oauth
+  media_type: application/json
+  scope: POST /token
+  fields: [error, error_description]
   example: '{"error":"access_denied","error_description":"Unauthorized"}'
+  source: live probe of https://api.actonsoftware.com/token and openapi/act-on-oauth-openapi.yml
+- name: empty-text
+  media_type: text/plain
+  scope: /ucl/v2
+  fields: []
+  note: >-
+    Many /ucl/v2 error responses are declared as text/plain with an EMPTY example
+    body — 401, 403, 404, 406, 409, 415 and 500 on the contact and import operations
+    all carry `""`. The status code is the only diagnostic; there is nothing to
+    parse and nothing to show a user.
+  source: openapi/act-on-rest-api-openapi.yml
+status_codes_declared: [400, 401, 403, 404, 406, 409, 413, 415, 422, 500]
+status_codes_missing:
+- code: 429
+  note: >-
+    Not declared on ANY of the 158 published operations, despite four documented rate
+    limits. A client cannot learn from the contract what exhaustion looks like.
+- code: 503
+  note: Not declared; no maintenance/unavailable semantics in the contract.
 problem_types:
-- status: 401
-  title: Unauthorized
-  envelope: rest-error
-  evidence: 'POST /api/1/ping -> {"httpCode":"401","httpMessage":"Unauthorized","moreInformation":""}'
-  remediation: 'Obtain an OAuth 2.0 access token from /token and send it as Authorization: Bearer.'
-- status: 404
-  title: Not Found
-  envelope: rest-error
-  evidence: 'POST / -> {"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources match requested URI"}'
-  remediation: Verify the request URI matches a documented /api/1 resource path.
-- status: 401
-  title: access_denied
-  envelope: oauth-error
-  evidence: 'POST /token -> {"error":"access_denied","error_description":"Unauthorized"}'
-  remediation: Supply valid grant_type + client credentials to the token endpoint.
+- {status: 401, title: Unauthorized, envelope: gateway, evidence: 'POST /api/1/ping
+    -> {"httpCode":"401","httpMessage":"Unauthorized","moreInformation":""}', remediation: 'Obtain
+    an OAuth 2.0 access token from POST /token and send it as Authorization: Bearer.'}
+- {status: 404, title: Not Found, envelope: gateway, evidence: 'GET /openapi.json ->
+    {"httpCode":"404","httpMessage":"Not Found","moreInformation":"No resources match
+    requested URI"}', remediation: Verify the request URI matches a documented /api/1,
+    /ucl/v2, /ete/v1 or /custom-objects/v1 path.}
+- {status: 401, title: access_denied, envelope: oauth, evidence: 'POST /token -> {"error":"access_denied","error_description":"Unauthorized"}',
+  remediation: Supply a valid grant_type plus client credentials to the token endpoint.}
+- {status: 500, title: EmailServiceException — transactional subscription required,
+  envelope: named-exception, evidence: 'POST /ete/v1/email/{accountid}/{templateid}
+    500 example', remediation: The account needs a transactional email subscription
+    before this endpoint will send. Not a retryable fault.}
+- {status: 413, title: Payload too large, envelope: empty-text, evidence: 'POST /ucl/v2/{accountId}/import/contacts/{importDefinitionId}
+    413 example "File size exceeds the maximum limit of 200MB."', remediation: 'Split
+    the import file. Note the docs publish a 400MB ceiling while this example says
+    200MB — see rate-limits/act-on-rate-limits.yml.'}
+error_codes:
+  scope: /api/1 numeric errorCode vocabulary
+  published_as: inline OpenAPI response examples only — Act-On publishes no error-code
+    reference page
+  count: 15
+  codes:
+  - {code: 10003, message: Input file missing, status: 400, operation: update-or-merge-a-list}
+  - {code: 10004, message: Invalid or missing list, status: 400, operation: update-or-merge-a-list}
+  - {code: 10008, message: Invalid contact, status: 400, operation: delete-a-contact}
+  - {code: 10012, message: Invalid Form id, status: 400, operation: get-form-report}
+  - {code: 10013, message: Invalid Page id, status: 400, operation: get-landing-page-report}
+  - {code: 10017, message: Invalid or expired Job Id, status: 400, operation: get-list-upload-status}
+  - {code: 10025, message: Invalid or missing merge destination list, status: 400, operation: update-or-merge-a-list}
+  - {code: 10030, message: Invalid or deleted message, status: 404, operation: get-message-report-drilldown}
+  - {code: 10054, message: The id is invalid, status: 400, operation: get-a-media-timeline-report}
+  - {code: 10085, message: Invalid file type specified, status: 403, operation: add-a-media-file}
+  - {code: 10088, message: At least one specified merge column is missing from the uploaded
+      file, status: 400, operation: update-or-merge-a-list}
+  - {code: 10089, message: Invalid drill-down verb, status: 400, operation: get-message-report-drilldown}
+  - {code: 10121, message: Missing parameter - name, status: 422, operation: add-a-logo}
+  - {code: 10160, message: The date period is invalid., status: 400, operation: get-message-report-by-time-period}
+  - {code: 90004, message: Empty or improperly formatted URL given, status: 400, operation: add-a-media-link}
+  note: >-
+    The 10xxx block is application validation and the 90xxx block appears to be input
+    parsing, but Act-On documents no ranges, no stable list and no remediation text.
+    The 15 codes above are every one that appears anywhere in the published contract;
+    the real vocabulary is certainly larger.
+retry_guidance:
+  published: false
+  note: >-
+    Act-On documents no retry policy, no Retry-After header and no idempotency key.
+    Retrying a 500 on POST /api/1/message/{msgid}/send risks sending the campaign
+    twice.
+probes:
+- {url: 'https://api.actonsoftware.com/api/1/ping', status: 401}
+- {url: 'https://api.actonsoftware.com/token', status: 401}
+- {url: 'https://api.actonsoftware.com/openapi.json', status: 404}

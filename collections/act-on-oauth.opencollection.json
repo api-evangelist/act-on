@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "oauth",
+    "version": "2.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Grant-Type Password",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/token?grant_type=password",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "username",
+              "value": ""
+            },
+            {
+              "name": "password",
+              "value": ""
+            },
+            {
+              "name": "client_id",
+              "value": ""
+            },
+            {
+              "name": "client_secret",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Use Username and password to get access token and refresh token"
+    },
+    {
+      "info": {
+        "name": "Grant-Type Refresh",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/token",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "grant_type",
+              "value": ""
+            },
+            {
+              "name": "client_id",
+              "value": ""
+            },
+            {
+              "name": "client_secret",
+              "value": ""
+            },
+            {
+              "name": "refresh_token",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Uses refresh_token to get a new access_token and refresh_token"
+    }
+  ],
+  "bundled": true
+}

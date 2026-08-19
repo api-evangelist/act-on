@@ -1,0 +1,118 @@
+generated: '2026-08-13'
+method: searched
+source: https://connect.act-on.com/hc/en-us/articles/20031106799383-Outgoing-Webhook-Event-Types
+api: Act-On Outgoing Webhooks
+docs: https://connect.act-on.com/hc/en-us/sections/20585868662935-Outgoing-Incoming-Webhooks
+summary: >-
+  Act-On ships a real event surface: outgoing webhooks that POST a signed JSON
+  payload to a customer-configured endpoint when one of nineteen documented platform
+  events fires. Signatures are HMAC SHA-256 over the payload using a per-endpoint
+  secret. Incoming webhooks also exist, letting third-party systems push into
+  Act-On Contacts and Custom Touch Point Behaviors.
+asyncapi_published: false
+asyncapi_note: >-
+  Act-On publishes NO AsyncAPI document for this surface. The event catalog below is
+  transcribed from Act-On's own help-center reference; no AsyncAPI was generated on
+  the provider's behalf.
+direction: both
+configuration:
+  outgoing:
+    ui_path: Settings > Connectors > Custom Integrations > Outgoing Webhooks
+    endpoint_setup: Endpoints tab > + Add Endpoint (endpoint URL supplied by the customer)
+    transport: HTTPS POST to the customer endpoint
+    payload_format: application/json
+    docs: https://connect.act-on.com/hc/en-us/articles/20031498483479-Outgoing-Webhook-Management
+  incoming:
+    channels:
+    - All Contacts
+    - Custom Touch Point Behaviors
+    note: Third-party systems POST to an Act-On-issued endpoint URL; Act-On parses the
+      payload and acts on it.
+    docs: https://connect.act-on.com/hc/en-us/articles/16144930131351-Act-On-Outgoing-Incoming-Webhooks-Overview
+security:
+  signature:
+    algorithm: HMAC-SHA256
+    over: the raw payload
+    secret: per-endpoint secret key issued by Act-On
+    evidence: >-
+      "Act-On will send a payload with a signature. Customers can validate the
+      signature using the secret key provided for the endpoint and the payload
+      received by generating an HMAC SHA-256 hash."
+    header_name: unknown
+    note: The header carrying the signature is not named in the public article.
+delivery:
+  retries: unknown
+  ordering: unknown
+  note: Retry and ordering semantics are not published.
+event_count: 19
+events:
+- name: contact.added
+  domain: contacts
+  description: Triggered when a contact is added to Act-On Contacts.
+- name: contact.updated
+  domain: contacts
+  description: Triggered when a contact is updated in Act-On Contacts.
+- name: contact-opt.global-opt-in
+  domain: consent
+  description: A contact opts in to all email communication.
+- name: contact-opt.global-opt-out
+  domain: consent
+  description: A contact opts out from all email communication.
+- name: contact-bounce.hard
+  domain: deliverability
+  description: A contact is added to the hard bounce list.
+- name: contact-bounce.soft
+  domain: deliverability
+  description: A contact joins the soft bounce list.
+- name: contact-email.marked-as-spam
+  domain: deliverability
+  description: A contact marks an email as spam.
+- name: contact-lead-score.upper-threshold-surpassed
+  domain: scoring
+  description: Fires the first time a contact's lead score exceeds a configured value.
+- name: subscription-category.added
+  domain: subscriptions
+  description: A contact adds a new subscription category.
+- name: subscription-category.updated
+  domain: subscriptions
+  description: A contact updates a subscription category.
+- name: subscription-category.deleted
+  domain: subscriptions
+  description: A contact deletes a subscription category.
+- name: subscription-category.opt-in
+  domain: subscriptions
+  description: A contact opts in to a subscription category.
+- name: subscription-category.opt-out
+  domain: subscriptions
+  description: A contact opts out from a subscription category.
+- name: automated-program.started
+  domain: programs
+  description: An Automated Program begins execution.
+- name: automated-program.stopped
+  domain: programs
+  description: An Automated Program ceases execution.
+- name: email-message.scheduled
+  domain: messaging
+  description: A message is scheduled.
+- name: form.submitted
+  domain: forms
+  description: A form submission occurs. Requires additional setup.
+- name: crm.connected
+  domain: integrations
+  description: A user connects to a CRM.
+- name: crm.disconnected
+  domain: integrations
+  description: A user disconnects from a CRM.
+prebuilt_targets:
+- Slack
+- Microsoft Teams
+rest_crosswalk_note: >-
+  This event surface is configured in the Act-On UI, not through the published REST
+  API. None of the 158 operations in openapi/ create, list or delete a webhook
+  endpoint, so an integration cannot self-provision its own event subscriptions —
+  a human has to set them up in Settings first.
+probes:
+- url: https://connect.act-on.com/hc/en-us/articles/20031106799383-Outgoing-Webhook-Event-Types
+  status: 200
+- url: https://connect.act-on.com/hc/en-us/articles/16144930131351-Act-On-Outgoing-Incoming-Webhooks-Overview
+  status: 200

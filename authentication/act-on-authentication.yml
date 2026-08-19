@@ -1,33 +1,119 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: searched
-source: https://developer.act-on.com/reference/api-overview + live probe of https://restapi.actonsoftware.com/token
+source: https://developer.act-on.com/reference/api-overview + openapi/ (4 published
+  documents) + live probes of api.actonsoftware.com, api-eu.actonsoftware.com and restapi.actonsoftware.com
 api: Act-On REST API
 summary: >-
-  Act-On's REST API authenticates with OAuth 2.0. Clients exchange credentials at
-  the token endpoint for a short-lived bearer access_token (sent as
-  Authorization: Bearer <token>) plus a refresh_token used to obtain new access
-  tokens. Three grant types are documented.
-token_endpoint: https://restapi.actonsoftware.com/token
+  Act-On's REST API authenticates with OAuth 2.0. Clients exchange credentials at the
+  token endpoint for a short-lived bearer access_token (sent as
+  Authorization: Bearer <token>) plus a refresh_token. Three grant types are
+  documented. There are no scopes: the published securityScheme declares
+  `flows: {}`, and authorization is governed by the Act-On account's own user
+  permissions rather than by anything the API negotiates.
+token_endpoint: https://api.actonsoftware.com/token
+token_endpoint_regional:
+- {region: US / default, url: 'https://api.actonsoftware.com/token', probe_status: 401}
+- {region: EU, url: 'https://api-eu.actonsoftware.com/token', probe_status: 401, evidence: '"If
+    you are in Europe, you will want to update your base url to api-eu.actonsoftware.com"
+    — API Overview'}
+- {region: alias (live, undocumented), url: 'https://restapi.actonsoftware.com/token',
+  probe_status: 401}
 token_endpoint_probe:
   method: POST
   status: 401
   body: '{"error":"access_denied","error_description":"Unauthorized"}'
-  note: Unauthenticated POST returns an OAuth2 error object, confirming OAuth2.
+  note: Unauthenticated POST returns a standard OAuth 2.0 error object on all three
+    hosts, confirming OAuth 2.0.
+credential_model:
+  client_credentials:
+    what: Client ID + Client Secret
+    scope: identify the INTEGRATION
+    tied_to_account: false
+    evidence: '"These credentials are unique to your integration and are not tied to
+      a specific account."'
+    obtained_via: Act-On UI — Settings > Other Settings > Custom Account Settings >
+      API Access Keys > Generate API Keys; or the Request a Developer Account form
+  account_credentials:
+    what: Act-On username + password
+    scope: select the ACCOUNT being acted on
+    evidence: '"Calls to our authentication endpoints will require both your unique
+      Client ID/Secret and a username/password for the specific account you are
+      accessing."'
+  note: >-
+    Because the account is chosen by the username, the same client credentials can be
+    pointed at a sandbox account or a production account. Nothing in the key itself
+    distinguishes test from live — see sandbox/act-on-sandbox.yml.
 schemes:
 - type: oauth2
   name: oauth2
+  spec_source: openapi/act-on-oauth-openapi.yml
+  scopes_declared: 'none — `flows: {}` in the published securityScheme'
   flows:
-  - grant_type: password
-    doc: https://developer.act-on.com/reference/grant-type-password
-    description: Exchange username and password for an access_token and refresh_token.
-  - grant_type: refresh_token
-    doc: https://developer.act-on.com/reference/grant-type-refresh
-    description: Exchange a refresh_token for a new access_token and refresh_token.
-  - grant_type: authorization_code
-    doc: https://developer.act-on.com/reference/grant-type-code
-    description: Exchange an authorization code for an access_token and refresh_token.
+  - {grant_type: password, doc: 'https://developer.act-on.com/reference/grant-type-password',
+    description: Exchange username and password for an access_token and refresh_token.,
+    in_spec: true}
+  - {grant_type: refresh_token, doc: 'https://developer.act-on.com/reference/grant-type-refresh',
+    description: Exchange a refresh_token for a new access_token and refresh_token.,
+    in_spec: true}
+  - {grant_type: authorization_code, doc: 'https://developer.act-on.com/reference/grant-type-code',
+    description: Exchange an authorization code for an access_token and refresh_token.,
+    in_spec: false, note: Documented on the developer portal but absent from the published
+      oauth OpenAPI document.}
   transmit: Authorization header, Bearer scheme
+- type: apiKey
+  name: sec0
+  in: header
+  header: Authorization
+  bearer_format: bearer
+  spec_source: openapi/act-on-rest-api-openapi.yml, openapi/act-on-raw-body-api-openapi.yml
+  note: >-
+    Declared as `apiKey` in the header rather than `http`/`bearer`. It is not a
+    separate credential — it is the OAuth bearer token modelled loosely by the ReadMe
+    tooling. There is NO API-key-only authentication path on Act-On.
+- type: http
+  scheme: bearer
+  bearerFormat: JWT
+  name: bearerAuth
+  spec_source: openapi/act-on-custom-objects-service-openapi.yml
+  note: The Custom Objects Service models the same bearer token correctly, and states
+    the format is JWT.
+authorization_model:
+  scopes: false
+  permissions: >-
+    Act-On users carry per-capability privileges set on the account (launch, admin,
+    contactLists create/delete/download, content create/delete, programs
+    create/delete, accountWideEmail view/manage) — documented on the Userspecs
+    Overview page as fields on user creation. Those permissions bound what a token
+    obtained for that user can do, but they are not exposed or negotiated through the
+    API and do not appear in any token response.
+  evidence: https://developer.act-on.com/reference/userspecs-overview
+  ref: scopes/act-on-scopes.yml
+rate_limit:
+  auth_calls: 5 per hour, per account
+  consequence: >-
+    The single most important operational fact about Act-On auth. Token acquisition
+    must be cached and refreshed on expiry; an integration that authenticates per
+    request exhausts its hourly budget in the first minute.
+  source: https://developer.act-on.com/reference/api-overview
+  ref: rate-limits/act-on-rate-limits.yml
+discovery:
+  oauth_authorization_server_metadata: absent (RFC 8414 — /.well-known/oauth-authorization-server
+    404 on every host)
+  protected_resource_metadata: absent (RFC 9728 — /.well-known/oauth-protected-resource
+    404 on every host)
+  openid_configuration: absent (404 on every host)
+  note: An agent cannot discover the token endpoint; it must be read out of prose docs.
+  ref: well-known/act-on-well-known.yml
+mtls: false
 docs: https://developer.act-on.com/reference/api-overview
 notes:
-- Developer/API access requires an Act-On developer account (see request-a-developer-account).
-- No API-key-only scheme was documented; OAuth 2.0 is the sole documented mechanism.
+- Developer/API access requires an Act-On developer account (see request-a-developer-account);
+  provisioning takes 24-48 hours.
+- No API-key-only scheme is documented; OAuth 2.0 is the sole mechanism.
+- Token lifetime and refresh_token lifetime are not published.
+probes:
+- {url: 'https://api.actonsoftware.com/token', status: 401}
+- {url: 'https://api-eu.actonsoftware.com/token', status: 401}
+- {url: 'https://restapi.actonsoftware.com/token', status: 401}
+- {url: 'https://api.actonsoftware.com/api/1/message', status: 401}
+- {url: 'https://api.actonsoftware.com/.well-known/openid-configuration', status: 404}

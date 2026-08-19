@@ -1,0 +1,102 @@
+generated: '2026-08-13'
+method: searched
+source: https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
+docs: https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
+api: Act-On platform
+summary: >-
+  Act-On maintains a dated, continuously updated "What's New" changelog in its
+  Act-On Connect help center, archived by year (2022 through 2026) with 174 entries
+  as of this pass. It is a PRODUCT changelog, not an API changelog: entries are
+  written against platform features and carry no API version, no endpoint diff, and
+  no breaking-change flag. Nothing in the feed announces changes to the REST
+  contract, and the published OpenAPI carries info.version "2.0" with no release
+  history of its own.
+scheme:
+  api_versioning: uri-path (/api/1, custom-objects /v1)
+  changelog_versioning: none — entries are dated, not versioned
+  breaking_change_policy: not published
+  feed:
+    rss: null
+    api: https://connect.act-on.com/api/v2/help_center/en-us/categories/13386837131927/articles.json
+    note: >-
+      The help center is Zendesk-backed, so the article list is machine-readable
+      through the Zendesk Help Center API above (unauthenticated, JSON). That is the
+      only structured form of this changelog.
+current_version: '2.0'
+current_version_source: openapi/_original/act-on-api-1.json info.version
+entry_count_total: 174
+window: 2026-01-27 through 2026-07-31 (most recent 12 entries)
+entries:
+- date: '2026-07-31'
+  title: 'Coming Soon: General Availability for the New Outbound Email Experience'
+  kind: announcement
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/42372855687703-Coming-Soon-General-Availability-for-the-New-Outbound-Email-Experience
+- date: '2026-07-13'
+  title: 'Open Beta: Rebuilt Outbound Email Experience'
+  kind: beta
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/41923151617687-Open-Beta-Rebuilt-Outbound-Email-Experience
+- date: '2026-07-10'
+  title: 'Released: Suppress Email Tracking Pixel'
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/41853512772247-Released-Suppress-Email-Tracking-Pixel
+- date: '2026-07-08'
+  title: 'Released: Audience Center Segmentation'
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/41815777268631-Released-Audience-Center-Segmentation
+- date: '2026-07-02'
+  title: 'Analytics: Centralized filter, Left side navigation and Collections'
+  kind: change
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/41676020253719-Analytics-Centralized-filter-Left-side-navigation-and-Collections
+- date: '2026-06-04'
+  title: The New InSite Is Here
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/40983088551703-The-New-InSite-Is-Here
+- date: '2026-05-28'
+  title: 'Coming Soon: A Rebuilt Outbound Email Experience'
+  kind: announcement
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/40812354834327-Coming-Soon-A-Rebuilt-Outbound-Email-Experience
+- date: '2026-04-29'
+  title: 'Released: CRM Sync Results Dashboard'
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/40115771611543-Released-CRM-Sync-Results-Dashboard
+- date: '2026-04-29'
+  title: 'Analytics Updates: New Data, New Visualizations & New Features'
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/40112574216215-Analytics-Updates-New-Data-New-Visualizations-New-Features
+- date: '2026-03-17'
+  title: 'Analytics Updates: Webinar reports, Enhanced chat agent'
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/39109875653783-Analytics-Updates-Webinar-reports-Enhanced-chat-agent
+- date: '2026-02-09'
+  title: 'Beta: Form Submission & Webinar Details in Segmentation 2.0'
+  kind: beta
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/38285902113559-Beta-Form-Submission-Webinar-Details-in-Segmentation-2-0
+- date: '2026-01-27'
+  title: New Website Visitors Analytics
+  kind: addition
+  breaking: false
+  url: https://connect.act-on.com/hc/en-us/articles/37976589005207-New-Website-Visitors-Analytics
+gaps:
+- >-
+  No entry in the 2026 window announces an API change, a new endpoint, a deprecated
+  endpoint or a contract version bump — an integrator watching this feed would not
+  learn that the REST surface moved.
+- >-
+  `breaking:` is recorded as false throughout because Act-On never marks an entry
+  as breaking; that is an absence of a signal, not a guarantee of compatibility.
+probes:
+- url: https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
+  status: 200
+- url: https://connect.act-on.com/api/v2/help_center/en-us/categories/13386837131927/articles.json
+  status: 200

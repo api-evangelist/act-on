@@ -1,24 +1,130 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: derived
-source: https://developer.act-on.com/reference/api-overview + live probes of restapi.actonsoftware.com
+source: openapi/ (4 published documents, 158 operations) + https://developer.act-on.com/reference/api-overview
+  + https://act-on.com/certifications-associations/ + live probes of api.actonsoftware.com
 api: Act-On REST API
 standards:
+- id: openapi
+  conforms: true
+  evidence: >-
+    Act-On publishes four OpenAPI 3.1.0 documents through its ReadMe developer
+    portal — act-on-api-1 (88 paths / 125 operations), Custom Objects Service 3.4.3
+    (17 paths / 24 operations), act-on-api-raw-body (6 paths / 7 operations) and
+    oauth (2 paths / 2 operations). All four declare servers[]
+    https://api.actonsoftware.com. Harvested verbatim to openapi/_original/.
 - id: oauth2
   conforms: true
   evidence: >-
-    Token endpoint https://restapi.actonsoftware.com/token returns OAuth 2.0 error
-    objects; password, refresh_token, and authorization_code grant types documented.
+    POST /token implements RFC 6749 password, refresh_token and authorization_code
+    grants and returns the standard OAuth 2.0 error object
+    {"error":"access_denied","error_description":"Unauthorized"} on an unauthenticated
+    probe. Access tokens are sent as Authorization: Bearer.
+- id: oauth2-scopes
+  conforms: false
+  evidence: >-
+    The published oauth securityScheme declares `flows: {}` — no authorization or
+    token URL, no scope vocabulary. Act-On documents no scopes and no consent screen
+    inventory; authorization is account/user-permission based, set in the Act-On UI.
+- id: oauth2-discovery
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server (RFC 8414) and /.well-known/oauth-protected-resource
+    (RFC 9728) return 404 on api.actonsoftware.com, restapi.actonsoftware.com and developer.act-on.com.
+- id: oidc
+  conforms: false
+  evidence: No OpenID Connect discovery document; /.well-known/openid-configuration
+    404s on every API host.
 - id: rfc9457
   conforms: false
   evidence: >-
-    Error responses use a custom {httpCode,httpMessage,moreInformation} JSON envelope,
-    not application/problem+json.
-- id: oidc
+    No application/problem+json anywhere in the contract. Five incompatible error
+    envelopes are in use — see errors/act-on-problem-types.yml.
+- id: rfc8594
   conforms: false
-  evidence: No OpenID Connect discovery document; /.well-known/openid-configuration returned 404.
+  evidence: >-
+    No Sunset or Deprecation header is documented or observed, and no operation in
+    the published specs sets `deprecated` true.
 - id: pagination
-  conforms: unknown
-  evidence: Not documented in the captured llms.txt index; list endpoints exist but paging params were not verified.
+  conforms: partial
+  evidence: >-
+    Three incompatible schemes. /api/1 uses offset+count and returns
+    {offset,count,totalCount,result}; /ucl/v2 uses page+pageSize; Custom Data uses a
+    PaginationDTO with OFFSET and CURSOR strategies and a nextPageToken. Most list
+    operations declare no paging parameters at all.
 - id: idempotency
+  conforms: false
+  evidence: >-
+    No Idempotency-Key header on any of 158 operations and no mention in the docs.
+    Irreversible sends (POST /api/1/message/{msgid}/send, POST /ete/v1/email/...)
+    have no safe-retry mechanism.
+- id: rate-limit-headers
+  conforms: false
+  evidence: >-
+    Four numeric limits are published in prose (5/s, 30,000/day, 5 auth/hour, 400MB
+    per file) but no RateLimit-*, X-RateLimit-* or Retry-After header was observed on
+    live responses, and no 429 is declared on any operation.
+- id: webhooks
+  conforms: true
+  evidence: >-
+    19 documented outgoing webhook event types with HMAC SHA-256 payload signatures
+    and a per-endpoint secret. See asyncapi/act-on-webhooks.yml.
+- id: asyncapi
+  conforms: false
+  evidence: An event surface exists but Act-On publishes no AsyncAPI document for it.
+- id: json-schema
+  conforms: partial
+  evidence: >-
+    The Custom Objects Service declares 12 named component schemas (HttpErrorResponse,
+    CreateSchemaRequestDTO, FieldDefinitionDTO, PaginationDTO, ...). act-on-api-1
+    declares ZERO named schemas — every request and response body is inlined, so
+    nothing is reusable or $ref-able across its 125 operations.
+- id: mcp
+  conforms: false
+  evidence: No MCP server, hosted or stdio. See mcp/act-on-mcp.yml.
+- id: a2a
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json 404 on every Act-On
+    API host; act-on.com answers 200 with its homepage for all unknown paths (soft
+    404) and serves no agent card.
+- id: llmstxt
+  conforms: true
+  evidence: https://developer.act-on.com/llms.txt returns 200 text/plain with a 161-entry
+    documentation index. No llms-full.txt (404).
+- id: iso27001
+  conforms: true
+  evidence: Named on https://act-on.com/certifications-associations/; certified 2022.
+    No certificate number or auditor published.
+- id: hipaa
+  conforms: true
+  evidence: Named on https://act-on.com/certifications-associations/; Act-On states it
+    maintains compliance with the HIPAA security rule.
+- id: tx-ramp
+  conforms: true
+  evidence: Named on https://act-on.com/certifications-associations/.
+- id: truste
+  conforms: true
+  evidence: Named on https://act-on.com/certifications-associations/ (privacy program
+    seal).
+- id: soc2
   conforms: unknown
-  evidence: No idempotency-key mechanism documented in the captured surface.
+  evidence: >-
+    Act-On's own certifications page does NOT claim SOC 2. Third-party summaries and
+    Act-On blog copy describe the hosting DATA CENTER as SOC 2 compliant — a
+    facility-level claim, not an Act-On attestation. Recorded as unknown rather than
+    credited.
+- id: gdpr
+  conforms: partial
+  evidence: >-
+    Act-On publishes a Data Processing Addendum (https://act-on.com/data-processing-addendum/)
+    and operates an EU API region (api-eu.actonsoftware.com), but publishes no
+    subprocessor list and no data-residency commitment page.
+- id: security-txt
+  conforms: false
+  evidence: /.well-known/security.txt 404s on all four hosts; no vulnerability
+    disclosure policy or bug bounty was found.
+probes:
+- {url: 'https://api.actonsoftware.com/token', status: 401}
+- {url: 'https://api.actonsoftware.com/.well-known/oauth-authorization-server', status: 404}
+- {url: 'https://api.actonsoftware.com/.well-known/agent-card.json', status: 404}
+- {url: 'https://developer.act-on.com/llms.txt', status: 200}
+- {url: 'https://developer.act-on.com/llms-full.txt', status: 404}
+- {url: 'https://act-on.com/certifications-associations/', status: 200}

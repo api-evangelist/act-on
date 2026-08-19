@@ -1,0 +1,215 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/act-on-rest-api-openapi.yml + openapi/act-on-custom-objects-service-openapi.yml
+  + openapi/act-on-raw-body-api-openapi.yml
+api: Act-On REST API
+summary: >-
+  Act-On's object graph is derived from path structure, path parameters and response
+  examples rather than from named schemas — act-on-api-1 declares ZERO reusable
+  component schemas across its 125 operations, so every body is inlined. Only the
+  Custom Objects Service (24 operations) publishes named DTOs. Account is the root of
+  everything; Contact is the hub; Marketing List, Segment and Custom Object Dataset
+  are the three collections a contact can live in, and every asset (message, media,
+  form, page) hangs off Account with reports hanging off the asset.
+derivation_note: >-
+  Relationships below are inferred from REQUIRED PATH PARAMETERS (a child path
+  segment under a parent id is a containment edge) and from id fields appearing in
+  published response examples. Where a relationship is implied by product behaviour
+  but not visible in the contract, it is marked evidence: docs and flagged.
+schema_coverage:
+  act-on-api-1: {named_schemas: 0, operations: 125, note: 'Everything inlined; response
+      schemas are frequently `{"type":"object","properties":{}}` with the real shape
+      shown only in an example string. A generated client gets almost no typing.'}
+  custom-objects-service: {named_schemas: 12, operations: 24, schemas: [HttpErrorResponse,
+      CreateSchemaRequestDTO, FieldDefinitionDTO, RelationshipDefinitionDTO, DataQueryRequestDTO,
+      JoinStrategyDTO, PaginationDTO, SortFieldDTO, CreateDatasetRequestDTO, UpdateDatasetRequestDTO,
+      ValidationRequestDTO, DeleteRecordsRequestDTO]}
+id_conventions:
+  style: mixed
+  observed_prefixes:
+  - {prefix: 'l-', entity: MarketingList, example: l-0001, source: GET /api/1/list response
+      example}
+  - {prefix: 'p-', entity: LandingPage, example: p-0001, source: response example}
+  - {prefix: 'q-', entity: Form, example: q-0002, source: response example}
+  note: >-
+    Prefixed string ids appear on the /api/1 asset resources. Contacts are addressed
+    four different ways — internal id, email address, externalId+objectType, and
+    cookieId — and Custom Data uses accountId + objectId + datasetId triples. Act-On
+    publishes no id-prefix reference table; the three prefixes above are every one
+    that appears in the contract.
+entities:
+- name: Account
+  root: true
+  addressed_by: '{accountId} path parameter on all 46 /ucl/v2 and all 24 /custom-objects/v1
+    operations; inferred from the access token on /api/1'
+  operations: [create-new-account-user, delete-account-users, get-defined-email-senders]
+- name: User
+  parent: Account
+  addressed_by: email address
+  operations: [create-new-account-user, delete-account-user, delete-account-users]
+  note: Created from a `userspecs` JSON blob passed as a FORM parameter, not a JSON
+    body.
+- name: Contact
+  hub: true
+  parent: Account
+  addressed_by: [id, email, 'externalId + objectType', cookieId, 'listid + recordid']
+  fields_observed: [firstName, lastName, middleName, email, company, department, dateOfBirth,
+    businessStreet, businessCity, businessState, businessZip, businessCountry, businessPhone,
+    businessFax, businessWebsite, homePhone, mobilePhone, externalId, legacyRecordId,
+    createdDate, actonPrimaryScore, customFields]
+  operations: [get-contacts-from-the-act-on-contacts-list, add-a-single-contact-to-the-act-on-contacts-list,
+    get-contact-in-the-act-on-contacts-list-by-id, get-contacts-from-the-act-on-contacts-list-by-email-address,
+    get-contact-in-the-act-on-contacts-list-by-externalid-and-object-type, get-contact-in-the-act-on-contacts-list-by-cookie-id,
+    update-contact-in-the-act-on-contacts-list-by-id, delete-contact-in-the-act-on-contacts-list-by-email-address]
+- name: ContactSchema
+  parent: Account
+  note: The field definitions behind Contact. Mutable at runtime.
+  operations: [get-schema, add-field, update-fielddefinition, delete-field]
+- name: MarketingList
+  parent: Account
+  id_prefix: 'l-'
+  operations: [get-list-of-act-on-assets, create-a-new-list, download-list, update-or-merge-a-list,
+    delete-a-list, get-list-upload-status]
+- name: Segment
+  parent: Account
+  addressed_by: '{segmentId}'
+  variants: [rule-based, direct-select]
+  operations: [get-segments, create-a-segment, get-segment-by-id, update-segment-if-its-a-direct-select-segment-only-the-name-can-be-updated,
+    delete-segment, get-contacts-from-a-segment]
+  note: Only Direct Select segments accept explicit membership writes; rule-based
+    segments compute their own membership.
+- name: SuppressionList
+  parent: Account
+  variants: [hardbounce, spamcomplaint, optout, optin]
+  operations: [get-hard-bounce-list, get-spam-complaint-list, get-opt-out-list, update-optout-list,
+    remove-opt-outs-1]
+- name: SubscriptionCategory
+  parent: Account
+  operations: [get-subscription-categories, set-multiple-subscriptions-by-email-address,
+    update-subscription-by-email, get-subscription-opt-outs-by-category]
+- name: Message
+  parent: Account
+  variants: [draft, template, sent]
+  operations: [get-message-list, add-new-template-or-draft-message, update-template-or-draft-message,
+    send-a-message, resend-a-message, delete-a-message, get-message-html-contents]
+- name: Campaign
+  parent: Account
+  operations: [get-campaigns-list, get-campaign]
+- name: Program
+  parent: Account
+  operations: [get-list-of-programs]
+- name: Media
+  parent: Account
+  operations: [get-media-list, add-a-media-file, get-media-file, update-media-file,
+    delete-a-media-object, add-a-media-link]
+- name: Image
+  parent: Account
+  operations: [get-image-list, add-an-image, get-an-image, update-an-image, delete-an-image]
+- name: Logo
+  parent: Account
+  operations: [get-logo-list, add-a-logo, get-a-logo, update-a-logo, delete-a-logo]
+- name: Header
+  parent: Account
+  operations: [get-header-list, add-a-header, get-a-header, update-a-header, delete-a-header]
+- name: Footer
+  parent: Account
+  operations: [get-footer-list, add-a-new-footer, get-a-footer, update-a-footer, delete-a-footer]
+  note: 'Footer id 0 is the account default footer, created at account initiation.'
+- name: Form
+  parent: Account
+  id_prefix: 'q-'
+  operations: [get-form-list, get-classic-form-urls, get-form-report]
+  note: Read-only over the API — no create, update or delete operation is published.
+- name: LandingPage
+  parent: Account
+  id_prefix: 'p-'
+  operations: [get-landing-page-list, get-landing-page, delete-landing-page, get-landing-page-urls,
+    get-landing-page-report]
+  note: Can be listed, read and deleted but NOT created or updated over the API.
+- name: ImportDefinition
+  parent: Account
+  operations: [get-import-definitions, create-an-import-definition, get-import-definition-by-id,
+    update-an-import-definition, delete-import-definition-by-id]
+- name: ImportJob
+  parent: ImportDefinition
+  operations: [import-contacts, get-import-status]
+- name: CustomEvent
+  parent: Account
+  operations: [upload-custom-events, get-upload-custom-event-status]
+- name: CustomObjectSchema
+  parent: Account
+  service: custom-objects
+  operations: [getAllSchemas, createSchema, getSchema, updateSchema, deleteSchema, addFields,
+    updateFields, deleteFields, deleteAllSchemas]
+- name: CustomObjectDataset
+  parent: CustomObjectSchema
+  service: custom-objects
+  operations: [listAllDatasets, listDatasetsBySchemaId, createDataset, describeDataset,
+    updateDataset, deleteDataset, deleteIds]
+- name: IngestJob
+  parent: CustomObjectDataset
+  service: custom-objects
+  operations: [ingestJsonStream, ingestFile, validateFile, getJobStatus, getJobReport]
+- name: Report
+  derived: true
+  subjects: [Message, Media, Form, LandingPage, Contact]
+  operations: [get-message-report, get-message-report-drilldown, get-message-report-by-time-period,
+    get-media-report, get-media-message-report, get-a-media-view-report, get-a-media-timeline-report,
+    get-form-report, get-landing-page-report, get-contact-history-by-id, get-all-scores-for-a-contact-by-id]
+relationships:
+- {from: Account, to: User, type: has_many, via: 'POST /api/1/user (userspecs)', evidence: contract}
+- {from: Account, to: Contact, type: has_many, via: '{accountId} path parameter', evidence: contract}
+- {from: Account, to: MarketingList, type: has_many, via: /api/1/list, evidence: contract}
+- {from: Account, to: Segment, type: has_many, via: '/ucl/v2/{accountId}/segment/',
+  evidence: contract}
+- {from: Account, to: SubscriptionCategory, type: has_many, via: /api/1/subscription/category,
+  evidence: contract}
+- {from: Account, to: CustomObjectSchema, type: has_many, via: '/v1/{accountId}/schema',
+  evidence: contract}
+- {from: MarketingList, to: Contact, type: has_many, via: '/api/1/list/{listid}/record',
+  evidence: contract}
+- {from: Contact, to: MarketingList, type: belongs_to, via: 'listid + recordid addressing',
+  evidence: contract}
+- {from: Segment, to: Contact, type: has_many, via: '/ucl/v2/{accountId}/segment/{segmentId}/contacts',
+  evidence: contract}
+- {from: Contact, to: Segment, type: has_many, via: get-all-segments-that-the-contact-belong-by-id,
+  evidence: contract}
+- {from: Contact, to: SubscriptionCategory, type: has_many, via: set-multiple-subscriptions-by-email-address,
+  evidence: contract}
+- {from: Contact, to: Report, type: has_many, via: '/ucl/v2/{accountId}/contactReport/id/{id}/activity
+    | /scores | /segments', evidence: contract}
+- {from: ContactSchema, to: Contact, type: has_many, via: field definitions govern the
+    contact record, evidence: contract}
+- {from: Message, to: Report, type: has_one, via: '/api/1/message/{id}/report', evidence: contract}
+- {from: Media, to: Report, type: has_many, via: '/api/1/media/{id}/report/{views|messages|timeline}',
+  evidence: contract}
+- {from: Form, to: Report, type: has_one, via: '/api/1/form/{id}/report', evidence: contract}
+- {from: LandingPage, to: Report, type: has_one, via: '/api/1/page/{id}/report', evidence: contract}
+- {from: ImportDefinition, to: ImportJob, type: has_many, via: '/ucl/v2/{accountId}/import/contacts/{importDefinitionId}',
+  evidence: contract}
+- {from: CustomObjectSchema, to: CustomObjectDataset, type: has_many, via: '/v1/{accountId}/data/{objectId}',
+  evidence: contract}
+- {from: CustomObjectDataset, to: IngestJob, type: has_many, via: '/v1/{accountId}/data/status/{jobId}',
+  evidence: contract}
+- {from: CustomObjectDataset, to: Contact, type: joins, via: 'DataQueryRequestDTO +
+    JoinStrategyDTO; select fields prefixed aoc.* (Act-On Contacts) or co.* (custom
+    object)', evidence: contract, note: 'The only explicit cross-entity join in the
+    contract. Relationship cardinality (one-to-one / one-to-many) is declared on the
+    custom object and changes the default duplicate-handling strategy.'}
+- {from: Campaign, to: Message, type: has_many, via: product behaviour, evidence: docs,
+  flagged: 'Not expressed in the contract — GET /api/1/campaigns/{id} publishes no
+    schema linking messages to a campaign.'}
+- {from: Program, to: Message, type: has_many, via: product behaviour, evidence: docs,
+  flagged: 'Only get-list-of-programs is published; program contents are not reachable
+    over the API.'}
+gaps:
+- >-
+  Forms and landing pages are readable but not writable over the API — an agent can
+  report on them and delete a page, but cannot create one.
+- >-
+  Automated Programs are effectively opaque: one list operation, no read of steps, no
+  trigger, no enrolment.
+- >-
+  With zero named schemas on act-on-api-1, the entity shapes above are the best
+  available reconstruction. Act-On publishes no object reference page.
+render: null

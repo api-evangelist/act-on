@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: derived
+source: openapi/act-on-oauth-openapi.yml + https://developer.act-on.com/reference/api-overview
+  + https://developer.act-on.com/reference/userspecs-overview
+api: Act-On REST API
+summary: >-
+  Act-On runs OAuth 2.0 but publishes NO SCOPES. This file records a measured
+  absence, not a scope catalog, and no OAuthScopes pointer is emitted in apis.yml on
+  the strength of it.
+scope_count: 0
+scopes: []
+schemes:
+- name: sec0
+  type: oauth2
+  source: openapi/act-on-oauth-openapi.yml
+  flows: []
+  note: >-
+    The published securityScheme is literally `{"type":"oauth2","flows":{}}` — no
+    authorizationUrl, no tokenUrl, no scopes object. The three grant types Act-On
+    documents (password, refresh_token, authorization_code) are described in prose on
+    the developer portal, not in the security scheme.
+searched:
+- url: https://developer.act-on.com/reference/api-overview
+  status: 200
+  result: no scopes, no permissions reference, no consent screen documentation
+- url: https://developer.act-on.com/llms.txt
+  status: 200
+  result: 161-page documentation index contains no scopes or permissions page
+authorization_instead:
+  model: account user privileges
+  where: set on the Act-On user, in the Act-On UI or at user-creation time
+  documented_at: https://developer.act-on.com/reference/userspecs-overview
+  privileges:
+  - marketingPrivileges:launchPrivilege
+  - marketingPrivileges:admin
+  - contactLists:create
+  - contactLists:delete
+  - contactLists:download
+  - content:create
+  - content:delete
+  - programs:create
+  - programs:delete
+  - accountWideEmail:view
+  - accountWideEmail:manage
+  note: >-
+    These are USER privileges, not OAuth scopes. They bound what a token obtained via
+    the password grant for that user can do, but they are never requested, granted,
+    returned or introspected through the API — a client cannot ask for least
+    privilege, and cannot discover what privilege it actually holds. They are listed
+    here as the real authorization surface, deliberately NOT as scopes.
+consequence: >-
+  There is no downscoping. Any integration authenticating as an administrator holds
+  administrator power over the whole account, including irreversible sends and
+  deletes. See mcp/act-on-mcp.yml agent_safety_notes.

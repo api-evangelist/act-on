@@ -1,0 +1,73 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Act-On raw-body operations — form-encoded RAW_BODY posts
+  version: 1.0.0
+extends: openapi/act-on-raw-body-api-openapi.yml
+x-provenance:
+  generated: '2026-08-13'
+  method: generated
+  source: openapi/act-on-raw-body-api-openapi.yml + https://developer.act-on.com/reference/api-overview
+  note: Additive only. Nothing in the published Act-On contract is removed or rewritten; the verbatim
+    harvest lives in openapi/_original/.
+actions:
+- target: $.info
+  description: Record who enriched this document and where the original came from. The source specs are
+    published by Act-On through its ReadMe developer portal and were harvested verbatim to openapi/_original/.
+  update:
+    x-apievangelist:
+      enriched: '2026-08-13'
+      pass: local-v1
+      harvested-from: https://developer.act-on.com/reference/ (ReadMe-embedded OpenAPI)
+      original: openapi/_original/
+    contact:
+      name: Act-On Developer Support
+      url: https://developer.act-on.com/reference/request-a-developer-account
+    termsOfService: https://act-on.com/terms-of-service/
+- target: $.info
+  description: Act-On's published account-wide API limits (API Overview). They are prose on the docs page
+    and appear nowhere in the contract.
+  update:
+    x-rate-limits:
+      requests-per-second: 5
+      requests-per-day: 30000
+      auth-calls-per-hour: 5
+      max-upload-mb: 400
+      source: https://developer.act-on.com/reference/api-overview
+      response-headers: none — no RateLimit-*, X-RateLimit-* or Retry-After is returned
+      status-on-exhaustion: not documented; no 429 declared on any operation
+- target: $.info
+  description: Act-On documents no idempotency mechanism. Recorded explicitly because several operations
+    (message send, transactional email) are irreversible and externally visible.
+  update:
+    x-idempotency:
+      supported: false
+      header: null
+      note: No Idempotency-Key on any published operation. A retried send is a second send.
+- target: $.info
+  description: Cross-links to the derived artifacts in this repo that carry semantics the contract does
+    not.
+  update:
+    x-artifacts:
+      conventions: conventions/act-on-conventions.yml
+      errors: errors/act-on-problem-types.yml
+      lifecycle: lifecycle/act-on-lifecycle.yml
+      authentication: authentication/act-on-authentication.yml
+      rate-limits: rate-limits/act-on-rate-limits.yml
+      data-model: data-model/act-on-data-model.yml
+      webhooks: asyncapi/act-on-webhooks.yml
+- target: $.servers
+  description: Act-On's API Overview instructs European customers to change the base URL to api-eu.actonsoftware.com.
+    The published servers[] block names only the US host.
+  update:
+  - url: https://api-eu.actonsoftware.com
+    description: EU region — per https://developer.act-on.com/reference/api-overview
+- target: $.info
+  description: Defect observed in the published document, recorded without repair — the original is preserved
+    verbatim in openapi/_original/.
+  update:
+    x-observations:
+      duplicated-path-segment: /ucl/v2/ucl/v2/{accountId}/import/contacts/{importDefinitionId} repeats
+        the /ucl/v2 prefix. The same operation appears correctly as /ucl/v2/{accountId}/import/contacts/{importDefinitionId}
+        in act-on-rest-api. Its operationId is "test-api".
+      note: Bodies are application/x-www-form-urlencoded with a RAW_BODY string field carrying JSON —
+        the reason this document exists as a separate definition.

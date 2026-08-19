@@ -1,0 +1,54 @@
+generated: '2026-08-13'
+method: searched
+source: npm, PyPI, RubyGems, GitHub org + org search, and https://developer.act-on.com/llms.txt
+api: Act-On REST API
+summary: >-
+  Act-On publishes NO first-party client library in any package registry. The
+  developer portal's own documentation index (llms.txt, 161 reference pages) contains
+  no SDK, client-library, quickstart-in-language or code-sample page — every example
+  in the docs is a raw HTTP call. Integrators write against the REST contract
+  directly, or use the no-code connectors (Zapier, Cazoomi) the pricing page lists.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_checked:
+- registry: npm
+  query: 'search: "act-on marketing", "acton api"'
+  result: no first-party Act-On package; every hit belongs to an unrelated project
+  status: 200
+- registry: PyPI
+  query: act-on, acton, actonsoftware, act-on-api
+  result: 'act-on 404, actonsoftware 404, act-on-api 404; "acton" 200 but is an unrelated
+    Python package, not Act-On Software'
+  status: mixed
+- registry: RubyGems
+  query: act_on, acton
+  result: 404 / 404
+  status: 404
+- registry: GitHub
+  query: org act-on, org actonsoftware, org ActOnSoftware
+  result: >-
+    github.com/actonsoftware and github.com/ActOnSoftware do not exist (404).
+    github.com/act-on exists (id 13073207, created 2015) but is NOT Act-On Software's
+    developer org — it has no name, no description, no website, and its only two
+    public repos are 2015 forks of Bower ("bower", "search"). No pointer is emitted
+    for it.
+  status: 200
+- registry: Postman Public API Network
+  query: act-on, acton, "Act-On marketing automation"
+  result: no Act-On-published workspace or collection found
+  status: 200
+cdn_distribution:
+  present: false
+  note: >-
+    Act-On distributes a website-visitor tracking Beacon script to customers from
+    their own Act-On account host; it is a tracking tag, not an API client library,
+    is not versioned in any registry, and is not recorded as a package.
+gaps:
+- >-
+  No SDK means no dated release signal. The strongest abandonment evidence this
+  pipeline collects — a first-party client whose last publish predates its own API —
+  simply does not exist for Act-On, in either direction.
+- >-
+  The published OpenAPI (158 operations across four documents) is complete enough to
+  generate clients from, but Act-On generates none itself.

@@ -1,0 +1,89 @@
+generated: '2026-08-13'
+method: searched
+source: https://act-on.com/certifications-associations/
+api: Act-On platform
+summary: >-
+  Act-On publishes a Certifications & Associations page naming four security and
+  privacy credentials plus its trade-association memberships. It is a marketing-page
+  list, not a trust center: there is no evidence portal, no report request flow, no
+  certificate numbers, no auditor named, no dates, and no subprocessor list on the
+  page.
+trust_center:
+  exists: false
+  url: null
+  note: >-
+    No trust.act-on.com, no security portal, and no /security, /trust,
+    /security-and-compliance or /company/security page — act-on.com answers 200 with
+    the homepage for every unknown path (415,734-byte soft 404), so those 200s are
+    not documents. The certifications page below is the closest published surface.
+certifications_page: https://act-on.com/certifications-associations/
+certifications:
+- name: ISO 27001
+  scope: Act-On Software information security management system
+  status: certified
+  first_earned: '2022'
+  certificate_id: null
+  auditor: null
+  evidence: Named on https://act-on.com/certifications-associations/; announced at
+    https://act-on.com/learn/news-press/act-on-software-obtains-industry-leading-security-certification/
+- name: HIPAA
+  scope: Marketing automation platform; Act-On states it maintains compliance with
+    the HIPAA security rule
+  status: compliant
+  certificate_id: null
+  auditor: null
+  evidence: Named on https://act-on.com/certifications-associations/; announced at
+    https://act-on.com/learn/news-press/act-on-software-hipaa-compliance-iso-27001-certification/
+- name: TX-RAMP
+  scope: Texas state agency cloud services
+  status: certified
+  certificate_id: null
+  evidence: Named on https://act-on.com/certifications-associations/
+- name: TRUSTe
+  scope: Privacy program seal
+  status: certified
+  certificate_id: null
+  evidence: Named on https://act-on.com/certifications-associations/
+claims_not_first_party:
+- name: SOC 2
+  status: unverified
+  note: >-
+    Third-party summaries and Act-On blog copy describe the DATA CENTER that hosts
+    Act-On as SOC 2 compliant. SOC 2 does not appear on Act-On's own Certifications &
+    Associations page as an Act-On attestation, so it is recorded here as a
+    facility-level claim, not an Act-On certification. Not counted above.
+associations:
+- Direct Marketing Association (DMA)
+- Direct Marketing Association UK (DMA UK)
+- Email Sender and Provider Coalition (ESPC)
+- Oregon Entrepreneurs Network (OEN)
+legal:
+  terms_of_service: https://act-on.com/terms-of-service/
+  privacy_policy: https://act-on.com/privacy-policy/
+  data_processing_addendum: https://act-on.com/data-processing-addendum/
+  accessibility_statement: https://act-on.com/accessibility-statement-audioeye-trusted/
+  support_terms_pdf: https://act-on.com/wp-content/uploads/2023/02/Support-Terms-and-Conditions_2023-1.pdf
+gaps:
+- No SOC 2 report or ISO certificate is offered for download or under NDA request.
+- No subprocessor list published at a stable URL.
+- No penetration-test summary or security whitepaper linked from the certifications
+  page.
+- No vulnerability disclosure policy — see security/act-on-vulnerability-disclosure.yml.
+probes:
+- url: https://act-on.com/certifications-associations/
+  status: 200
+- url: https://act-on.com/trust/
+  status: 200
+  note: soft 404 — returns the 415,734-byte homepage
+- url: https://act-on.com/security/
+  status: 200
+  note: soft 404 — returns the 415,734-byte homepage
+- url: https://act-on.com/security-and-compliance/
+  status: 200
+  note: soft 404 — returns the 415,734-byte homepage
+- url: https://act-on.com/terms-of-service/
+  status: 200
+- url: https://act-on.com/privacy-policy/
+  status: 200
+- url: https://act-on.com/data-processing-addendum/
+  status: 200

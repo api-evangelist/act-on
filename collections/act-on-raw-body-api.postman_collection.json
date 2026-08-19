@@ -1,0 +1,1248 @@
+{
+  "item": [
+    {
+      "id": "79c9e5cc-546b-4acd-98c7-dcd3c2487548",
+      "name": "Create new account user",
+      "request": {
+        "name": "Create new account user",
+        "description": {
+          "content": "Create one or more users for an account.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "1",
+            "user"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "\"[{\\n\\\"userType\\\":\\\"Marketing\\\",\\n\\\"email\\\":\\\"name3@act-on.net\\\",\\n\\\"firstName\\\":\\\"fName1\\\",\\n\\\"lastName\\\":\\\"Surname1\\\",\\n\\\"password\\\":\\\"pwxxx123\\\",\\n\\\"title\\\":\\\"Marketing Manager\\\",\\n\\\"phoneNumber\\\":\\\"111-111-1111\\\",\\n\\\"mobileNumber\\\":\\\"111-111-1111\\\",\\n\\\"faxNumber\\\":\\\"111-111-1111\\\",\\n\\\"timeZone\\\":\\\"PT\\\",\\n\\\"sendEmailConfirmation\\\":\\\"Y\\\"\\n}\\n]\""
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "a4b7bd46-0b7e-4a75-a430-1323c9520067",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "user"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "\"[{\\n\\\"userType\\\":\\\"Marketing\\\",\\n\\\"email\\\":\\\"name3@act-on.net\\\",\\n\\\"firstName\\\":\\\"fName1\\\",\\n\\\"lastName\\\":\\\"Surname1\\\",\\n\\\"password\\\":\\\"pwxxx123\\\",\\n\\\"title\\\":\\\"Marketing Manager\\\",\\n\\\"phoneNumber\\\":\\\"111-111-1111\\\",\\n\\\"mobileNumber\\\":\\\"111-111-1111\\\",\\n\\\"faxNumber\\\":\\\"111-111-1111\\\",\\n\\\"timeZone\\\":\\\"PT\\\",\\n\\\"sendEmailConfirmation\\\":\\\"Y\\\"\\n}\\n]\"",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"[\\n    {\\n        \\\"email\\\": \\\"first.last@example.com\\\",\\n        \\\"status\\\": \\\"ok\\\",\\n        \\\"privilegeResponses\\\": []\\n    }\\n]\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "978c255c-a1fc-4f48-aad3-67b50346387b",
+      "name": "Delete account users",
+      "request": {
+        "name": "Delete account users",
+        "description": {
+          "content": "Delete one or more users from an account.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "1",
+            "user",
+            "delete"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "\"[{\\\"email\\\":\\\"name3@act-on.net\\\"}]\""
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "def8d009-ddde-41ec-be20-163bcefbc211",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "user",
+                "delete"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "\"[{\\\"email\\\":\\\"name3@act-on.net\\\"}]\"",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "71e75d1f-5752-46e5-8383-15256d60a549",
+      "name": "Add a contact",
+      "request": {
+        "name": "Add a contact",
+        "description": {
+          "content": "Add a contact record to the specified list.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "1",
+            "list",
+            ":listid",
+            "record"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "listid",
+              "description": "(Required) Specify the list id"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "Use Example Value <p>\"{\\n    \\\"EMAIL\\\": \\\"name@domain.com\\\",\\n    \\\"FIRSTNAME\\\": \\\"John\\\",\\n    \\\"LASTNAME\\\": \\\"Smith\\\"\\n}\"</p>"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "c5a5060d-60c9-4813-9c82-42a3c3db46b4",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "list",
+                ":listid",
+                "record"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listid",
+                  "description": "(Required) Specify the list id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Use Example Value <p>\"{\\n    \\\"EMAIL\\\": \\\"name@domain.com\\\",\\n    \\\"FIRSTNAME\\\": \\\"John\\\",\\n    \\\"LASTNAME\\\": \\\"Smith\\\"\\n}\"</p>",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"status\\\": \\\"success\\\",\\n    \\\"message\\\": \\\"Record inserted\\\",\\n    \\\"id\\\": \\\"l-0001:12\\\",\\n    \\\"contact_id\\\": \\\"l-0001:12\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "cbdea0a1-1bfb-4762-9dc7-1085ffe54cfb",
+          "name": "400",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "list",
+                ":listid",
+                "record"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listid",
+                  "description": "(Required) Specify the list id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Use Example Value <p>\"{\\n    \\\"EMAIL\\\": \\\"name@domain.com\\\",\\n    \\\"FIRSTNAME\\\": \\\"John\\\",\\n    \\\"LASTNAME\\\": \\\"Smith\\\"\\n}\"</p>",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"errorCode\\\": \\\"10010\\\",\\n    \\\"message\\\": \\\"Invalid Column Specified\\\",\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "7b9f3556-7285-4e30-abf3-f60c97d48b49",
+      "name": "Upsert a contact record by email",
+      "request": {
+        "name": "Upsert a contact record by email",
+        "description": {
+          "content": "Update an existing record or insert a new contact record using the email address that you specify using the following logic: <p>If the email address exists in the list, only the first record matching that email address is updated with the data you provide.</p><p>If the email address is not already in the list, a new record is added.</p><p>Please take note that this means that any duplicate records are NOT updated.</p>",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "1",
+            "list",
+            ":listid",
+            "record"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "email",
+              "value": "<string>",
+              "description": "Specify the email address"
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "listid",
+              "description": "(Required) Specify the list id"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "Use Example Value: <p>\"{\\\"EMAIL\\\":\\\"name@domain.com\\\",\\\"FIRSTNAME\\\":\\\"John\\\",\\\"LASTNAME\\\":\\\"Joe\\\"}\" </p>"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "751284de-21dd-4eff-b163-d5c0f73b39e4",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "list",
+                ":listid",
+                "record"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "email",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listid",
+                  "description": "(Required) Specify the list id"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Use Example Value: <p>\"{\\\"EMAIL\\\":\\\"name@domain.com\\\",\\\"FIRSTNAME\\\":\\\"John\\\",\\\"LASTNAME\\\":\\\"Joe\\\"}\" </p>",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "56204e50-56b9-4fcf-acaf-b66ebddbd35b",
+      "name": "Update a contact by record ID",
+      "request": {
+        "name": "Update a contact by record ID",
+        "description": {
+          "content": "Update the specified contact record in the specified list. <p>NOTE: This only updates the identified record in list that you specify.</p>",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "api",
+            "1",
+            "list",
+            ":listid",
+            "record",
+            ":recordid"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "returncontact",
+              "value": "<string>",
+              "description": "Return the data of the updated contact in the response? <p>(\"Y\"/\"N\")</p>"
+            }
+          ],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "listid",
+              "description": "(Required) Specify the list id"
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<string>",
+              "key": "recordid",
+              "description": "(Required) Specify the record id (\"{listid}:{recordid}\")"
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "PUT",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "Use Example Value : <p>\"{\\\"EMAIL\\\":\\\"name@domain.com\\\",\\\"FIRSTNAME\\\":\\\"Joe\\\",\\\"LASTNAME\\\":\\\"Joe\\\"}\"</p>"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "ff85e172-cf50-4e99-a98f-464030515176",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "list",
+                ":listid",
+                "record",
+                ":recordid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "returncontact",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listid",
+                  "description": "(Required) Specify the list id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordid",
+                  "description": "(Required) Specify the record id (\"{listid}:{recordid}\")"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Use Example Value : <p>\"{\\\"EMAIL\\\":\\\"name@domain.com\\\",\\\"FIRSTNAME\\\":\\\"Joe\\\",\\\"LASTNAME\\\":\\\"Joe\\\"}\"</p>",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"status\\\": \\\"success\\\",\\n    \\\"message\\\": \\\"Record updated\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "ddccb361-c7d1-4d28-bccd-58a682050956",
+          "name": "400",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "api",
+                "1",
+                "list",
+                ":listid",
+                "record",
+                ":recordid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "returncontact",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listid",
+                  "description": "(Required) Specify the list id"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "recordid",
+                  "description": "(Required) Specify the record id (\"{listid}:{recordid}\")"
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Use Example Value : <p>\"{\\\"EMAIL\\\":\\\"name@domain.com\\\",\\\"FIRSTNAME\\\":\\\"Joe\\\",\\\"LASTNAME\\\":\\\"Joe\\\"}\"</p>",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"errorCode\\\": 10004,\\n    \\\"message\\\": \\\"Invalid or missing list\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "d78cf205-ebcf-403f-99b6-9b82c887c21d",
+      "name": "Grant-Type Password (Scott)",
+      "request": {
+        "name": "Grant-Type Password (Scott)",
+        "description": {
+          "content": "",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "token"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "da32a755-dced-43fa-8ea6-259bea466aed",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "9d39c93b-8f93-4147-b4ad-c74dcd12e2a9",
+          "name": "400",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {}
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    },
+    {
+      "id": "41d562bc-686b-4273-96d5-9d719455f2ca",
+      "name": "Import Contacts",
+      "request": {
+        "name": "Import Contacts",
+        "description": {
+          "content": "Create one or more users for an account. Each user is sent as an element in a JSON array.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "ucl",
+            "v2",
+            "ucl",
+            "v2",
+            ":accountId",
+            "import",
+            "contacts",
+            ":importDefinitionId"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [],
+          "variable": [
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<integer>",
+              "key": "accountId",
+              "description": "(Required) "
+            },
+            {
+              "disabled": false,
+              "type": "any",
+              "value": "<integer>",
+              "key": "importDefinitionId",
+              "description": "(Required) "
+            }
+          ]
+        },
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "POST",
+        "auth": null,
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "disabled": false,
+              "key": "RAW_BODY",
+              "value": "<string>",
+              "description": "JSON object with the following required keys: userType, email, firstName, lastName, password."
+            },
+            {
+              "disabled": false,
+              "key": "type",
+              "value": "<string>"
+            },
+            {
+              "disabled": false,
+              "key": "expressionEvaluationType",
+              "value": "<string>"
+            },
+            {
+              "disabled": false,
+              "key": "customBooleanExpression",
+              "value": "NULL"
+            },
+            {
+              "disabled": false,
+              "key": "expressions",
+              "value": "[{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}},{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}}]"
+            }
+          ]
+        }
+      },
+      "response": [
+        {
+          "id": "aafdeca2-68b7-4ad8-baa1-817ea5adcabc",
+          "name": "200",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ucl",
+                "v2",
+                "ucl",
+                "v2",
+                ":accountId",
+                "import",
+                "contacts",
+                ":importDefinitionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "importDefinitionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "JSON object with the following required keys: userType, email, firstName, lastName, password.",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expressionEvaluationType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customBooleanExpression",
+                  "value": "NULL"
+                },
+                {
+                  "disabled": false,
+                  "key": "expressions",
+                  "value": "[{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}},{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}}]"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "\"{\\n    \\\"status\\\": \\\"success\\\",\\n    \\\"keyPoint\\\": \\\"blank\\\"\\n}\"",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "f201d1d4-fe59-4df2-be2a-b3980440ce29",
+          "name": "400",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "ucl",
+                "v2",
+                "ucl",
+                "v2",
+                ":accountId",
+                "import",
+                "contacts",
+                ":importDefinitionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "accountId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "importDefinitionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "description": {
+                  "content": "Added as a part of security scheme: apikey",
+                  "type": "text/plain"
+                },
+                "key": "Authorization",
+                "value": "<API Key>"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "JSON object with the following required keys: userType, email, firstName, lastName, password.",
+                    "type": "text/plain"
+                  },
+                  "key": "RAW_BODY",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "expressionEvaluationType",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "customBooleanExpression",
+                  "value": "NULL"
+                },
+                {
+                  "disabled": false,
+                  "key": "expressions",
+                  "value": "[{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}},{\"type\":\"<string>\",\"id\":\"<string>\",\"field\":\"<string>\",\"condition\":{\"type\":\"<string>\",\"comparison\":\"<string>\",\"values\":[\"<string>\",\"<string>\"]}}]"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain"
+            }
+          ],
+          "body": "{boo}",
+          "cookie": [],
+          "_postman_previewlanguage": "text"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.actonsoftware.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a9051d0d-ee96-4e6a-a73e-7220cd4c6e34",
+    "name": "act-on-api-raw-body",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

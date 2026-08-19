@@ -1,0 +1,81 @@
+generated: '2026-08-13'
+method: searched
+source: https://act-on.com/pricing/
+docs: https://act-on.com/pricing/
+summary: >-
+  Act-On publishes two named tiers on its public pricing page. Professional carries
+  a published list price; Enterprise is quote-only. Both are billed on an "Active
+  Contacts" model — the customer pays for contacts actually emailed in a period,
+  not for total database size — and both require an annual contract. There is no
+  free tier and no self-serve credit card checkout; the API is reached through a
+  paid account plus a free developer sandbox requested by form.
+billing_model: active-contacts
+currency: USD
+billing_period: annual contract, quoted monthly
+plan_count: 2
+plans:
+- name: Professional
+  price: 900
+  currency: USD
+  period: month
+  price_note: >-
+    "Starting at $900/month" on the pricing page; also quoted in GBP. Annual
+    contract required.
+  contract: annual
+  quota:
+    metric: active contacts
+    included: null
+    note: >-
+      Act-On does not publish the number of Active Contacts included at the $900
+      entry price; the page states pricing scales with Active Contacts.
+  users: null
+  api_access: true
+  includes:
+  - Marketing automation and automated programs
+  - Email marketing and templates
+  - Website visitor tracking
+  - Lead scoring and segmentation
+  - Landing pages and forms
+  - API, Zapier and Cazoomi integrations
+  - Analytics dashboards
+- name: Enterprise
+  price: null
+  currency: USD
+  period: null
+  price_note: Contact sales — custom quote, no published list price.
+  contract: annual
+  quota:
+    metric: active contacts
+    included: null
+    note: Flexible Active Contact allowance negotiated per contract.
+  users: 2x the Professional user allotment (page states double the user accounts)
+  api_access: true
+  includes:
+  - Everything in Professional
+  - CRM integration (Salesforce, SugarCRM, NetSuite, Microsoft Dynamics)
+  - Data Studio advanced reporting / BI
+  - Account-Based Marketing
+overage:
+  published: false
+  note: >-
+    No overage rate is published. The page describes "variance in Active Contact
+    fees" negotiated with sales rather than a posted per-unit overage.
+free_tier: false
+free_trial:
+  published: false
+  note: >-
+    No self-serve free trial of the platform. A free developer SANDBOX account is
+    provided on API key request — one user, 10 Active Contacts. See
+    sandbox/act-on-sandbox.yml.
+discounts:
+- name: Nonprofit
+  detail: Discount available to 501(c)(3) organizations on request.
+api_limits_by_plan:
+  published: false
+  note: >-
+    The pricing page does not tie API quota to tier. Act-On's API Overview states
+    the same limits for all accounts — 5 calls/sec, 30,000 requests/day, 5 auth
+    calls/hour. See rate-limits/act-on-rate-limits.yml.
+probes:
+- url: https://act-on.com/pricing/
+  status: 200

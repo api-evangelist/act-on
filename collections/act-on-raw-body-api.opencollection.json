@@ -1,0 +1,207 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "act-on-api-raw-body",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Create new account user",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/user",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Create one or more users for an account."
+    },
+    {
+      "info": {
+        "name": "Delete account users",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/user/delete",
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Delete one or more users from an account."
+    },
+    {
+      "info": {
+        "name": "Add a contact",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Add a contact record to the specified list."
+    },
+    {
+      "info": {
+        "name": "Upsert a contact record by email",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "email",
+            "value": "",
+            "type": "query",
+            "description": "Specify the email address"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Update an existing record or insert a new contact record using the email address that you specify using the following logic: <p>If the email address exists in the list, only the first record matching that email address is updated with the data you provide.</p><p>If the email address is not already in the list, a new record is added.</p><p>Please take note that this means that any duplicate records are NOT updated.</p>"
+    },
+    {
+      "info": {
+        "name": "Update a contact by record ID",
+        "type": "http"
+      },
+      "http": {
+        "method": "PUT",
+        "url": "https://api.actonsoftware.com/api/1/list/:listid/record/:recordid",
+        "params": [
+          {
+            "name": "listid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the list id"
+          },
+          {
+            "name": "recordid",
+            "value": "",
+            "type": "path",
+            "description": "Specify the record id (\"{listid}:{recordid}\")"
+          },
+          {
+            "name": "returncontact",
+            "value": "",
+            "type": "query",
+            "description": "Return the data of the updated contact in the response? <p>(\"Y\"/\"N\")</p>"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Update the specified contact record in the specified list. <p>NOTE: This only updates the identified record in list that you specify.</p>"
+    },
+    {
+      "info": {
+        "name": "Grant-Type Password (Scott)",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/token"
+      },
+      "docs": "Grant-Type Password (Scott)"
+    },
+    {
+      "info": {
+        "name": "Import Contacts",
+        "type": "http"
+      },
+      "http": {
+        "method": "POST",
+        "url": "https://api.actonsoftware.com/ucl/v2/ucl/v2/:accountId/import/contacts/:importDefinitionId",
+        "params": [
+          {
+            "name": "accountId",
+            "value": "",
+            "type": "path"
+          },
+          {
+            "name": "importDefinitionId",
+            "value": "",
+            "type": "path"
+          }
+        ],
+        "body": {
+          "type": "form-urlencoded",
+          "data": [
+            {
+              "name": "RAW_BODY",
+              "value": ""
+            },
+            {
+              "name": "filter",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "docs": "Create one or more users for an account. Each user is sent as an element in a JSON array."
+    }
+  ],
+  "bundled": true
+}

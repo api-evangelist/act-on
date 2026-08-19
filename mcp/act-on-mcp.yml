@@ -1,56 +1,201 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: derived
 status: candidate
-source: derived from https://developer.act-on.com/llms.txt operation index
+source: openapi/act-on-rest-api-openapi.yml + openapi/act-on-custom-objects-service-openapi.yml
+  + openapi/act-on-raw-body-api-openapi.yml
 api: Act-On REST API
 official_server: none-found
 note: >-
-  No official hosted/remote Act-On MCP server was found. The tools below are a
-  CANDIDATE grouping derived from the documented REST operations in llms.txt; they
-  are not published by Act-On. Grounding for a future generated server.
+  Act-On publishes NO MCP server — hosted, remote or stdio. Nothing was found in the
+  developer portal, the documentation index (llms.txt, 161 pages), npm, PyPI,
+  RubyGems, or any Act-On GitHub org, and no /mcp endpoint was probed or guessed on
+  any Act-On host. The tools below are a CANDIDATE grouping DERIVED from the 158
+  operations in Act-On's own published OpenAPI documents. Every `rest:` value is a
+  real operationId grepped from those specs; nothing here is shipped by Act-On.
+  This round upgrades the previous derivation: it was grounded in llms.txt page
+  titles, it is now grounded in the contract itself, so each candidate tool inherits
+  a real parameter set and request body.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: derived
+  checked: '2026-08-13'
+  note: >-
+    mode:none — nobody ships a server, so there is nothing an agent can reach. If one
+    were built it would need the OAuth 2.0 password or authorization_code grant
+    against https://api.actonsoftware.com/token, and would have to budget against
+    Act-On's published 5-authentication-calls-per-hour ceiling by caching the
+    access_token.
+searched:
+- surface: https://developer.act-on.com/llms.txt
+  status: 200
+  result: no MCP page, no tool list, no server reference
+- surface: npm / PyPI / RubyGems
+  result: no Act-On MCP package
+- surface: github.com/actonsoftware, github.com/ActOnSoftware
+  status: 404
+  result: orgs do not exist
 transport: candidate
+auth_model:
+  scheme: oauth2
+  grants: [password, refresh_token, authorization_code]
+  token_endpoint: https://api.actonsoftware.com/token
+  ref: authentication/act-on-authentication.yml
+account_scoping:
+  note: >-
+    Every /ucl/v2 and /v1 custom-objects operation takes an {accountId} PATH
+    parameter, so a server would need the account id bound at session level, not
+    guessed per call. The /api/1 operations infer the account from the token.
 tool_groups:
 - name: contacts
+  source_spec: openapi/act-on-rest-api-openapi.yml
   tools:
-  - add_contact
-  - upsert_contact_by_email
-  - get_contact_record
-  - update_contact_by_record_id
-  - delete_contact
-  - get_contact_history_and_score
+  - {tool: get_contacts, rest: [get-contacts-from-the-act-on-contacts-list]}
+  - {tool: get_contacts_by_fields, rest: [get-contacts-from-the-act-on-contacts-list-specifying-the-fields-to-be-returned]}
+  - {tool: add_contact, rest: [add-a-single-contact-to-the-act-on-contacts-list, add-a-contact]}
+  - {tool: get_contact_by_email, rest: [get-contacts-from-the-act-on-contacts-list-by-email-address]}
+  - {tool: get_contact_by_id, rest: [get-contact-in-the-act-on-contacts-list-by-id]}
+  - {tool: get_contact_by_external_id, rest: [get-contact-in-the-act-on-contacts-list-by-externalid-and-object-type]}
+  - {tool: get_contact_by_cookie_id, rest: [get-contact-in-the-act-on-contacts-list-by-cookie-id]}
+  - {tool: update_contact_by_email, rest: [update-contacts-in-the-act-on-contacts-list-by-email-address]}
+  - {tool: update_contact_by_id, rest: [update-contact-in-the-act-on-contacts-list-by-id]}
+  - {tool: update_contact_by_external_id, rest: [update-contact-in-the-act-on-contacts-list-by-externalid-objecttype-fallback-to-email-match]}
+  - {tool: upsert_contact_by_email, rest: [upsert-a-contact-record-by-email]}
+  - {tool: delete_contact_by_email, rest: [delete-contact-in-the-act-on-contacts-list-by-email-address]}
+  - {tool: delete_contacts_by_ids, rest: [delete-contacts-in-the-act-on-contacts-list-by-ids]}
+  - {tool: get_contact_activity, rest: [get-contact-history-by-id, get-contact-history-by-email-address]}
+  - {tool: get_contact_scores, rest: [get-all-scores-for-a-contact-by-id, get-all-scores-for-a-contact-by-email-address]}
+  - {tool: get_contact_segments, rest: [get-all-segments-that-the-contact-belong-by-id, get-all-segments-that-the-contact-belong-by-email-address]}
 - name: lists
+  source_spec: openapi/act-on-rest-api-openapi.yml
   tools:
-  - create_list
-  - download_list
-  - update_or_merge_list
-  - delete_list
-  - get_list_upload_status
+  - {tool: get_lists, rest: [get-list-of-act-on-assets]}
+  - {tool: create_list, rest: [create-a-new-list]}
+  - {tool: download_list, rest: [download-list]}
+  - {tool: update_or_merge_list, rest: [update-or-merge-a-list]}
+  - {tool: delete_list, rest: [delete-a-list]}
+  - {tool: get_list_upload_status, rest: [get-list-upload-status]}
+  - {tool: get_rejected_upload_records, rest: [get-rejected-records-from-an-upload]}
+  - {tool: get_hard_bounce_list, rest: [get-hard-bounce-list]}
+  - {tool: get_spam_complaint_list, rest: [get-spam-complaint-list]}
+  - {tool: get_opt_out_list, rest: [get-opt-out-list]}
+  - {tool: update_opt_out_list, rest: [update-optout-list, remove-opt-outs-1]}
 - name: segments
+  source_spec: openapi/act-on-rest-api-openapi.yml
   tools:
-  - get_segments
-  - create_segment
-  - get_segment_by_id
-  - update_segment
-  - delete_segment
-  - get_contacts_from_segment
-- name: messages_campaigns
+  - {tool: get_segments, rest: [get-segments]}
+  - {tool: create_segment, rest: [create-a-segment]}
+  - {tool: get_segment, rest: [get-segment-by-id]}
+  - {tool: update_segment, rest: [update-segment-if-its-a-direct-select-segment-only-the-name-can-be-updated]}
+  - {tool: delete_segment, rest: [delete-segment]}
+  - {tool: get_segment_contacts, rest: [get-contacts-from-a-segment]}
+  - {tool: add_contacts_to_segment, rest: [add-contacts-to-a-direct-select-segment, add-contacts-to-a-direct-select-segment-by-external-id]}
+  - {tool: remove_contacts_from_segment, rest: [remove-contacts-from-direct-select-segment, remove-contacts-from-direct-select-segment-by-email, remove-contacts-from-direct-select-segment-by-external-id]}
+- name: messages
+  source_spec: openapi/act-on-rest-api-openapi.yml
   tools:
-  - get_message_list
-  - add_template_or_draft_message
-  - send_message
-  - resend_message
-  - delete_message
-  - get_campaigns_list
+  - {tool: get_message_list, rest: [get-message-list]}
+  - {tool: create_draft_or_template, rest: [add-new-template-or-draft-message]}
+  - {tool: update_draft_or_template, rest: [update-template-or-draft-message]}
+  - {tool: send_message, rest: [send-a-message]}
+  - {tool: resend_message, rest: [resend-a-message]}
+  - {tool: delete_message, rest: [delete-a-message]}
+  - {tool: get_message_html, rest: [get-message-html-contents]}
+  - {tool: send_transactional_email, rest: [ete-request]}
+- name: campaigns_programs
+  source_spec: openapi/act-on-rest-api-openapi.yml
+  tools:
+  - {tool: get_campaigns, rest: [get-campaigns-list]}
+  - {tool: get_campaign, rest: [get-campaign]}
+  - {tool: get_programs, rest: [get-list-of-programs]}
 - name: reporting
+  source_spec: openapi/act-on-rest-api-openapi.yml
   tools:
-  - get_message_report
-  - get_media_report
-  - get_form_report
-  - get_landing_page_report
+  - {tool: get_message_report, rest: [get-message-report]}
+  - {tool: get_message_report_drilldown, rest: [get-message-report-drilldown]}
+  - {tool: get_message_rollup_report, rest: [get-message-report-by-time-period]}
+  - {tool: get_media_report, rest: [get-media-report, get-media-message-report, get-a-media-view-report,
+      get-a-media-timeline-report]}
+  - {tool: get_form_report, rest: [get-form-report]}
+  - {tool: get_landing_page_report, rest: [get-landing-page-report]}
+  - {tool: get_seo_report, rest: [get-a-new-seo-report]}
+- name: content_assets
+  source_spec: openapi/act-on-rest-api-openapi.yml
+  tools:
+  - {tool: list_media, rest: [get-media-list]}
+  - {tool: add_media_file, rest: [add-a-media-file]}
+  - {tool: get_media_file, rest: [get-media-file]}
+  - {tool: update_media_file, rest: [update-media-file]}
+  - {tool: delete_media, rest: [delete-a-media-object]}
+  - {tool: list_images, rest: [get-image-list]}
+  - {tool: list_logos, rest: [get-logo-list]}
+  - {tool: list_headers, rest: [get-header-list]}
+  - {tool: list_footers, rest: [get-footer-list]}
+  - {tool: list_forms, rest: [get-form-list]}
+  - {tool: get_form_urls, rest: [get-classic-form-urls]}
+  - {tool: list_landing_pages, rest: [get-landing-page-list]}
+  - {tool: get_landing_page, rest: [get-landing-page]}
+  - {tool: get_landing_page_urls, rest: [get-landing-page-urls]}
+- name: subscriptions
+  source_spec: openapi/act-on-rest-api-openapi.yml
+  tools:
+  - {tool: get_subscription_categories, rest: [get-subscription-categories]}
+  - {tool: set_subscriptions_by_email, rest: [set-multiple-subscriptions-by-email-address]}
+  - {tool: update_subscription_optout, rest: [update-subscription-by-email]}
+  - {tool: get_category_optouts, rest: [get-subscription-opt-outs-by-category]}
+- name: imports
+  source_spec: openapi/act-on-rest-api-openapi.yml
+  tools:
+  - {tool: get_import_definitions, rest: [get-import-definitions]}
+  - {tool: create_import_definition, rest: [create-an-import-definition]}
+  - {tool: get_import_definition, rest: [get-import-definition-by-id]}
+  - {tool: update_import_definition, rest: [update-an-import-definition]}
+  - {tool: delete_import_definition, rest: [delete-import-definition-by-id]}
+  - {tool: import_contacts, rest: [import-contacts]}
+  - {tool: get_import_status, rest: [get-import-status]}
 - name: custom_data
+  source_spec: openapi/act-on-custom-objects-service-openapi.yml
   tools:
-  - query_data
-  - create_dataset
-  - ingest_json_stream
-  - ingest_file
-  - get_job_status
+  - {tool: get_all_schemas, rest: [getAllSchemas]}
+  - {tool: create_schema, rest: [createSchema]}
+  - {tool: get_schema, rest: [getSchema]}
+  - {tool: update_schema, rest: [updateSchema]}
+  - {tool: delete_schema, rest: [deleteSchema]}
+  - {tool: add_fields, rest: [addFields]}
+  - {tool: update_fields, rest: [updateFields]}
+  - {tool: delete_fields, rest: [deleteFields]}
+  - {tool: list_datasets, rest: [listAllDatasets, listDatasetsBySchemaId]}
+  - {tool: create_dataset, rest: [createDataset]}
+  - {tool: describe_dataset, rest: [describeDataset]}
+  - {tool: update_dataset, rest: [updateDataset]}
+  - {tool: delete_dataset, rest: [deleteDataset]}
+  - {tool: query_data, rest: [queryData]}
+  - {tool: ingest_json_stream, rest: [ingestJsonStream]}
+  - {tool: ingest_file, rest: [ingestFile]}
+  - {tool: validate_file, rest: [validateFile]}
+  - {tool: delete_records, rest: [deleteIds]}
+  - {tool: get_job_status, rest: [getJobStatus]}
+  - {tool: get_job_report, rest: [getJobReport]}
+- name: account
+  source_spec: openapi/act-on-rest-api-openapi.yml + openapi/act-on-raw-body-api-openapi.yml
+  tools:
+  - {tool: create_users, rest: [create-new-account-user]}
+  - {tool: delete_users, rest: [delete-account-users, delete-account-user]}
+  - {tool: get_email_senders, rest: [get-defined-email-senders]}
+  - {tool: upload_custom_events, rest: [upload-custom-events]}
+  - {tool: get_custom_event_status, rest: [get-upload-custom-event-status]}
+agent_safety_notes:
+- >-
+  send_message, resend_message and send_transactional_email are irreversible and
+  externally visible — they put mail in inboxes. No dry-run or preview mode exists on
+  those operations, and no idempotency key is supported anywhere in the contract, so
+  a retried send is a second send.
+- >-
+  delete_list, delete_segment and delete_records destroy customer data with no
+  documented soft-delete or undo.
+- >-
+  update_opt_out_list and set_subscriptions_by_email write consent state. Getting
+  these wrong is a compliance event, not a bug.

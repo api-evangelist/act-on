@@ -1,20 +1,81 @@
-generated: '2026-07-17'
+generated: '2026-08-13'
 method: searched
-source: live probes of restapi.actonsoftware.com + https://status.act-on.com
+source: https://developer.act-on.com/reference/api-overview + https://developer.act-on.com/reference/overview
+  + https://status.act-on.com + openapi/ + https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
 api: Act-On REST API
+summary: >-
+  Act-On versions in the URI path and runs four differently-versioned surfaces side
+  by side. It publishes no deprecation policy, sets no Sunset or Deprecation header,
+  and marks not a single operation deprecated across 158 published operations — while
+  simultaneously shipping a "legacy" generation (/api/1) alongside its replacement
+  (/ucl/v2) with no stated end date for either. A consumer has no published signal
+  telling them which surface to build on or when the old one goes away.
 versioning:
   style: uri-path
-  current: '1'
-  base_path: /api/1
-  evidence: Live endpoints resolve under /api/1 (POST /api/1/ping -> 401).
+  header_negotiation: none
+  surfaces:
+  - {path_prefix: /api/1, name: Act-On REST API v1, info_version: '2.0', operations: 125,
+    status: in-service, note: 'The original form-encoded API. Still fully documented
+      and not marked deprecated, but its contact/list functions overlap with /ucl/v2.'}
+  - {path_prefix: /ucl/v2, name: Act-On Contacts (UCL) v2, info_version: '2.0', operations: 46,
+    status: in-service, note: 'The newer JSON contact/segment/import layer. Requires
+      {accountId} in the path.'}
+  - {path_prefix: /ete/v1, name: Transactional email, operations: 1, status: in-service,
+    note: Requires a separate transactional subscription on the account.}
+  - {path_prefix: /custom-objects/v1, name: Custom Objects Service, info_version: 3.4.3,
+    operations: 24, status: beta, note: 'Act-On''s own docs say so: "Endpoints in this
+      category are currently in BETA and are only available on request." Enrollment
+      is by form.'}
+beta_program:
+  present: true
+  surface: Custom Data / Custom Objects Service
+  access: request-only, via an enrollment form
+  url: https://developer.act-on.com/reference/overview
+  evidence: '"Endpoints in this category are currently in BETA and are only available
+    on request. If you''re interested in enrolling in this beta program and would like
+    to test these endpoints, please fill out this form."'
+deprecation:
+  policy: not published
+  sunset_header: not observed
+  deprecation_header: not observed
+  rfc8594: false
+  deprecated_operations: []
+  deprecated_fields:
+  - {spec: openapi/act-on-custom-objects-service-openapi.yml, schema: DataQueryRequestDTO,
+    fields: [page, size], note: 'Marked `deprecated: true` in the schema with "DEPRECATED:
+      Use pagination object instead." The only deprecation marker anywhere in Act-On''s
+      published contract, and it is at field level, not operation level.'}
+  note: >-
+    Zero of 158 operations carry `deprecated: true`. No sunset dates, no migration
+    guide from /api/1 to /ucl/v2, and no changelog entry in the 2026 window announces
+    any API change at all.
 status_page:
   url: https://status.act-on.com
   vendor: Atlassian Statuspage
-  evidence: https://status.act-on.com/api/v2/status.json returns page id 2n7d73n45n13 name "Act-On Software".
-deprecation:
-  policy: unknown
-  sunset_header: not observed
-  note: No published deprecation/sunset (RFC 8594) policy located in the captured surface.
+  machine_readable: https://status.act-on.com/api/v2/status.json
+  history: https://status.act-on.com/history
+  evidence: https://status.act-on.com/api/v2/status.json returns 200 with page id 2n7d73n45n13,
+    name "Act-On Software"
+  probe: {url: 'https://status.act-on.com/api/v2/status.json', status: 200}
+changelog:
+  url: https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New
+  cadence: continuous, dated, archived by year 2022-2026
+  entry_count: 174
+  api_scoped: false
+  ref: changelog/act-on-changelog.yml
 sla:
-  published: unknown
-deprecated_operations: []
+  published: false
+  note: >-
+    No public uptime SLA. Support Terms and Conditions are published as a PDF
+    (https://act-on.com/wp-content/uploads/2023/02/Support-Terms-and-Conditions_2023-1.pdf);
+    availability commitments appear only in the negotiated contract.
+support:
+  packages: https://act-on.com/product/services/support-packages/
+  help_center: https://connect.act-on.com/hc/en-us
+  developer_request: https://developer.act-on.com/reference/request-a-developer-account
+probes:
+- {url: 'https://status.act-on.com/api/v2/status.json', status: 200}
+- {url: 'https://status.act-on.com/history', status: 200}
+- {url: 'https://developer.act-on.com/reference/overview', status: 200}
+- {url: 'https://developer.act-on.com/reference/api-overview', status: 200}
+- {url: 'https://connect.act-on.com/hc/en-us/categories/13386837131927-What-s-New', status: 200}
