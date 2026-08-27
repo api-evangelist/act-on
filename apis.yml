@@ -64,21 +64,28 @@ tags_raw:
 - Webhooks
 - API
 apis:
-- name: Act-On REST API
+- name: Act-On Outgoing Webhooks
   description: >-
-    OAuth 2.0 REST API for Act-On marketing automation — contacts and lists,
-    segments, email messages and campaigns, media and creative assets, landing
-    pages and forms, subscriptions, imports, custom events, and reporting. Covers
-    the /api/1, /ucl/v2 and /ete/v1 path generations, 134 operations in total.
+    Outgoing webhook event surface — nineteen documented event types across contacts, consent, deliverability,
+    lead scoring, subscriptions, automated programs, messaging, forms and CRM connections. Payloads are
+    JSON, POSTed to a customer-configured endpoint and signed with HMAC SHA-256 using a per-endpoint secret.
+    Endpoints are configured in the Act-On UI, not through the REST API.
+  humanURL: https://connect.act-on.com/hc/en-us/sections/20585868662935-Outgoing-Incoming-Webhooks
+  properties:
+  - type: Webhooks
+    url: asyncapi/act-on-webhooks.yml
+  - type: Documentation
+    url: https://connect.act-on.com/hc/en-us/articles/20031106799383-Outgoing-Webhook-Event-Types
+- aid: act-on:act-on-account-api
+  name: Act-On Account API
+  description: The Account API from Act-On — 1 operation(s) for account.
   humanURL: https://developer.act-on.com/reference/api-overview
   baseURL: https://api.actonsoftware.com
+  tags:
+  - Account
   properties:
   - type: OpenAPI
-    url: openapi/act-on-rest-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/act-on-raw-body-api-openapi.yml
-  - type: OpenAPI
-    url: openapi/act-on-oauth-openapi.yml
+    url: openapi/act-on-account-api-openapi.yml
   - type: Documentation
     url: https://developer.act-on.com
   - type: APIReference
@@ -93,51 +100,697 @@ apis:
     url: conventions/act-on-conventions.yml
   - type: DataModel
     url: data-model/act-on-data-model.yml
-  - type: Overlay
-    url: overlays/act-on-rest-api-overlay.yaml
-  - type: Overlay
-    url: overlays/act-on-raw-body-api-overlay.yaml
-  - type: Overlay
-    url: overlays/act-on-oauth-overlay.yaml
   - type: LLMsTxt
     url: llms/act-on-llms.txt
-- name: Act-On Custom Objects Service
-  description: >-
-    Separately versioned (3.4.3) Custom Data service for defining custom object
-    schemas and fields, creating datasets, validating and ingesting CSV/JSON data,
-    polling ingest jobs, and querying custom data joined against Act-On Contacts
-    with offset or cursor pagination. Act-On states these endpoints are in BETA and
-    available on request only.
-  humanURL: https://developer.act-on.com/reference/overview
-  baseURL: https://api.actonsoftware.com/custom-objects
-  properties:
-  - type: OpenAPI
-    url: openapi/act-on-custom-objects-service-openapi.yml
   - type: Documentation
     url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-campaigns-api
+  name: Act-On Campaigns API
+  description: The Campaigns API from Act-On — 2 operation(s) for campaigns.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
   - type: Authentication
     url: authentication/act-on-authentication.yml
-  - type: Overlay
-    url: overlays/act-on-custom-objects-service-overlay.yaml
-- name: Act-On Outgoing Webhooks
-  description: >-
-    Outgoing webhook event surface — nineteen documented event types across
-    contacts, consent, deliverability, lead scoring, subscriptions, automated
-    programs, messaging, forms and CRM connections. Payloads are JSON, POSTed to a
-    customer-configured endpoint and signed with HMAC SHA-256 using a per-endpoint
-    secret. Endpoints are configured in the Act-On UI, not through the REST API.
-  humanURL: https://connect.act-on.com/hc/en-us/sections/20585868662935-Outgoing-Incoming-Webhooks
-  properties:
-  - type: Webhooks
-    url: asyncapi/act-on-webhooks.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
   - type: Documentation
-    url: https://connect.act-on.com/hc/en-us/articles/20031106799383-Outgoing-Webhook-Event-Types
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-custom-data-dataset-api-api
+  name: Act-On Custom Data Dataset API
+  description: Custom Data Dataset API
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Custom Data Dataset API
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-custom-data-dataset-api-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-custom-data-query-api-api
+  name: Act-On Custom Data Query API
+  description: Custom Data Query API
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Custom Data Query API
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-custom-data-query-api-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-custom-data-schema-api-api
+  name: Act-On Custom Data Schema API
+  description: Custom Data Schema API
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Custom Data Schema API
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-custom-data-schema-api-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-customevents-api
+  name: Act-On Customevents API
+  description: The Customevents API from Act-On — 2 operation(s) for customevents.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Customevents
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-customevents-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-ete-api
+  name: Act-On Ete API
+  description: The Ete API from Act-On — 1 operation(s) for ete.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Ete
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-ete-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-footer-api
+  name: Act-On Footer API
+  description: The Footer API from Act-On — 3 operation(s) for footer.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Footer
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-footer-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-form-api
+  name: Act-On Form API
+  description: The Form API from Act-On — 3 operation(s) for form.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Form
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-form-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-header-api
+  name: Act-On Header API
+  description: The Header API from Act-On — 3 operation(s) for header.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Header
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-header-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-image-api
+  name: Act-On Image API
+  description: The Image API from Act-On — 2 operation(s) for image.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Image
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-image-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-list-api
+  name: Act-On List API
+  description: The List API from Act-On — 13 operation(s) for list.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - List
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-list-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-logo-api
+  name: Act-On Logo API
+  description: The Logo API from Act-On — 2 operation(s) for logo.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Logo
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-logo-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-media-api
+  name: Act-On Media API
+  description: The Media API from Act-On — 7 operation(s) for media.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Media
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-media-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-medialink-api
+  name: Act-On Medialink API
+  description: The Medialink API from Act-On — 1 operation(s) for medialink.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Medialink
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-medialink-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-message-api
+  name: Act-On Message API
+  description: The Message API from Act-On — 8 operation(s) for message.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Message
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-message-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-page-api
+  name: Act-On Page API
+  description: The Page API from Act-On — 4 operation(s) for page.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Page
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-page-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-program-api
+  name: Act-On Program API
+  description: The Program API from Act-On — 1 operation(s) for program.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Program
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-program-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-seokeywords-api
+  name: Act-On Seokeywords API
+  description: The Seokeywords API from Act-On — 1 operation(s) for seokeywords.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Seokeywords
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-seokeywords-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-seoreport-api
+  name: Act-On Seoreport API
+  description: The Seoreport API from Act-On — 1 operation(s) for seoreport.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Seoreport
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-seoreport-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-subscription-api
+  name: Act-On Subscription API
+  description: The Subscription API from Act-On — 3 operation(s) for subscription.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Subscription
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-subscription-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-token-api
+  name: Act-On Token API
+  description: The Token API from Act-On — 1 operation(s) for token.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Token
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-token-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-token-grant-type-password-api
+  name: Act-On Token?grant Type=password API
+  description: >-
+    The Token?grant Type=password API from Act-On — 1 operation(s) for token?grant type=password.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Token?grant Type=password
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-token-grant-type-password-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-ucl-api
+  name: Act-On Ucl API
+  description: The Ucl API from Act-On — 30 operation(s) for ucl.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Ucl
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-ucl-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-user-api
+  name: Act-On User API
+  description: The User API from Act-On — 3 operation(s) for user.
+  humanURL: https://developer.act-on.com/reference/api-overview
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - User
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-user-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/act-on-rest-api-overlay.yaml
+- type: Overlay
+  url: overlays/act-on-raw-body-api-overlay.yaml
+- type: Overlay
+  url: overlays/act-on-oauth-overlay.yaml
+- type: Overlay
+  url: overlays/act-on-custom-objects-service-overlay.yaml
 - type: Website
   url: https://act-on.com
 - type: DeveloperPortal
