@@ -1,0 +1,112 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Customevents API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Customevents
+paths:
+  /api/1/customevents:
+    post:
+      summary: Upload custom events
+      description: Upload a set of custom events with a simple HTTP POST to the Fact API.
+      operationId: upload-custom-events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                destination:
+                  type: string
+                  description: Specify a unique name for the custom event.
+                fieldseparator:
+                  type: string
+                  description: Set field separator character ("TAB", "COMMA", "SEMICOLON", "SPACE" )
+                quotecharacter:
+                  type: string
+                  description: Set field quote character ("NONE", "SINGLE_QUOTE", "DOUBLE_QUOTE")
+                firstrow:
+                  type: string
+                  description: Does the first row of the source data contain a heading? ("Y","N")
+                customeventaction:
+                  type: string
+                  description: Set the event type of the custom event. ("CUSTOM_DOWNLOADED", "CUSTOM_REGISTERED", "CUSTOM_ATTENDED", "CUSTOM_GENERAL", "CUSTOM_GENERAL1", "CUSTOM_GENERAL2", "CUSTOM_GENERAL3", "CUSTOM_GENERAL4", "CUSTOM_GENERAL5")
+                emailcolidx:
+                  type: string
+                  description: Column index (zero-based) for email in the source file.
+                datecolidx:
+                  type: string
+                  description: Column index (zero-based) for the date for the custom event in the source file.
+                titlecolidx:
+                  type: string
+                  description: Column index (zero-based) for the event title for the custom event in the source file.
+                dateformat:
+                  type: string
+                  description: 'dateformat Examples: <p>   SLASH FORMATS: MM/dd/yyyy (01/25/2023) dd/MM/yyyy (25/01/2023) MM/dd/yy (01/25/2023) dd/MM/yy (01/25/23) yyyy/MM/dd (2023/01/25) </p> <p>DASH FORMATS: MM-dd-yyyy (01-25-2023) dd-MM-yyyy (25-01-2023) MM-dd-yy (01-25-2023) dd-MM-yy (01-25-23) yyyy-MM-dd (2023-01-25)   </p>  <p> TEXTUAL MONTH: dd MMM yyyy (25 Jan 2032) MMM dd yyyy (Jan 25 2023) dd MMMM yyyy (25 Jaunuary 2023) EEE, dd MMM yyyy (Tue, 25 Jan 2023) EEEE, dd MMMM yyyy (Tuesday, 25 January 2023) </p>'
+                filename:
+                  type: string
+                notecolidx:
+                  type: string
+                  description: Column index (zero-based) for an optional note from the source file.
+                titlecount:
+                  type: string
+                  description: Set the number of new titles you expect to add from the source file. There's no need to count existing titles already within the custom touch event
+                File:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Customevents
+  /api/1/customevents/{id}/status:
+    get:
+      summary: Get upload custom event status
+      description: Get the status of a custom event upload a simple HTTP GET to the Fact & Reporting API
+      operationId: get-upload-custom-event-status
+      parameters:
+      - name: id
+        in: path
+        description: The jobId returned from the "Upload Custom Event" request.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Customevents
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

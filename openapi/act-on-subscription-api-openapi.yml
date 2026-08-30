@@ -1,0 +1,130 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Subscription API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Subscription
+paths:
+  /api/1/subscription/setcategories:
+    put:
+      summary: Set Multiple Subscriptions by email address
+      description: Add/remove individual records from a subscription category by email address.
+      operationId: set-multiple-subscriptions-by-email-address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Specify the email address
+                category:
+                  type: string
+                  description: Specify the second category name
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Subscription
+  /api/1/subscription/optout:
+    put:
+      summary: Update Subscription by Email
+      description: Add/remove individual records from a subscription category by email address.
+      operationId: update-subscription-by-email
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Specify the email address
+                category:
+                  type: string
+                  description: Specify the category name
+                action:
+                  type: string
+                  description: Specify recorded subscription status. <p>("optin", "optout")</p>
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Subscription
+    get:
+      summary: Get subscription opt-outs by category
+      description: Download list of records specifically opted out of a specific category
+      operationId: get-subscription-opt-outs-by-category
+      parameters:
+      - name: category
+        in: query
+        description: Subscription Category Name
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch. (Default=0)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Subscription
+  /api/1/subscription/category:
+    get:
+      summary: Get Subscription Categories
+      description: Returns the subscription categories defined in the account.
+      operationId: get-subscription-categories
+      deprecated: false
+      tags:
+      - Subscription
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,113 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Ete API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Ete
+paths:
+  /ete/v1/email/{accountid}/{templateid}:
+    post:
+      summary: ETE Request
+      description: ''
+      operationId: ete-request
+      parameters:
+      - name: accountid
+        in: path
+        schema:
+          type: string
+        required: true
+      - name: templateid
+        in: path
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"success\": true,\n    \"message\": \"Email Sent Successfully\",\n    \"suppressedRecipients\": []\n}"
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    default: true
+                  message:
+                    type: string
+                    example: Email Sent Successfully
+                  suppressedRecipients:
+                    type: array
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                400 - Invalid Template:
+                  value: "{\n    \"errorName\": \"Invalid ID in request:\",\n    \"message\": \"The email template, t-0099, does not exist for this account.\"\n}"
+                400 - Suppressed:
+                  value: "{\n    \"success\": false,\n    \"message\": \"Recipient email has been suppressed\",\n    \"suppressedRecipients\": [\n        \"example@email.com\"\n    ]\n}"
+              schema:
+                oneOf:
+                - title: 400 - Invalid Template
+                  type: object
+                  properties:
+                    errorName:
+                      type: string
+                      example: 'Invalid ID in request:'
+                    message:
+                      type: string
+                      example: The email template, t-0099, does not exist for this account.
+                - title: 400 - Suppressed
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: false
+                      default: true
+                    message:
+                      type: string
+                      example: Recipient email has been suppressed
+                    suppressedRecipients:
+                      type: array
+                      items:
+                        type: string
+                        example: example@email.com
+        '500':
+          description: '500'
+          content:
+            application/json:
+              examples:
+                500 - Transactional:
+                  value: "{\n    \"errorName\": \"EmailServiceException\",\n    \"message\": \"A transactional subscription is required in order to send transactional messages. Account: 46100\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorName:
+                    type: string
+                    example: EmailServiceException
+                  message:
+                    type: string
+                    example: 'A transactional subscription is required in order to send transactional messages. Account: 46100'
+      deprecated: false
+      tags:
+      - Ete
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

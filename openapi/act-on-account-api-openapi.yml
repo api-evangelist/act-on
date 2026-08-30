@@ -1,0 +1,42 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Account API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Account
+paths:
+  /api/1/account/senders:
+    get:
+      summary: Get defined email senders
+      description: Get a list of all defined email senders for the account.
+      operationId: get-defined-email-senders
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Account
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

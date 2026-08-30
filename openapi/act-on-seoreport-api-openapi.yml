@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Seoreport API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Seoreport
+paths:
+  /api/1/seoreport:
+    get:
+      summary: Get a new SEO report
+      description: Run an SEO report on a website that you specify.
+      operationId: get-a-new-seo-report
+      parameters:
+      - name: keyword
+        in: query
+        description: Specify a keyword for the SEO report
+        schema:
+          type: string
+      - name: url
+        in: query
+        description: Specify a URL encoded URL
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Seoreport
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

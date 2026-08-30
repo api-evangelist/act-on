@@ -1,0 +1,966 @@
+openapi: 3.2.0
+info:
+  title: Custom Objects Service Custom Data Dataset Custom Data Dataset API
+  description: API to manage and import custom objects
+  version: 3.4.3
+servers:
+- url: https://api.actonsoftware.com/custom-objects
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: Custom Data Dataset API
+  description: Custom Data Dataset API
+paths:
+  /v1/{accountId}/data/{objectId}:
+    post:
+      tags:
+      - Custom Data Dataset API
+      summary: Creates a new dataset for a Custom Data schema
+      description: Creates an empty dataset for a specific Custom Data schema
+      operationId: createDataset
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The schema ID for this request
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDatasetRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/{identifier}:
+    get:
+      tags:
+      - Custom Data Dataset API
+      summary: Retrieves the details for a dataset using its ID or name
+      description: Returns detailed information about a dataset
+      operationId: describeDataset
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The Custom Object Id
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The dataset ID or name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Dataset details retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Dataset not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+    post:
+      tags:
+      - Custom Data Dataset API
+      summary: Updates a dataset's name and description
+      description: Modifies metadata for an existing dataset
+      operationId: updateDataset
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The Custom Object Id
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The dataset ID or name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatasetRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Dataset successfully updated
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request - invalid name format
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '404':
+          description: Dataset not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        '409':
+          description: Dataset name already exists
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+    delete:
+      tags:
+      - Custom Data Dataset API
+      summary: Deletes the dataset based on the provided dataset Id
+      description: Permanently removes a dataset and all its data
+      operationId: deleteDataset
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for the deletion request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The Custom Object Id for the deletion request
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The custom object dataset Id or dataset name for the deletion request
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/{identifier}/json:
+    post:
+      tags:
+      - Custom Data Dataset API
+      summary: Ingests a JSON stream for a specific dataset or object
+      description: Processes a JSON data stream for the specified dataset
+      operationId: ingestJsonStream
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The Custom ObjectId for this request
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The dataset ID or name
+        required: true
+        schema:
+          type: string
+      - name: ingestMode
+        in: query
+        description: The ingest mode (upsert, replace, or delete)
+        required: true
+        schema:
+          type: string
+      - name: abortOnInvalidRow
+        in: query
+        description: Whether to abort processing on invalid data
+        required: true
+        schema:
+          type: boolean
+      - name: description
+        in: query
+        description: Optional description for the dataset
+        required: false
+        schema:
+          type: string
+      - name: createNewDataset
+        in: query
+        description: Whether to create a new dataset
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+        '409':
+          description: JSON Validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+        '415':
+          description: Unsupported Media Type.
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/{identifier}/file:
+    post:
+      tags:
+      - Custom Data Dataset API
+      summary: Ingests a CSV or JSON file for a specific dataset or object
+      description: Uploads and processes a data file for the specified dataset
+      operationId: ingestFile
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The Custom ObjectId for this request
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The dataset ID or name
+        required: true
+        schema:
+          type: string
+      - name: ingestMode
+        in: query
+        description: The ingest mode (UPSERT, REPLACE, or DELETE)
+        required: false
+        schema:
+          type: string
+          default: UPSERT
+          enum:
+          - UPSERT
+          - REPLACE
+          - DELETE
+          - DELETE_DATASET
+      - name: createNewDataset
+        in: query
+        description: Whether to create a new dataset
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: abortOnInvalidRow
+        in: query
+        description: Whether to abort on invalid row
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - name: description
+        in: query
+        description: Dataset description
+        required: false
+        schema:
+          type: string
+      - name: fileType
+        in: query
+        description: File type (csv or json)
+        required: false
+        schema:
+          type: string
+          default: csv
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+        '409':
+          description: CSV Validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+        '415':
+          description: Unsupported Media Type.
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/validate:
+    post:
+      tags:
+      - Custom Data Dataset API
+      summary: Validates a file against a schema without ingesting data
+      description: Checks if a file is valid for the specified schema
+      operationId: validateFile
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The schema Id for this request
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ValidationRequestDTO'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+        '409':
+          description: CSV Validation failed
+          content:
+            application/json:
+              schema:
+                type: object
+        '415':
+          description: Unsupported Media Type.
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/all:
+    get:
+      tags:
+      - Custom Data Dataset API
+      summary: Retrieves a list of all datasets for a specific schema
+      description: Returns all datasets for a specific custom object schema
+      operationId: listDatasetsBySchemaId
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The schema Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/status/{jobId}:
+    get:
+      tags:
+      - Custom Data Dataset API
+      summary: Retrieve the status for the Job Id
+      description: If complete and not successful, also retrieves the report download endpoint
+      operationId: getJobStatus
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: jobId
+        in: path
+        description: The custom object job Id for this request
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '415':
+          description: Unsupported Media Type.
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/report/{jobId}:
+    get:
+      tags:
+      - Custom Data Dataset API
+      summary: Download the report for the provided Job Id
+      description: Returns a report for a completed job
+      operationId: getJobReport
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        required: true
+        schema:
+          type: string
+      - name: jobId
+        in: path
+        description: The custom object job Id for this request
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '415':
+          description: Unsupported Media Type.
+          content:
+            '*/*':
+              schema:
+                type: string
+                format: binary
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/all:
+    get:
+      tags:
+      - Custom Data Dataset API
+      summary: Retrieves a list of all datasets for the account
+      description: Returns all datasets available for the account
+      operationId: listAllDatasets
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            '*/*':
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+  /v1/{accountId}/data/{objectId}/{identifier}/ids:
+    delete:
+      tags:
+      - Custom Data Dataset API
+      summary: Delete records from a dataset based on the provided IDs or ID range
+      description: Delete records from a dataset based on the provided IDs or ID range
+      operationId: deleteIds
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for the deletion request
+        required: true
+        schema:
+          type: string
+      - name: objectId
+        in: path
+        description: The custom object schema Id for the deletion request
+        required: true
+        schema:
+          type: string
+      - name: identifier
+        in: path
+        description: The custom object dataset Id or name for the deletion request
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteRecordsRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+        '500':
+          description: Internal Server Error.
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/HttpErrorResponse'
+components:
+  schemas:
+    CreateDatasetRequestDTO:
+      type: object
+      description: The dataset creation details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
+    UpdateDatasetRequestDTO:
+      type: object
+      description: The dataset update details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
+    HttpErrorResponse:
+      type: object
+      properties:
+        errorId:
+          type: string
+        requestUri:
+          type: string
+        errorMessage:
+          type: string
+        errorList:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 EARLY_HINTS
+          - 103 CHECKPOINT
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 302 MOVED_TEMPORARILY
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 305 USE_PROXY
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 PAYLOAD_TOO_LARGE
+          - 413 REQUEST_ENTITY_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 414 REQUEST_URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+          - 420 METHOD_FAILURE
+          - 421 DESTINATION_LOCKED
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
+    ValidationRequestDTO:
+      type: object
+      description: The validation request details
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The file to validate.
+        fileType:
+          type: string
+          description: The type of file being ingested. Either csv or json. Default is csv.
+      required:
+      - file
+    DeleteRecordsRequestDTO:
+      type: object
+      description: The record deletion details
+      properties:
+        ids:
+          type: string
+          description: One or more unique identifiers for the records to delete separated by comas
+        firstId:
+          type: string
+          description: The first unique identifier for a range of records to delete
+        lastId:
+          type: string
+          description: The last unique identifier for a range of records to delete
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+x-readme: {}

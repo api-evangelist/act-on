@@ -1,0 +1,68 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Campaigns API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Campaigns
+paths:
+  /api/1/campaigns/{id}:
+    get:
+      summary: Get Campaign
+      description: Use to retrieve a listing of emails by type.
+      operationId: get-campaign
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the Campaign
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Campaigns
+  /api/1/campaigns:
+    get:
+      summary: Get Campaigns List
+      description: Use to retrieve a listing of emails by type.
+      operationId: get-campaigns-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful  Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Campaigns
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

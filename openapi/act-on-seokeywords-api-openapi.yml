@@ -1,0 +1,48 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Seokeywords API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Seokeywords
+paths:
+  /api/1/seokeywords:
+    get:
+      summary: Get SEO keywords
+      description: Fetch the SEO keywords defined in your account.
+      operationId: get-seo-keywords
+      parameters:
+      - name: url
+        in: query
+        description: Specify a URL encoded URL
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Seokeywords
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

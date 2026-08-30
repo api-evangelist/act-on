@@ -1,0 +1,202 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Page API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Page
+paths:
+  /api/1/page:
+    get:
+      summary: Get landing page list
+      description: Get a list of pages in the account.
+      operationId: get-landing-page-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"entries\": [\n            {\n                \"creation_time\": \"1725654093747\",\n                \"modified\": \"1725654172965\",\n                \"id\": \"p-0001\",\n                \"title\": \"Signup for our Monthly Newsletter\",\n                \"url\": \"https://a46370.actonservice.com/acton/fs/blocks/showLandingPage/a/46370/p/p-0001/t/page/fm/0\"\n            }\n        ],\n        \"folder\": \"Default Folder\"\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creation_time:
+                            type: string
+                            example: '1725654093747'
+                          modified:
+                            type: string
+                            example: '1725654172965'
+                          id:
+                            type: string
+                            example: p-0001
+                          title:
+                            type: string
+                            example: Signup for our Monthly Newsletter
+                          url:
+                            type: string
+                            example: https://a46370.actonservice.com/acton/fs/blocks/showLandingPage/a/46370/p/p-0001/t/page/fm/0
+                    folder:
+                      type: string
+                      example: Default Folder
+      deprecated: false
+      tags:
+      - Page
+  /api/1/page/{id}:
+    get:
+      summary: Get landing page
+      description: ''
+      operationId: get-landing-page
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the landing page
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Page
+    delete:
+      summary: Delete landing page
+      description: Delete a page
+      operationId: delete-landing-page
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the landing page
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Page
+  /api/1/page/{id}/urls:
+    get:
+      summary: Get landing page URLs
+      description: Get the URLs for the specified promotional page.
+      operationId: get-landing-page-urls
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the landing page.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Page
+  /api/1/page/{id}/report:
+    get:
+      summary: Get landing page report
+      description: Get a list of the pages listed in the account.
+      operationId: get-landing-page-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the landing page
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"unique_unknown_visits\": 1,\n    \"total_visits\": 1,\n    \"incoming_traffic\": {\n        \"Default\": 1\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  unique_unknown_visits:
+                    type: integer
+                    example: 1
+                    default: 0
+                  total_visits:
+                    type: integer
+                    example: 1
+                    default: 0
+                  incoming_traffic:
+                    type: object
+                    properties:
+                      Default:
+                        type: integer
+                        example: 1
+                        default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid page ID:
+                  value: "{\n    \"errorCode\": 10013,\n    \"message\": \"Invalid Page id\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10013
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid Page id
+      deprecated: false
+      tags:
+      - Page
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

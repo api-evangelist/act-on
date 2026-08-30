@@ -1,0 +1,518 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Media API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Media
+paths:
+  /api/1/media/:
+    get:
+      summary: Get media list
+      description: Get a listing of media objects stored in your account.
+      operationId: get-media-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n  {\n    \"entries\": [\n      {\n        \"creation_time\": 1725391860093,\n        \"size\": \"50347\",\n        \"name\": \"Act-On Datasheet.pdf\",\n        \"id\": \"f-0834c389-f245-4abe-ae05-423b51901d26\",\n        \"last_modified\": \"1725391860093\",\n        \"url\": \"https://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-0834c389-f245-4abe-ae05-423b51901d26/1/-/-/-/-/file.pdf\"\n      },\n      {\n        \"creation_time\": 1725391925531,\n        \"target_url\": \"https://connect.act-on.com/hc/en-us\",\n        \"name\": \"Act-On Help Center\",\n        \"id\": \"u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5\",\n        \"last_modified\": \"1725391925536\",\n        \"url\": \"https://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5/1/-/-/-/-/file.bin\"\n      }\n    ],\n    \"name\": \"Default Folder\"\n  }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creation_time:
+                            type: integer
+                            example: 1725391860093
+                            default: 0
+                          size:
+                            type: string
+                            example: '50347'
+                          name:
+                            type: string
+                            example: Act-On Datasheet.pdf
+                          id:
+                            type: string
+                            example: f-0834c389-f245-4abe-ae05-423b51901d26
+                          last_modified:
+                            type: string
+                            example: '1725391860093'
+                          url:
+                            type: string
+                            example: https://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-0834c389-f245-4abe-ae05-423b51901d26/1/-/-/-/-/file.pdf
+                    name:
+                      type: string
+                      example: Default Folder
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media/{id}:
+    get:
+      summary: Get media file
+      description: Gets a path to the specified media file that was previously added to your account.
+      operationId: get-media-file
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media file
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n  \"id\": \"u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5\",\n  \"name\": \"Act-On Help Center\",\n  \"url\": \"https://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5/1/-/-/-/-/\",\n  \"target_url\": \"https://connect.act-on.com/hc/en-us\",\n  \"creation_time\": 1725391925531,\n  \"last_modified\": 1725391925536\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5
+                  name:
+                    type: string
+                    example: Act-On Help Center
+                  url:
+                    type: string
+                    example: https://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/u-f98236a7-ad2a-4ee3-bd91-afd835ff60c5/1/-/-/-/-/
+                  target_url:
+                    type: string
+                    example: https://connect.act-on.com/hc/en-us
+                  creation_time:
+                    type: integer
+                    example: 1725391925531
+                    default: 0
+                  last_modified:
+                    type: integer
+                    example: 1725391925536
+                    default: 0
+      deprecated: false
+      tags:
+      - Media
+    put:
+      summary: Update Media File
+      description: Update/replace an existing media file in your account.
+      operationId: update-media-file
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media file
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                File:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"The file has been uploaded\",\n    \"id\": \"f-57166120-ccf5-4a60-95f9-8fef8b6dae0d\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: The file has been uploaded
+                  id:
+                    type: string
+                    example: f-57166120-ccf5-4a60-95f9-8fef8b6dae0d
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid file type:
+                  value: "{\n    \"errorCode\": 10085,\n    \"message\": \"Invalid file type specified\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10085
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid file type specified
+      deprecated: false
+      tags:
+      - Media
+    delete:
+      summary: Delete a media object
+      description: Delete a media file from your account.
+      operationId: delete-a-media-object
+      parameters:
+      - name: id
+        in: path
+        description: The id of the media object you want to delete
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"File deleted\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: File deleted
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media:
+    post:
+      summary: Add a media file
+      description: Add a media file to your account.
+      operationId: add-a-media-file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Specify a name for the file (Must not contain slashes)
+                file:
+                  type: string
+                  description: 'Valid media types: zip, doc, docx, xls, xlsx, ppt, pptx, pps, ppsx, txt, vcs, ics, dwg, rfa.'
+                  format: binary
+                foldername:
+                  type: string
+                  description: Specify the folder name you would like the media added to
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"The file has been uploaded\",\n    \"id\": \"f-c8a0eb49-8337-4d2b-a1ec-dcdc6096091c\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: The file has been uploaded
+                  id:
+                    type: string
+                    example: f-c8a0eb49-8337-4d2b-a1ec-dcdc6096091c
+        '403':
+          description: '403'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"errorCode\": 10085,\n    \"message\": \"Invalid file type specified\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10085
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid file type specified
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media/{id}/report/:
+    get:
+      summary: Get media report
+      description: Get a report on the specified media from your account.
+      operationId: get-media-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media object
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"total_known_views\": 0,\n    \"total_unknown_views\": 3,\n    \"unique_known_views\": 0,\n    \"unique_unknown_views\": 2,\n    \"total_messages\": 0,\n    \"total_from_messages\": 0,\n    \"unique_from_messages\": 0\n}"
+              schema:
+                type: object
+                properties:
+                  total_known_views:
+                    type: integer
+                    example: 0
+                    default: 0
+                  total_unknown_views:
+                    type: integer
+                    example: 3
+                    default: 0
+                  unique_known_views:
+                    type: integer
+                    example: 0
+                    default: 0
+                  unique_unknown_views:
+                    type: integer
+                    example: 2
+                    default: 0
+                  total_messages:
+                    type: integer
+                    example: 0
+                    default: 0
+                  total_from_messages:
+                    type: integer
+                    example: 0
+                    default: 0
+                  unique_from_messages:
+                    type: integer
+                    example: 0
+                    default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media/{id}/report/messages:
+    get:
+      summary: Get media message report
+      description: Get a media message report from your account.
+      operationId: get-media-message-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media object
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media/{id}/report/views:
+    get:
+      summary: Get a media view report
+      description: Get a media view report from your account.
+      operationId: get-a-media-view-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media object
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"known\": false,\n        \"recipient\": \"Comcast\",\n        \"campaign\": \"\",\n        \"action\": \"downloaded\",\n        \"total_count\": 2,\n        \"srcid\": \"\",\n        \"cid\": \"\",\n        \"tstamp\": \"Sep 6 2024 12:55 PM PDT\"\n    },\n    {\n        \"known\": false,\n        \"recipient\": \"Act-on Software\",\n        \"campaign\": \"\",\n        \"action\": \"downloaded\",\n        \"total_count\": 1,\n        \"srcid\": \"\",\n        \"cid\": \"\",\n        \"tstamp\": \"Sep 6 2024 9:46 AM PDT\"\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    known:
+                      type: boolean
+                      example: false
+                      default: true
+                    recipient:
+                      type: string
+                      example: Comcast
+                    campaign:
+                      type: string
+                      example: ''
+                    action:
+                      type: string
+                      example: downloaded
+                    total_count:
+                      type: integer
+                      example: 2
+                      default: 0
+                    srcid:
+                      type: string
+                      example: ''
+                    cid:
+                      type: string
+                      example: ''
+                    tstamp:
+                      type: string
+                      example: Sep 6 2024 12:55 PM PDT
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Media
+  /api/1/media/{id}/report/timeline:
+    get:
+      summary: Get a media timeline report
+      description: Get a timeline report for specified media.
+      operationId: get-a-media-timeline-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the media object
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"date\": \"09/06/2024\",\n        \"unique\": 2,\n        \"total\": 3,\n        \"known\": 0,\n        \"unknown\": 3\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    date:
+                      type: string
+                      example: 09/06/2024
+                    unique:
+                      type: integer
+                      example: 2
+                      default: 0
+                    total:
+                      type: integer
+                      example: 3
+                      default: 0
+                    known:
+                      type: integer
+                      example: 0
+                      default: 0
+                    unknown:
+                      type: integer
+                      example: 3
+                      default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Media
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

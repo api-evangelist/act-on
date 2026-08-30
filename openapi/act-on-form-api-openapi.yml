@@ -1,0 +1,172 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Form API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Form
+paths:
+  /api/1/form:
+    get:
+      summary: Get form list
+      description: Get a list of the forms in your Forms repository.
+      operationId: get-form-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"entries\": [\n            {\n                \"creation_time\": 1725627913726,\n                \"description\": \"\",\n                \"modified\": 1725654011570,\n                \"id\": \"6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd\",\n                \"title\": \"Newsletter Signup\",\n                \"url\": \"https://a46370.actonservice.com/acton/form/46370/6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd:d-0001/1/-/-/-/-/index.htm\"\n            }\n        ],\n        \"folder\": \"Default Folder\"\n    },\n    {\n        \"entries\": [\n            {\n                \"creation_time\": 1725627913726,\n                \"description\": \"\",\n                \"modified\": 1725654011570,\n                \"id\": \"6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd\",\n                \"title\": \"Newsletter Signup\",\n                \"url\": \"https://a46370.actonservice.com/acton/form/46370/6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd:d-0001/1/-/-/-/-/index.htm\"\n            }\n        ],\n        \"folder\": \"All Forms\"\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creation_time:
+                            type: integer
+                            example: 1725627913726
+                            default: 0
+                          description:
+                            type: string
+                            example: ''
+                          modified:
+                            type: integer
+                            example: 1725654011570
+                            default: 0
+                          id:
+                            type: string
+                            example: 6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd
+                          title:
+                            type: string
+                            example: Newsletter Signup
+                          url:
+                            type: string
+                            example: https://a46370.actonservice.com/acton/form/46370/6a4a21fb-0aff-4f0e-b57a-97f62ebcb9cd:d-0001/1/-/-/-/-/index.htm
+                    folder:
+                      type: string
+                      example: Default Folder
+      deprecated: false
+      tags:
+      - Form
+  /api/1/form/{id}/urls:
+    get:
+      summary: Get classic form URLs
+      description: Get the promotional URLs associated with the specified form, by form ID. To get a listing of forms in an account with their associated IDs, use the Get Forms List API.
+      operationId: get-classic-form-urls
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the classic form
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Form
+  /api/1/form/{id}/report:
+    get:
+      summary: Get form report
+      description: Get a report on a form by ID.
+      operationId: get-form-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the form
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"count\": 3,\n    \"result\": [\n        {\n            \"source\": \"Email: Unknown List\",\n            \"submits\": 0,\n            \"unique\": 0,\n            \"views\": 3,\n            \"percent\": 0,\n            \"non_submitters\": \"N/A\"\n        },\n        {\n            \"source\": \"Page:Signup for our Monthly Newsletter\",\n            \"submits\": 0,\n            \"unique\": 0,\n            \"views\": 1,\n            \"percent\": 0,\n            \"non_submitters\": \"N/A\"\n        },\n        {\n            \"source\": \"Newsletter Signup\",\n            \"submits\": 0,\n            \"unique\": 0,\n            \"views\": 1,\n            \"percent\": 0,\n            \"non_submitters\": \"N/A\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 3
+                    default: 0
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        source:
+                          type: string
+                          example: 'Email: Unknown List'
+                        submits:
+                          type: integer
+                          example: 0
+                          default: 0
+                        unique:
+                          type: integer
+                          example: 0
+                          default: 0
+                        views:
+                          type: integer
+                          example: 3
+                          default: 0
+                        percent:
+                          type: integer
+                          example: 0
+                          default: 0
+                        non_submitters:
+                          type: string
+                          example: N/A
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10012,\n    \"message\": \"Invalid Form id\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10012
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid Form id
+      deprecated: false
+      tags:
+      - Form
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

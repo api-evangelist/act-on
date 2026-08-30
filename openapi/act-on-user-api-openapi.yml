@@ -1,0 +1,127 @@
+openapi: 3.2.0
+info:
+  title: Act On User API
+  version: '2.0'
+  description: 'Operations tagged User across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: User
+paths:
+  /api/1/user:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Create new account user
+      description: Create one or more users for an account.
+      operationId: create-new-account-user
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: '"[{\n\"userType\":\"Marketing\",\n\"email\":\"name3@act-on.net\",\n\"firstName\":\"fName1\",\n\"lastName\":\"Surname1\",\n\"password\":\"pwxxx123\",\n\"title\":\"Marketing Manager\",\n\"phoneNumber\":\"111-111-1111\",\n\"mobileNumber\":\"111-111-1111\",\n\"faxNumber\":\"111-111-1111\",\n\"timeZone\":\"PT\",\n\"sendEmailConfirmation\":\"Y\"\n}\n]"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    {\n        \"email\": \"first.last@example.com\",\n        \"status\": \"ok\",\n        \"privilegeResponses\": []\n    }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    email:
+                      type: string
+                      example: first.last@example.com
+                    status:
+                      type: string
+                      example: ok
+                    privilegeResponses:
+                      type: array
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n    {\n        \"userType\": \"Marketing\",\n        \"email\": \"first.last@example.com\",\n        \"firstName\": \"First\",\n        \"lastName\": \"Last\",\n        \"password\": \"theFirstWillBeLast\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\": \"111-111-1111\",\n        \"mobileNumber\": \"222-222-2222\",,\n        \"timeZone\": \"PT\",\n        \"sendEmailConfirmation\": \"N\"\n    }\n]'"
+        samples-languages:
+        - text
+      tags:
+      - User
+  /api/1/user/delete:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Delete account users
+      description: Delete one or more users from an account.
+      operationId: delete-account-users
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: '"[{\"email\":\"name3@act-on.net\"}]"'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - User
+  /api/1/user/{email}:
+    servers:
+    - url: https://api.actonsoftware.com
+    delete:
+      summary: Delete account user
+      description: Delete one user from an account.
+      operationId: delete-account-user
+      parameters:
+      - name: email
+        in: path
+        description: Enter the email address of the user
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - User
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-refined-from:
+- act-on-raw-body-api-openapi.yml
+- act-on-rest-api-openapi.yml
+x-readme: {}

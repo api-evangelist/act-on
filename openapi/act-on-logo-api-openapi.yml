@@ -1,0 +1,347 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Logo API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Logo
+paths:
+  /api/1/logo:
+    get:
+      summary: Get logo list
+      description: Get a list of the logos in the account.
+      operationId: get-logo-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n  \"offset\": 0,\n  \"count\": 1,\n  \"totalCount\": 1,\n  \"result\": [\n    {\n      \"url_str\": \"https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg\",\n      \"url_str_ts\": \"https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg?ts=1725501381852\",\n      \"alt_txt\": \"Act-On Logo\",\n      \"tool_tip\": \"Act-On\",\n      \"target_url\": \"https://www.act-on.com/\",\n      \"id\": \"i-4\",\n      \"title\": \"Act-On Logo\"\n    }\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type: integer
+                    example: 0
+                    default: 0
+                  count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  totalCount:
+                    type: integer
+                    example: 1
+                    default: 0
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        url_str:
+                          type: string
+                          example: https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg
+                        url_str_ts:
+                          type: string
+                          example: https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg?ts=1725501381852
+                        alt_txt:
+                          type: string
+                          example: Act-On Logo
+                        tool_tip:
+                          type: string
+                          example: Act-On
+                        target_url:
+                          type: string
+                          example: https://www.act-on.com/
+                        id:
+                          type: string
+                          example: i-4
+                        title:
+                          type: string
+                          example: Act-On Logo
+      deprecated: false
+      tags:
+      - Logo
+    post:
+      summary: Add a logo
+      description: Add a logo image file or URL to your account.
+      operationId: add-a-logo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Specify a name for the image
+                alttext:
+                  type: string
+                  description: Specify the alternative text for the image
+                tooltip:
+                  type: string
+                  description: Specify the text to display when hovering over the image
+                targeturl:
+                  type: string
+                  description: Specify the target URL for the image.
+                file:
+                  type: string
+                  description: Attach the image file
+                  format: binary
+                imagelink:
+                  type: string
+                  description: Specify the link to the image file.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"The logo has been uploaded\",\n    \"id\": \"i-6\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: The logo has been uploaded
+                  id:
+                    type: string
+                    example: i-6
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid File Type:
+                  value: "{\n    \"errorCode\": 10085,\n    \"message\": \"Invalid file type specified\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10085
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid file type specified
+        '422':
+          description: '422'
+          content:
+            application/json:
+              examples:
+                Missing Parameters:
+                  value: "{\n    \"errorCode\": 10121,\n    \"message\": \"Missing parameter - name\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10121
+                    default: 0
+                  message:
+                    type: string
+                    example: Missing parameter - name
+      deprecated: false
+      tags:
+      - Logo
+  /api/1/logo/{id}:
+    get:
+      summary: Get a logo
+      description: Gets the specified logo from your account.
+      operationId: get-a-logo
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the logo
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful response:
+                  value: "{\n  \"url_str\": \"https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg\",\n  \"url_str_ts\": \"https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg?ts=1725503918599\",\n  \"alt_txt\": \"Act-On Logo\",\n  \"tool_tip\": \"Act-On\",\n  \"target_url\": \"https://www.act-on.com/\",\n  \"id\": \"i-4\",\n  \"title\": \"Act-On Logo\"\n}"
+              schema:
+                type: object
+                properties:
+                  url_str:
+                    type: string
+                    example: https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg
+                  url_str_ts:
+                    type: string
+                    example: https://forpci4.actonsoftware.com/acton/cx/b522/logo5.jpeg?ts=1725503918599
+                  alt_txt:
+                    type: string
+                    example: Act-On Logo
+                  tool_tip:
+                    type: string
+                    example: Act-On
+                  target_url:
+                    type: string
+                    example: https://www.act-on.com/
+                  id:
+                    type: string
+                    example: i-4
+                  title:
+                    type: string
+                    example: Act-On Logo
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n  \"errorCode\": 10054,\n  \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Logo
+    put:
+      summary: Update a logo
+      description: Updates the information for an existing logo in your logo repository.
+      operationId: update-a-logo
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the logo
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Specify a name for the image.
+                alttext:
+                  type: string
+                  description: Specify the alternative text for the image.
+                tooltip:
+                  type: string
+                  description: Specify the text to display when hovering over the image.
+                targeturl:
+                  type: string
+                  description: Specify the target URL for the image.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"The logo has been updated\",\n    \"id\": \"i-5\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: The logo has been updated
+                  id:
+                    type: string
+                    example: i-5
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Logo
+    delete:
+      summary: Delete a logo
+      description: Delete the specified logo from your account.
+      operationId: delete-a-logo
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the logo
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Logo i-4 has been deleted\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Logo i-4 has been deleted
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Logo
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

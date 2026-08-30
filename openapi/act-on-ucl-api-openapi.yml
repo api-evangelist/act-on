@@ -1,0 +1,4129 @@
+openapi: 3.2.0
+info:
+  title: Act On Ucl API
+  version: '2.0'
+  description: 'Operations tagged Ucl across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Ucl
+paths:
+  /ucl/v2/ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Import Contacts
+      description: Create one or more users for an account. Each user is sent as an element in a JSON array.
+      operationId: test-api
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: importDefinitionId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'JSON object with the following required keys: userType, email, firstName, lastName, password.'
+                filter:
+                  type: object
+                  required:
+                  - type
+                  - expressionEvaluationType
+                  properties:
+                    type:
+                      type: string
+                    expressionEvaluationType:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                      - CUSTOM
+                    customBooleanExpression:
+                      type: string
+                      default: 'NULL'
+                    expressions:
+                      type: array
+                      items:
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - profile
+                            - system
+                          id:
+                            type: string
+                          field:
+                            type: string
+                          condition:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              comparison:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                        type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"success\",\n    \"keyPoint\": \"blank\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  keyPoint:
+                    type: string
+                    example: blank
+        '400':
+          description: '400'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: '{boo}'
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n    {\n        \"userType\": \"Marketing\",\n        \"email\": \"name3@act-on.net\",\n        \"firstName\": \"fName1\",\n        \"lastName\": \"Surname1\",\n        \"password\": \"pwxxx123\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\": \"111-111-1111\",\n        \"mobileNumber\": \"111-111-1111\",\n        \"faxNumber\": \"111-111-1111\",\n        \"timeZone\": \"PT\",\n        \"sendEmailConfirmation\": \"Y\"\n    }\n]'"
+          name: Example 1
+        samples-languages:
+        - curl
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Import Contacts
+      description: ''
+      operationId: import-contacts
+      parameters:
+      - name: accountId
+        in: path
+        description: accountId
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: importDefinitionId
+        in: path
+        description: The id of the import definition
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: cleanupImportDefinition
+        in: query
+        description: Whether to delete the import definition after the import
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: CSV with contact data matching the provided import definition. Limit of 200MB.
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            text/plain:
+              examples:
+                Successfully Uploaded:
+                  value: "{\n    \"data\": {\n        \"accountId\": \"12345\",\n        \"importId\": \"1longstringhere\",\n        \"importDefinitionId\": 987654,\n        \"importStatus\": \"RUNNING\",\n        \"errorMessage\": null,\n        \"submittedCount\": 0,\n        \"unsubmittedCount\": 0,\n        \"createdCount\": 0,\n        \"updatedCount\": 0,\n        \"failedCount\": 0,\n        \"rejectedCount\": 0\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accountId:
+                        type: string
+                        example: '12345'
+                      importId:
+                        type: string
+                        example: 1longstringhere
+                      importDefinitionId:
+                        type: integer
+                        example: 987654
+                        default: 0
+                      importStatus:
+                        type: string
+                        example: RUNNING
+                      errorMessage: {}
+                      submittedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      unsubmittedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      createdCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      updatedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      failedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      rejectedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Column Not Found:
+                  value: "{\n    \"errors\": [\n        \"CSV Column(s) was not found: MissingColumnName. All csvColumns need to be on the CSV headers prior to import.\"\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                      example: 'CSV Column(s) was not found: MissingColumnName. All csvColumns need to be on the CSV headers prior to import.'
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Error processing file:
+                  value: ''
+        '413':
+          description: '413'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: File size exceeds the maximum limit of 200MB.
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/import/definition:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Import Definitions
+      description: ''
+      operationId: get-import-definitions
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    post:
+      summary: Create an Import Definition
+      description: ''
+      operationId: create-an-import-definition
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - importDefinitionName
+              - mappings
+              - mergeStrategy
+              properties:
+                accountId:
+                  type: string
+                  description: The Act-On account ID
+                delimiter:
+                  type: string
+                  description: An optional attribute to specify CSV delimiter (acknowledging that if you use something other than a comma, the file is no longer a CSV...)
+                  default: COMMA
+                  enum:
+                  - COMMA
+                  - SEMI_COLON
+                  - TAB
+                importDefinitionName:
+                  type: string
+                  description: The name of the Import Definition
+                importSegmentIds:
+                  type: array
+                  description: An optional list of segments for the imported records to join
+                  items:
+                    type: string
+                mappings:
+                  type: array
+                  description: Field mappings for the import
+                  items:
+                    properties:
+                      csvColumn:
+                        type: string
+                        description: Header value in the source file
+                      actonColumn:
+                        type: string
+                        description: Target field name in Act-On
+                      overwriteExistingValue:
+                        type: boolean
+                        description: Should an existing value in Act-On be replaced, including with a NULL/Empty string from the source file.
+                      dataFormat:
+                        type: string
+                        description: Leave blank or omit for most field types. Required for Date. Provide the format of the date such as "yyyy-MM-dd" (Follow LDML patterns.)
+                    type: object
+                mergeStrategy:
+                  type: string
+                  description: The merge strategy to use for the import
+                  default: EMAIL
+                  enum:
+                  - EMAIL
+                  - EXTERNAL_ID
+                objectType:
+                  type: string
+                  description: Required value for EXTERNAL_ID mergeStrategy
+                quote:
+                  type: string
+                  description: An optional attribute to specify how text strings are identified. (QUOTE is for "double quote". SIMPLE_QUOTE is a 'single quote'.)
+                  default: QUOTE
+                  enum:
+                  - QUOTE
+                  - SIMPLE_QUOTE
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Success - External ID:
+                  value: "{\n    \"data\": {\n        \"accountId\": \"12345\",\n        \"importDefinitionId\": 987654,\n        \"importDefinitionName\": \"Definition Name\",\n        \"mergeStrategy\": \"EXTERNAL_ID\",\n        \"objectType\": \"Record Type\",\n        \"mappings\": [\n            {\n                \"csvColumn\": \"email\",\n                \"actonColumn\": \"E-mail Address\",\n                \"overwriteExistingValue\": true,\n                \"dataFormat\": null\n            },\n            {\n                \"csvColumn\": \"unique_contact_id\",\n                \"actonColumn\": \"ExternalId\",\n                \"overwriteExistingValue\": true,\n                \"dataFormat\": null\n            },\n            {\n                \"csvColumn\": \"First Name\",\n                \"actonColumn\": \"First Name\",\n                \"overwriteExistingValue\": true,\n                \"dataFormat\": null\n            },\n            {\n                \"csvColumn\": \"Last Name\",\n                \"actonColumn\": \"Last Name\",\n                \"overwriteExistingValue\": true,\n                \"dataFormat\": null\n            }\n        ],\n        \"importSegmentIds\": null,\n        \"delimiter\": \"COMMA\",\n        \"quote\": \"QUOTE\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accountId:
+                        type: string
+                        example: '12345'
+                      importDefinitionId:
+                        type: integer
+                        example: 987654
+                        default: 0
+                      importDefinitionName:
+                        type: string
+                        example: Definition Name
+                      mergeStrategy:
+                        type: string
+                        example: EXTERNAL_ID
+                      objectType:
+                        type: string
+                        example: Record Type
+                      mappings:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            csvColumn:
+                              type: string
+                              example: email
+                            actonColumn:
+                              type: string
+                              example: E-mail Address
+                            overwriteExistingValue:
+                              type: boolean
+                              example: true
+                              default: true
+                            dataFormat: {}
+                      importSegmentIds: {}
+                      delimiter:
+                        type: string
+                        example: COMMA
+                      quote:
+                        type: string
+                        example: QUOTE
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/import/definition/{importDefinitionId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Import Definition by Id
+      description: ''
+      operationId: get-import-definition-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: importDefinitionId
+        in: path
+        description: The Id of the import definition to retrieve
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Update an Import Definition
+      description: ''
+      operationId: update-an-import-definition
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: importDefinitionId
+        in: path
+        description: The Id of the import definition to update
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - accountId
+              - importDefinitionName
+              - mappings
+              - mergeStrategy
+              properties:
+                accountId:
+                  type: string
+                  description: The Act-On account ID
+                delimiter:
+                  type: string
+                  description: An optional attribute to specify CSV delimiter.
+                  default: COMMA
+                importDefinitionId:
+                  type: integer
+                  description: The id of the Import Definition
+                  format: int32
+                importDefinitionName:
+                  type: string
+                  description: The name of the Import Definition
+                importSegmentIds:
+                  type: array
+                  description: An optional list of segments for the imported records to join
+                  items:
+                    type: string
+                mappings:
+                  type: array
+                  description: Field mappings for the import
+                mergeStrategy:
+                  type: string
+                  description: The merge strategy to use for the import
+                  default: EMAIL
+                objectType:
+                  type: string
+                  description: Required value for EXTERNAL_ID mergeStrategy
+                quote:
+                  type: string
+                  description: An optional attribute to specify CSV delimiter.
+                  default: QUOTE
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Delete Import Definition by Id
+      description: ''
+      operationId: delete-import-definition-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: importDefinitionId
+        in: path
+        description: The Id of the import definition to delete
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/import/status/{importId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Import status
+      description: ''
+      operationId: get-import-status
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: importId
+        in: path
+        description: The Id of the import to retrieve
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"data\": {\n        \"accountId\": \"12345\",\n        \"importId\": \"1longstringhere\",\n        \"importDefinitionId\": 987654,\n        \"importStatus\": \"COMPLETED\",\n        \"errorMessage\": null,\n        \"submittedCount\": 1000,\n        \"unsubmittedCount\": 0,\n        \"createdCount\": 1000,\n        \"updatedCount\": 0,\n        \"failedCount\": 0,\n        \"rejectedCount\": 0\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      accountId:
+                        type: string
+                        example: '12345'
+                      importId:
+                        type: string
+                        example: 1longstringhere
+                      importDefinitionId:
+                        type: integer
+                        example: 987654
+                        default: 0
+                      importStatus:
+                        type: string
+                        example: COMPLETED
+                      errorMessage: {}
+                      submittedCount:
+                        type: integer
+                        example: 1000
+                        default: 0
+                      unsubmittedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      createdCount:
+                        type: integer
+                        example: 1000
+                        default: 0
+                      updatedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      failedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+                      rejectedCount:
+                        type: integer
+                        example: 0
+                        default: 0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '401':
+          description: '401'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contacts from the Act-On Contacts List
+      description: ''
+      operationId: get-contacts-from-the-act-on-contacts-list
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: createdAfter
+        in: query
+        description: 'Optional filter for retrieving records created after the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      - name: createdBefore
+        in: query
+        description: 'Optional filter for retrieving records created before the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page number to retrieve
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of records to retrieve per page
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: updatedAfter
+        in: query
+        description: 'Optional filter for retrieving records updated after the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      - name: updatedBefore
+        in: query
+        description: 'Optional filter for retrieving records updated before the specified timestamp in seconds <p>Use Example Value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    post:
+      summary: Add a single contact to the Act-On Contacts List
+      description: ''
+      operationId: add-a-single-contact-to-the-act-on-contacts-list
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: createContactMethod
+        in: query
+        description: The method used for creating a new contact
+        required: true
+        schema:
+          type: string
+          enum:
+          - EMAIL
+          - EXTERNAL_ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actonPrimaryScore:
+                  type: string
+                  description: The contact's Act-On primary score
+                businessCity:
+                  type: string
+                  description: The contact's business city
+                businessCountry:
+                  type: string
+                  description: The contact's business country
+                businessFax:
+                  type: string
+                  description: The contact's business fax number
+                businessPhone:
+                  type: string
+                  description: The contact's business phone number
+                businessState:
+                  type: string
+                  description: The contact's business state
+                businessStreet:
+                  type: string
+                  description: The contact's business street address
+                businessWebsite:
+                  type: string
+                  description: The contact's business website
+                businessZip:
+                  type: string
+                  description: The contact's business zip code
+                company:
+                  type: string
+                  description: The contact's company name
+                createdDate:
+                  type: string
+                  description: The contact's created date
+                customFields:
+                  type: object
+                  description: Custom field data by column index
+                  properties: {}
+                dateOfBirth:
+                  type: string
+                  description: The contact's Act-On date of birth in format YYY-MM-DD
+                department:
+                  type: string
+                  description: The contact's department
+                email:
+                  type: string
+                  description: The contact's email address
+                externalId:
+                  type: string
+                  description: The external system id of the contact
+                firstName:
+                  type: string
+                  description: The contact's first name
+                homePhone:
+                  type: string
+                  description: The contact's home phone number
+                id:
+                  type: string
+                  description: The Act-On contacts id of the contact
+                lastName:
+                  type: string
+                  description: The contact's last name
+                legacyRecordId:
+                  type: string
+                  description: The legacy record id of the contact
+                middleName:
+                  type: string
+                  description: The contact's middle name
+                mobilePhone:
+                  type: string
+                  description: The contact's mobile phone number
+                objectType:
+                  type: string
+                  description: The object type of the contact in an external system
+                personalCity:
+                  type: string
+                  description: The contact's personal city
+                personalCountry:
+                  type: string
+                  description: The contact's personal country
+                personalState:
+                  type: string
+                  description: The contact's personal state
+                personalStreet:
+                  type: string
+                  description: The contact's personal street address
+                personalWebsite:
+                  type: string
+                  description: The contact's personal website
+                personalZip:
+                  type: string
+                  description: The contact's personal zip code
+                picture:
+                  type: string
+                  description: A URL to the contact's picture
+                timezone:
+                  type: string
+                  description: The contact's timezone
+                title:
+                  type: string
+                  description: The contact's job title
+                updatedDate:
+                  type: string
+                  description: The contact's updated date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '409':
+          description: '409'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/byFields:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Get contacts from the Act-On Contacts List specifying the fields to be returned
+      description: ''
+      operationId: get-contacts-from-the-act-on-contacts-list-specifying-the-fields-to-be-returned
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: createdAfter
+        in: query
+        description: 'Optional filter for retrieving records created after the specified timestamp in seconds <p>Use example value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      - name: createdBefore
+        in: query
+        description: Optional filter for retrieving records created before the specified timestamp in seconds
+        schema:
+          type: string
+      - name: page
+        in: query
+        description: The page number to retrieve
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of records to retrieve per page
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - name: updatedAfter
+        in: query
+        description: 'Optional filter for retrieving records updated after the specified timestamp in seconds  <p>Use example value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      - name: updatedBefore
+        in: query
+        description: 'Optional filter for retrieving records updated before the specified timestamp in seconds  <p>Use example value: Unix Timestamp in seconds</p>'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Body:
+                  type: string
+                  description: 'The body should be an array of strings listing the names of the fields to be returned: ["e-mail address","first name"]'
+                  format: json
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/cookieId/{cookieId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact in the Act-On Contacts List by cookie id
+      description: ''
+      operationId: get-contact-in-the-act-on-contacts-list-by-cookie-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: cookieId
+        in: path
+        description: The cookieId of the contact to retrieve
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/email/{emailAddress}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contacts from the Act-On Contacts List by email address
+      description: ''
+      operationId: get-contacts-from-the-act-on-contacts-list-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to retrieve
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: query
+        description: The page number to retrieve
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of records to retrieve per page
+        schema:
+          type: integer
+          format: int32
+          default: 2
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Update contacts in the Act-On Contacts List by email address
+      description: ''
+      operationId: update-contacts-in-the-act-on-contacts-list-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to update
+        schema:
+          type: string
+        required: true
+      - name: upsertContactPolicy
+        in: query
+        description: The policy to update the contacts
+        schema:
+          type: string
+          enum:
+          - OLDEST_CONTACT
+          - NEWEST_CONTACT
+          - ADD_NEW_CONTACT
+          - ALL_CONTACTS
+          - SKIP_EXISTING_CONTACT
+          - SKIP_NEW_CONTACT
+          default: OLDEST_CONTACT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actonPrimaryScore:
+                  type: string
+                  description: The contact's Act-On primary score
+                businessCity:
+                  type: string
+                  description: The contact's business city
+                businessCountry:
+                  type: string
+                  description: The contact's business country
+                businessFax:
+                  type: string
+                  description: The contact's business fax number
+                businessPhone:
+                  type: string
+                  description: The contact's business phone number
+                businessState:
+                  type: string
+                  description: The contact's business state
+                businessStreet:
+                  type: string
+                  description: The contact's business street address
+                businessWebsite:
+                  type: string
+                  description: The contact's business website
+                businessZip:
+                  type: string
+                  description: The contact's business zip code
+                company:
+                  type: string
+                  description: The contact's company name
+                createdDate:
+                  type: string
+                  description: The contact's created date
+                customFields:
+                  type: object
+                  description: Custom field data by column index
+                  properties: {}
+                dateOfBirth:
+                  type: string
+                  description: The contact's Act-On date of birth in format YYY-MM-DD
+                department:
+                  type: string
+                  description: The contact's department
+                email:
+                  type: string
+                  description: The contact's email address
+                externalId:
+                  type: string
+                  description: The external system id of the contact
+                firstName:
+                  type: string
+                  description: The contact's first name
+                homePhone:
+                  type: string
+                  description: The contact's home phone number
+                id:
+                  type: string
+                  description: The Act-On contacts id of the contact
+                lastName:
+                  type: string
+                  description: The contact's last name
+                legacyRecordId:
+                  type: string
+                  description: The legacy record id of the contact
+                middleName:
+                  type: string
+                  description: The contact's middle name
+                mobilePhone:
+                  type: string
+                  description: The contact's mobile phone number
+                objectType:
+                  type: string
+                  description: The object type of the contact in an external system
+                personalCity:
+                  type: string
+                  description: The contact's personal city
+                personalCountry:
+                  type: string
+                  description: The contact's personal country
+                personalState:
+                  type: string
+                  description: The contact's personal state
+                personalStreet:
+                  type: string
+                  description: The contact's personal street address
+                personalWebsite:
+                  type: string
+                  description: The contact's personal website
+                personalZip:
+                  type: string
+                  description: The contact's personal zip code
+                picture:
+                  type: string
+                  description: A URL to the contact's picture
+                timezone:
+                  type: string
+                  description: The contact's timezone
+                title:
+                  type: string
+                  description: The contact's job title
+                updatedDate:
+                  type: string
+                  description: The contact's updated date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Delete contact in the Act-On Contacts List by email address
+      description: ''
+      operationId: delete-contact-in-the-act-on-contacts-list-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to delete
+        schema:
+          type: string
+        required: true
+      - name: deleteContactPolicy
+        in: query
+        description: The policy to delete the contact
+        schema:
+          type: string
+          default: OLDEST_CONTACT
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/emails:
+    servers:
+    - url: https://api.actonsoftware.com
+    delete:
+      summary: Delete contacts in the Act-On Contacts List by emails
+      description: ''
+      operationId: delete-contacts-in-the-act-on-contacts-list-by-emails
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: deleteContactPolicy
+        in: query
+        description: The policy to delete the contacts
+        schema:
+          type: string
+          default: OLDEST_CONTACT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                STRING:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/externalId/{objectType}/{externalId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact in the Act-On Contacts List by externalId and object type
+      description: ''
+      operationId: get-contact-in-the-act-on-contacts-list-by-externalid-and-object-type
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to retrieve
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The object type of the contact to retrieve
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Update contact in the Act-On Contacts list by externalId & objectType, fallback to email match
+      description: ''
+      operationId: update-contact-in-the-act-on-contacts-list-by-externalid-objecttype-fallback-to-email-match
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to update
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The object type of the contact to update
+        schema:
+          type: string
+        required: true
+      - name: upsertContactPolicy
+        in: query
+        description: The policy to update the contacts
+        schema:
+          type: string
+          enum:
+          - OLDEST_CONTACT
+          - NEWEST_CONTACT
+          - ADD_NEW_CONTACT
+          - ALL_CONTACTS
+          - SKIP_EXISTING_CONTACT
+          - SKIP_NEW_CONTACT
+          default: OLDEST_CONTACT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actonPrimaryScore:
+                  type: string
+                  description: The contact's Act-On primary score
+                businessCity:
+                  type: string
+                  description: The contact's business city
+                businessCountry:
+                  type: string
+                  description: The contact's business country
+                businessFax:
+                  type: string
+                  description: The contact's business fax number
+                businessPhone:
+                  type: string
+                  description: The contact's business phone number
+                businessState:
+                  type: string
+                  description: The contact's business state
+                businessStreet:
+                  type: string
+                  description: The contact's business street address
+                businessWebsite:
+                  type: string
+                  description: The contact's business website
+                businessZip:
+                  type: string
+                  description: The contact's business zip code
+                company:
+                  type: string
+                  description: The contact's company name
+                createdDate:
+                  type: string
+                  description: The contact's created date
+                customFields:
+                  type: object
+                  properties: {}
+                dateOfBirth:
+                  type: string
+                  description: The contact's Act-On date of birth in format YYY-MM-DD
+                department:
+                  type: string
+                  description: The contact's department
+                email:
+                  type: string
+                  description: The contact's email address
+                externalId:
+                  type: string
+                  description: The external system id of the contact
+                firstName:
+                  type: string
+                  description: The contact's first name
+                homePhone:
+                  type: string
+                  description: The contact's home phone number
+                id:
+                  type: string
+                  description: The Act-On contacts id of the contact
+                lastName:
+                  type: string
+                  description: The contact's last name
+                legacyRecordId:
+                  type: string
+                  description: The legacy record id of the contact
+                middleName:
+                  type: string
+                  description: The contact's middle name
+                mobilePhone:
+                  type: string
+                  description: The contact's mobile phone number
+                objectType:
+                  type: string
+                  description: The object type of the contact in an external system
+                personalCity:
+                  type: string
+                  description: The contact's personal city
+                personalCountry:
+                  type: string
+                  description: The contact's personal country
+                personalState:
+                  type: string
+                  description: The contact's personal state
+                personalStreet:
+                  type: string
+                  description: The contact's personal street address
+                personalWebsite:
+                  type: string
+                  description: The contact's personal website
+                personalZip:
+                  type: string
+                  description: The contact's personal zip code
+                picture:
+                  type: string
+                  description: A URL to the contact's picture
+                timezone:
+                  type: string
+                  description: The contact's timezone
+                title:
+                  type: string
+                  description: The contact's job title
+                updatedDate:
+                  type: string
+                  description: The contact's updated date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Delete contact in the Act-On Contacts List by externalId and object type
+      description: ''
+      operationId: delete-contact-in-the-act-on-contacts-list-by-externalid-and-object-type
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to delete
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The object type of the contact to delete
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: 'true'
+              schema:
+                type: boolean
+                example: true
+                default: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/id/{id}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact in the Act-On Contacts List by id
+      description: ''
+      operationId: get-contact-in-the-act-on-contacts-list-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: id
+        in: path
+        description: The id of the contact to retrieve
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Update contact in the Act-On Contacts List by id
+      description: ''
+      operationId: update-contact-in-the-act-on-contacts-list-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: id
+        in: path
+        description: The id of the contact to update
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                actonPrimaryScore:
+                  type: string
+                  description: The contact's Act-On primary score
+                businessCity:
+                  type: string
+                  description: The contact's business city
+                businessCountry:
+                  type: string
+                  description: The contact's business country
+                businessFax:
+                  type: string
+                  description: The contact's business fax number
+                businessPhone:
+                  type: string
+                  description: The contact's business phone number
+                businessState:
+                  type: string
+                  description: The contact's business state
+                businessStreet:
+                  type: string
+                  description: The contact's business street address
+                businessWebsite:
+                  type: string
+                  description: The contact's business website
+                businessZip:
+                  type: string
+                  description: The contact's business zip code
+                company:
+                  type: string
+                  description: The contact's company name
+                createdDate:
+                  type: string
+                  description: The contact's created date
+                customFields:
+                  type: object
+                  description: Custom field data by column index
+                  properties: {}
+                dateOfBirth:
+                  type: string
+                  description: The contact's Act-On date of birth in format YYY-MM-DD
+                department:
+                  type: string
+                  description: The contact's department
+                email:
+                  type: string
+                  description: The contact's email address
+                externalId:
+                  type: string
+                  description: The external system id of the contact
+                firstName:
+                  type: string
+                  description: The contact's first name
+                homePhone:
+                  type: string
+                  description: The contact's home phone number
+                id:
+                  type: string
+                  description: The Act-On contacts id of the contact
+                lastName:
+                  type: string
+                  description: The contact's last name
+                legacyRecordId:
+                  type: string
+                  description: The legacy record id of the contact
+                middleName:
+                  type: string
+                  description: The contact's middle name
+                mobilePhone:
+                  type: string
+                  description: The contact's mobile phone number
+                objectType:
+                  type: string
+                  description: The object type of the contact in an external system
+                personalCity:
+                  type: string
+                  description: The contact's personal city
+                personalCountry:
+                  type: string
+                  description: The contact's personal country
+                personalState:
+                  type: string
+                  description: The contact's personal state
+                personalStreet:
+                  type: string
+                  description: The contact's personal street address
+                personalWebsite:
+                  type: string
+                  description: The contact's personal website
+                personalZip:
+                  type: string
+                  description: The contact's personal zip code
+                picture:
+                  type: string
+                  description: A URL to the contact's picture
+                timezone:
+                  type: string
+                  description: The contact's timezone
+                title:
+                  type: string
+                  description: The contact's job title
+                updatedDate:
+                  type: string
+                  description: The contact's updated date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '406':
+          description: '406'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contact/ids:
+    servers:
+    - url: https://api.actonsoftware.com
+    delete:
+      summary: Delete contacts in the Act-On Contacts List by ids
+      description: ''
+      operationId: delete-contacts-in-the-act-on-contacts-list-by-ids
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ADD STRING:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/activity:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact history by email address
+      description: ''
+      operationId: get-contact-history-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to retrieve the timeline data
+        schema:
+          type: string
+        required: true
+      - name: monthsOfPastData
+        in: query
+        description: The number of past months of data to retrieve the activities
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/scores:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all scores for a contact by email address
+      description: ''
+      operationId: get-all-scores-for-a-contact-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to retrieve the score cards
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/segments:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all segments that the contact belong by email address
+      description: ''
+      operationId: get-all-segments-that-the-contact-belong-by-email-address
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: emailAddress
+        in: path
+        description: The email address of the contact to find the segments it belongs
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/activity:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact history by externalId and object type
+      description: ''
+      operationId: get-contact-history-by-externalid-and-object-type
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to retrieve the timeline data
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The objectType of the contact to retrieve the timeline data
+        schema:
+          type: string
+        required: true
+      - name: monthsOfPastData
+        in: query
+        description: The number of past months of data to retrieve the activities
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/scores:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all scores for a contact by externalId and object type
+      description: ''
+      operationId: get-all-scores-for-a-contact-by-externalid-and-object-type
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to retrieve the score cards
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The objectType of the contact to retrieve the score cards
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/segments:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all segments that the contact belong by externalId and object type
+      description: ''
+      operationId: get-all-segments-that-the-contact-belong-by-externalid-and-object-type
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: externalId
+        in: path
+        description: The externalId of the contact to find the segments it belongs
+        schema:
+          type: string
+        required: true
+      - name: objectType
+        in: path
+        description: The objectType of the contact to find the segments it belongs
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/id/{id}/activity:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact history by id
+      description: ''
+      operationId: get-contact-history-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: id
+        in: path
+        description: The id of the contact to retrieve the timeline data
+        schema:
+          type: string
+        required: true
+      - name: monthsOfPastData
+        in: query
+        description: The number of past months of data to retrieve the activities
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/id/{id}/scores:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all scores for a contact by id
+      description: ''
+      operationId: get-all-scores-for-a-contact-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: id
+        in: path
+        description: The id of the contact to retrieve the score cards
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/contactReport/id/{id}/segments:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get all segments that the contact belong by id
+      description: ''
+      operationId: get-all-segments-that-the-contact-belong-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: id
+        in: path
+        description: The id of the contact to find the segments it belongs
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/schema/:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Schema
+      description: ''
+      operationId: get-schema
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: skipHidden
+        in: query
+        description: If hidden columns should be included in the response
+        schema:
+          type: boolean
+          default: true
+      - name: skipReadOnly
+        in: query
+        description: If read-only columns should be included in the response
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value:
+                    accountId: '12345'
+                    columns:
+                    - fieldId: 1116
+                      columnIndex: 6
+                      name: Act-On Primary Score
+                      type: SCORE
+                      standardFieldMapping: ACTON_PRIMARY_SCORE
+                      required: true
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1117
+                      columnIndex: 7
+                      name: First Name
+                      type: TEXT
+                      standardFieldMapping: FIRST_NAME
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1118
+                      columnIndex: 8
+                      name: Last Name
+                      type: TEXT
+                      standardFieldMapping: LAST_NAME
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1119
+                      columnIndex: 9
+                      name: Company
+                      type: TEXT
+                      standardFieldMapping: COMPANY
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1121
+                      columnIndex: 11
+                      name: Email
+                      type: EMAIL
+                      standardFieldMapping: EMAIL
+                      required: true
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1122
+                      columnIndex: 12
+                      name: Title
+                      type: TEXT
+                      standardFieldMapping: TITLE
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1124
+                      columnIndex: 14
+                      name: Mailing City
+                      type: TEXT
+                      standardFieldMapping: BUSINESS_CITY
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1125
+                      columnIndex: 15
+                      name: Mailing State/Province
+                      type: TEXT
+                      standardFieldMapping: BUSINESS_STATE
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1128
+                      columnIndex: 18
+                      name: Business Phone
+                      type: TEXT
+                      standardFieldMapping: BUSINESS_PHONE
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1154
+                      columnIndex: 44
+                      name: Do Not Contact
+                      type: BOOLEAN
+                      standardFieldMapping: null
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1156
+                      columnIndex: 46
+                      name: Hand-Raiser
+                      type: BOOLEAN
+                      standardFieldMapping: null
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1159
+                      columnIndex: 49
+                      name: Current Customer - Contact
+                      type: BOOLEAN
+                      standardFieldMapping: null
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 1161
+                      columnIndex: 51
+                      name: Status
+                      type: TEXT
+                      standardFieldMapping: STATUS
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 4184
+                      columnIndex: 65
+                      name: Account Type
+                      type: TEXT
+                      standardFieldMapping: null
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 5632
+                      columnIndex: 76
+                      name: Lead Score Engagement Profile
+                      type: SCORE
+                      standardFieldMapping: null
+                      required: false
+                      readonly: false
+                      hidden: false
+                    - fieldId: 10795
+                      columnIndex: 96
+                      name: Lead Source
+                      type: TEXT
+                      standardFieldMapping: LEAD_SOURCE
+                      required: false
+                      readonly: false
+                      hidden: false
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/schema/field/:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Add Field
+      description: ''
+      operationId: add-field
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - type
+              properties:
+                name:
+                  type: string
+                  description: The name of the column
+                type:
+                  type: string
+                  description: The type of the column
+                  enum:
+                  - BOOLEAN
+                  - DATE
+                  - DATETIME
+                  - TEXT
+                  - NUMBER
+                  - SCORE
+                  - EMAIL
+                  - MULTI-TEXT
+                standardFieldMapping:
+                  type: string
+                  description: Include to select one of the standard contact fields
+                  enum:
+                  - EMAIL
+                  - FIRST_NAME
+                  - MIDDLE_NAME
+                  - LAST_NAME
+                  - COMPANY
+                  - TITLE
+                  - DEPARTMENT
+                  - BUSINESS_STREET
+                  - BUSINESS_CITY
+                  - BUSINESS_STATE
+                  - BUSINESS_ZIP
+                  - BUSINESS_COUNTRY
+                  - PERSONAL_STREET
+                  - PERSONAL_CITY
+                  - PERSONAL_STATE
+                  - PERSONAL_ZIP
+                  - PERSONAL_COUNTRY
+                  - BUSINESS_PHONE
+                  - BUSINESS_FAX
+                  - HOME_PHONE
+                  - MOBILE_PHONE
+                  - BUSINESS_WEBSITE
+                  - PERSONAL_WEBSITE
+                  - PICTURE
+                  - TIMEZONE
+                  - DATE_OF_BIRTH
+                required:
+                  type: boolean
+                hidden:
+                  type: boolean
+                readonly:
+                  type: boolean
+            examples:
+              New Custom Text Column:
+                value:
+                  name: New Text Column
+                  type: TEXT
+              New Standard Column:
+                value:
+                  name: Job Title
+                  type: TEXT
+                  standardFieldMapping: TITLE
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                New Standard Field:
+                  value: "{\n    \"source\": {\n        \"fieldId\": 11111,\n        \"columnIndex\": 99,\n        \"name\": \"Job Title\",\n        \"type\": \"TEXT\",\n        \"standardFieldMapping\": \"TITLE\",\n        \"required\": false,\n        \"readonly\": false,\n        \"hidden\": false\n    },\n    \"errorMessage\": null,\n    \"statusCode\": 200,\n    \"objectId\": \"11111\",\n    \"isSuccess\": true\n}"
+                New Custom Field:
+                  value: "{\n    \"source\": {\n        \"fieldId\": 22222,\n        \"columnIndex\": 98,\n        \"name\": \"New Text Column\",\n        \"type\": \"TEXT\",\n        \"standardFieldMapping\": null,\n        \"required\": false,\n        \"readonly\": false,\n        \"hidden\": false\n    },\n    \"errorMessage\": null,\n    \"statusCode\": 200,\n    \"objectId\": \"22222\",\n    \"isSuccess\": true\n}"
+              schema:
+                oneOf:
+                - title: New Standard Field
+                  type: object
+                  properties:
+                    source:
+                      type: object
+                      properties:
+                        fieldId:
+                          type: integer
+                          example: 11111
+                          default: 0
+                        columnIndex:
+                          type: integer
+                          example: 99
+                          default: 0
+                        name:
+                          type: string
+                          example: Job Title
+                        type:
+                          type: string
+                          example: TEXT
+                        standardFieldMapping:
+                          type: string
+                          example: TITLE
+                        required:
+                          type: boolean
+                          example: false
+                          default: true
+                        readonly:
+                          type: boolean
+                          example: false
+                          default: true
+                        hidden:
+                          type: boolean
+                          example: false
+                          default: true
+                    errorMessage: {}
+                    statusCode:
+                      type: integer
+                      example: 200
+                      default: 0
+                    objectId:
+                      type: string
+                      example: '11111'
+                    isSuccess:
+                      type: boolean
+                      example: true
+                      default: true
+                - title: New Custom Field
+                  type: object
+                  properties:
+                    source:
+                      type: object
+                      properties:
+                        fieldId:
+                          type: integer
+                          example: 22222
+                          default: 0
+                        columnIndex:
+                          type: integer
+                          example: 98
+                          default: 0
+                        name:
+                          type: string
+                          example: New Text Column
+                        type:
+                          type: string
+                          example: TEXT
+                        standardFieldMapping: {}
+                        required:
+                          type: boolean
+                          example: false
+                          default: true
+                        readonly:
+                          type: boolean
+                          example: false
+                          default: true
+                        hidden:
+                          type: boolean
+                          example: false
+                          default: true
+                    errorMessage: {}
+                    statusCode:
+                      type: integer
+                      example: 200
+                      default: 0
+                    objectId:
+                      type: string
+                      example: '22222'
+                    isSuccess:
+                      type: boolean
+                      example: true
+                      default: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/schema/field/{fieldId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    put:
+      summary: Update FieldDefinition
+      description: ''
+      operationId: update-fielddefinition
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: fieldId
+        in: path
+        description: The fieldId of the field to update
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - type
+              properties:
+                columnIndex:
+                  type: integer
+                  format: int32
+                fieldId:
+                  type: integer
+                  format: int32
+                hidden:
+                  type: boolean
+                name:
+                  type: string
+                  description: The name of the column
+                readonly:
+                  type: boolean
+                required:
+                  type: boolean
+                standardFieldMapping:
+                  type: string
+                type:
+                  type: string
+                  description: The type of the column
+                  enum:
+                  - BOOLEAN
+                  - DATE
+                  - DATETIME
+                  - TEXT
+                  - NUMBER
+                  - SCORE
+                  - EMAIL
+                  - MULTI-TEXT
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Delete Field
+      description: ''
+      operationId: delete-field
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: fieldId
+        in: path
+        description: The fieldId of the field to delete
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/segment/:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Segments
+      description: ''
+      operationId: get-segments
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: query
+        description: The page number to retrieve
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of results to return per page
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    post:
+      summary: Create a segment
+      description: ''
+      operationId: create-a-segment
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - parentId
+              - type
+              properties:
+                name:
+                  type: string
+                parentId:
+                  type: string
+                  description: For top-level segments, set this to "l-unified-contacts"
+                type:
+                  type: string
+                  description: See "What's Next" for information on segmentation types.
+                  enum:
+                  - DIRECT_SELECT
+                  - QUERY
+                  - SEARCH
+                filter:
+                  type: object
+                  properties: {}
+            examples:
+              Direct Select:
+                value:
+                  name: DS Segment Name
+                  parentId: l-unified-contacts
+                  type: DIRECT_SELECT
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"source\": {\n        \"id\": \"g-000b\",\n        \"name\": \"DS Segment Name\",\n        \"type\": \"DIRECT_SELECT\",\n        \"parentId\": \"l-unified-contacts\",\n        \"filter\": null\n    },\n    \"errorMessage\": null,\n    \"statusCode\": 200,\n    \"objectId\": null,\n    \"isSuccess\": true\n}"
+              schema:
+                type: object
+                properties:
+                  source:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: g-000b
+                      name:
+                        type: string
+                        example: DS Segment Name
+                      type:
+                        type: string
+                        example: DIRECT_SELECT
+                      parentId:
+                        type: string
+                        example: l-unified-contacts
+                      filter: {}
+                  errorMessage: {}
+                  statusCode:
+                    type: integer
+                    example: 200
+                    default: 0
+                  objectId: {}
+                  isSuccess:
+                    type: boolean
+                    example: true
+                    default: true
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '409':
+          description: '409'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/segment/{segmentId}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Segment by Id
+      description: ''
+      operationId: get-segment-by-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Update Segment. If it's a Direct Select Segment, only the name can be updated.
+      description: ''
+      operationId: update-segment-if-its-a-direct-select-segment-only-the-name-can-be-updated
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  type: object
+                  properties: {}
+                id:
+                  type: string
+                name:
+                  type: string
+                parentId:
+                  type: string
+                type:
+                  type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Delete Segment
+      description: ''
+      operationId: delete-segment
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: '403'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/segment/{segmentId}/contacts:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Contacts from a Segment
+      description: ''
+      operationId: get-contacts-from-a-segment
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      - name: page
+        in: query
+        description: The page number to return
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: pageSize
+        in: query
+        description: The number of results to return per page
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    put:
+      summary: Add Contacts to a Direct Select Segment
+      description: ''
+      operationId: add-contacts-to-a-direct-select-segment
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: array
+                  description: Array of UCL contact IDs
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Remove Contacts from Direct Select Segment
+      description: ''
+      operationId: remove-contacts-from-direct-select-segment
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ADD STRING:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/segment/{segmentId}/email/contact:
+    servers:
+    - url: https://api.actonsoftware.com
+    delete:
+      summary: Remove Contacts from Direct Select Segment by email
+      description: ''
+      operationId: remove-contacts-from-direct-select-segment-by-email
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      - name: email
+        in: query
+        description: The contact email for this request
+        required: true
+        schema:
+          type: string
+      - name: policy
+        in: query
+        description: The policy for this request
+        required: true
+        schema:
+          type: string
+          default: OLDEST_CONTACT
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: '404'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+  /ucl/v2/{accountId}/segment/{segmentId}/externalId/contacts:
+    servers:
+    - url: https://api.actonsoftware.com
+    put:
+      summary: Add Contacts to a Direct Select Segment By External id
+      description: ''
+      operationId: add-contacts-to-a-direct-select-segment-by-external-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                OBJECT:
+                  type: array
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+    delete:
+      summary: Remove Contacts from Direct Select Segment by external id
+      description: ''
+      operationId: remove-contacts-from-direct-select-segment-by-external-id
+      parameters:
+      - name: accountId
+        in: path
+        description: The Act-On account Id for this request
+        schema:
+          type: string
+        required: true
+      - name: segmentId
+        in: path
+        description: The Act-On segment Id for this request
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                OBJECT:
+                  type: array
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '415':
+          description: '415'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+        '500':
+          description: '500'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: ''
+      deprecated: false
+      tags:
+      - Ucl
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-refined-from:
+- act-on-raw-body-api-openapi.yml
+- act-on-rest-api-openapi.yml
+x-readme: {}

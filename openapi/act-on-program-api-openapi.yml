@@ -1,0 +1,48 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Program API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Program
+paths:
+  /api/1/program:
+    get:
+      summary: Get list of programs
+      description: Get a list of all programs of a specified type.
+      operationId: get-list-of-programs
+      parameters:
+      - name: type
+        in: query
+        description: Specify the type of program you would like returned. ("TRACK" for automated programs, "EVENT" for webinars, "LIST_MAINT" for list maintenance)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Program
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,706 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Message API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Message
+paths:
+  /api/1/message/{id}/report:
+    get:
+      summary: Get message report
+      description: Get a report on the specified message.
+      operationId: get-message-report
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the message
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"ok\",\n    \"sent\": 2,\n    \"delivered\": 2,\n    \"bounced\": 0,\n    \"hardBounced\": 0,\n    \"softBounced\": 0,\n    \"opened\": [\n        2,\n        8\n    ],\n    \"effectiveopened\": [\n        0,\n        0\n    ],\n    \"clicked\": [\n        2,\n        2\n    ],\n    \"notsent\": [\n        1,\n        1\n    ],\n    \"notopened\": 0,\n    \"optout\": 0,\n    \"spam\": 0,\n    \"lastOpen\": \"2 days ago\",\n    \"lastClick\": \"2 days ago\",\n    \"lastOpenTS\": 1725721786344,\n    \"lastClickTS\": 1725641533146,\n    \"rebroadcast\": 0,\n    \"rebroadcastClick\": 0,\n    \"msgId\": \"s-0001-2409\",\n    \"subject\": \"It's been an amazing month!\",\n    \"title\": \"Monthly Update\",\n    \"sentto\": [\n        \"q-0002\"\n    ],\n    \"suppressedon\": []\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  sent:
+                    type: integer
+                    example: 2
+                    default: 0
+                  delivered:
+                    type: integer
+                    example: 2
+                    default: 0
+                  bounced:
+                    type: integer
+                    example: 0
+                    default: 0
+                  hardBounced:
+                    type: integer
+                    example: 0
+                    default: 0
+                  softBounced:
+                    type: integer
+                    example: 0
+                    default: 0
+                  opened:
+                    type: array
+                    items:
+                      type: integer
+                      example: 2
+                      default: 0
+                  effectiveopened:
+                    type: array
+                    items:
+                      type: integer
+                      example: 0
+                      default: 0
+                  clicked:
+                    type: array
+                    items:
+                      type: integer
+                      example: 2
+                      default: 0
+                  notsent:
+                    type: array
+                    items:
+                      type: integer
+                      example: 1
+                      default: 0
+                  notopened:
+                    type: integer
+                    example: 0
+                    default: 0
+                  optout:
+                    type: integer
+                    example: 0
+                    default: 0
+                  spam:
+                    type: integer
+                    example: 0
+                    default: 0
+                  lastOpen:
+                    type: string
+                    example: 2 days ago
+                  lastClick:
+                    type: string
+                    example: 2 days ago
+                  lastOpenTS:
+                    type: integer
+                    example: 1725721786344
+                    default: 0
+                  lastClickTS:
+                    type: integer
+                    example: 1725641533146
+                    default: 0
+                  rebroadcast:
+                    type: integer
+                    example: 0
+                    default: 0
+                  rebroadcastClick:
+                    type: integer
+                    example: 0
+                    default: 0
+                  msgId:
+                    type: string
+                    example: s-0001-2409
+                  subject:
+                    type: string
+                    example: It's been an amazing month!
+                  title:
+                    type: string
+                    example: Monthly Update
+                  sentto:
+                    type: array
+                    items:
+                      type: string
+                      example: q-0002
+                  suppressedon:
+                    type: array
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid or Deleted Messages:
+                  value: "{\n    \"errorCode\": 10030,\n    \"message\": \"Invalid or deleted message\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10030
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or deleted message
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message/{id}/report/{drilldown}:
+    get:
+      summary: Get message report drilldown
+      description: Get a drilldown report for a specific email message.
+      operationId: get-message-report-drilldown
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the message
+        schema:
+          type: string
+        required: true
+      - name: drilldown
+        in: path
+        description: Specify the type to be returned. ("SENT", "SUPPRESSED", "OPENED", "CLICKED", "BOUNCED", "OPT_OUT", "SPAM")
+        schema:
+          type: string
+        required: true
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch. (Default=0)
+        schema:
+          type: string
+      - name: responseformat
+        in: query
+        description: Specify the desired response format. ("JSON", "CSV")
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"offset\": 2209,\n    \"count\": 0,\n    \"totalCount\": 8,\n    \"result\": []\n}"
+              schema:
+                type: object
+                properties:
+                  offset:
+                    type: integer
+                    example: 2209
+                    default: 0
+                  count:
+                    type: integer
+                    example: 0
+                    default: 0
+                  totalCount:
+                    type: integer
+                    example: 8
+                    default: 0
+                  result:
+                    type: array
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid drill-down verb:
+                  value: "{\n    \"errorCode\": 10089,\n    \"message\": \"Invalid drill-down verb\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10089
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid drill-down verb
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Invalid ID:
+                  value: "{\n    \"errorCode\": 10030,\n    \"message\": \"Invalid or deleted message\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10030
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or deleted message
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message/report:
+    get:
+      summary: Get message report by time period
+      description: Fetch the message rollup report from your account.
+      operationId: get-message-report-by-time-period
+      parameters:
+      - name: period
+        in: query
+        description: 'Specify the time period for the report. (Format: YYMM, eg. "1401")'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{}{\n    \"month\": \"September 2024\",\n    \"counts\": [\n        {\n            \"optedOut\": 0,\n            \"dayOfWeek\": 1,\n            \"dayOfMonth\": 1,\n            \"hardBounced\": 0,\n            \"softBounced\": 0,\n            \"opened\": 0,\n            \"bounced\": 0,\n            \"clicked\": 0,\n            \"sent\": 0\n        },\n        {\n            \"optedOut\": 0,\n            \"dayOfWeek\": 2,\n            \"dayOfMonth\": 2,\n            \"hardBounced\": 0,\n            \"softBounced\": 0,\n            \"opened\": 0,\n            \"bounced\": 0,\n            \"clicked\": 0,\n            \"sent\": 0\n        },\n        \n    ]\n}"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid Date Period:
+                  value: "{\n    \"errorCode\": 10160,\n    \"message\": \"The date period is invalid.\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10160
+                    default: 0
+                  message:
+                    type: string
+                    example: The date period is invalid.
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message:
+    post:
+      summary: Add new template or draft message
+      description: Add a draft message or template message to your account.
+      operationId: add-new-template-or-draft-message
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: draft or template
+                subject:
+                  type: string
+                  description: Specify a subject for the message.
+                title:
+                  type: string
+                  description: Specify the title of the message.
+                htmlbody:
+                  type: string
+                  description: Specify the HTML for the message.
+                textbody:
+                  type: string
+                  description: Specify the TEXT body for the message.
+                foldername:
+                  type: string
+                  description: Specify the folder name to store the message.
+                sendername:
+                  type: string
+                  description: Specify the verified sender name.
+                senderemail:
+                  type: string
+                  description: Specify the verified sender email address
+                headerid:
+                  type: string
+                  description: Specify the header ID for the message.
+                footerid:
+                  type: string
+                  description: Specify the footer ID for the message.
+                logoid:
+                  type: string
+                  description: Specify the logo ID for the message.
+                isnewcomposer:
+                  type: boolean
+                  description: Specifies whether the template should be created with new or legacy composer
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message/{msgid}/send:
+    post:
+      summary: Send a message
+      description: Send the specified message with a simple HTTP POST to the Email Campaign API.
+      operationId: send-a-message
+      parameters:
+      - name: msgid
+        in: path
+        description: If custom set the value to "custom" otherwise specify the ID of the Draft, Template, or Previously Sent Message.
+        schema:
+          type: string
+        required: true
+      - name: Content-Type
+        in: header
+        required: true
+        description: ''
+        schema:
+          type: string
+          default: application/x-www-form-urlencoded
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Specify Message Title
+                iscustom:
+                  type: string
+                  description: Is this a custom message? ("Y","N")
+                senderemail:
+                  type: string
+                  description: Specify the verified sender email address.
+                sendername:
+                  type: string
+                  description: Specify the verified sender name.
+                istextonly:
+                  type: string
+                  description: Are you sending a text-only message? ("Y","N")
+                istransactional:
+                  type: string
+                  description: Are you sending a transactional message? ("Y","N")
+                issuppressduplicates:
+                  type: string
+                  description: Do you want to suppress duplicates? ("Y","N")
+                sendtoids:
+                  type: string
+                  description: Specify the list IDs if you are sending complete lists. (Comma-Separated)
+                suppressids:
+                  type: string
+                  description: Specify the list IDs of lists you would like to suppress against this send. (Comma-Separated)
+                sendtorecids:
+                  type: string
+                  description: Specify the record IDs if you are sending to specific records. (Comma-Separated)
+                when:
+                  type: string
+                  description: Specify when the message should be sent. ("UNIX epoch timestamp")
+                subject:
+                  type: string
+                  description: If custom, specify a subject for the message.
+                htmlbody:
+                  type: string
+                  description: If custom, specify the HTML for the message.
+                textbody:
+                  type: string
+                  description: If custom, specify the TEXT body for the message.
+                headerid:
+                  type: string
+                  description: If custom, specify the header ID for the message.
+                footerid:
+                  type: string
+                  description: If custom, specify the footer ID for the message.
+                categoryid:
+                  type: string
+                  description: Specify the category ID of the subscription category to use for the message.
+                logoid:
+                  type: string
+                  description: If custom, specify the logo ID for the message.
+                whenend:
+                  type: string
+                  description: If sending over time specify the time when you want the message end. ("UNIX epoch timestamp")
+                timezone:
+                  type: string
+                  description: If sending in the recipients time set the fallback timezone if no timezone is present.
+                createcrmmsgsentnotes:
+                  type: string
+                  description: If sending to a CRM list do you want to send a CRM note? ("true","false")
+                replytoemail:
+                  type: string
+                  description: Specify the verified reply-to email address
+                replytoname:
+                  type: string
+                  description: Specify the verified reply-to name
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+    put:
+      summary: Resend a message
+      description: Update/resend the specified message.
+      operationId: resend-a-message
+      parameters:
+      - name: msgid
+        in: path
+        description: Specify the ID of the previously sent message.
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sendtoids:
+                  type: string
+                  description: Specify the list IDs if you are sending complete lists. (Comma-Separated)
+                issuppressduplicates:
+                  type: string
+                  description: Do you want to suppress duplicates? ("Y","N")
+                suppressids:
+                  type: string
+                  description: Specify the list IDs of lists you would like to suppress against this send. (Comma-Separated)
+                sendtorecids:
+                  type: string
+                  description: Specify the record IDs if you are sending to specific records. (Comma-Separated)
+                when:
+                  type: string
+                  description: Specify when the message should be sent. ("UNIX epoch timestamp")
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message/{id}:
+    put:
+      summary: Update template or draft message
+      description: Update an existing draft message or template in your account.
+      operationId: update-template-or-draft-message
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the template or draft message
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                subject:
+                  type: string
+                  description: Specify a subject for the message.
+                title:
+                  type: string
+                  description: Specify the title of the message.
+                htmlbody:
+                  type: string
+                  description: Specify the HTML for the message.
+                textbody:
+                  type: string
+                  description: Specify the TEXT body for the message.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+    delete:
+      summary: Delete a message
+      description: Delete a specified message or template.
+      operationId: delete-a-message
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the message
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message/{id}/{recid}:
+    get:
+      summary: Get message HTML contents
+      description: Get the HTML content of a Sent, Draft or Message Template
+      operationId: get-message-html-contents
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the message
+        schema:
+          type: string
+        required: true
+      - name: recid
+        in: path
+        description: To see the personalization of a specific record specify a recipient ID
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Message
+  /api/1/message?:
+    get:
+      summary: Get message list
+      description: Use to retrieve a listing of emails by type.
+      operationId: get-message-list
+      parameters:
+      - name: type
+        in: query
+        description: Specify the type of message to return. <p>("DRAFT", "TEMPLATE", "SENT", "TRIGGERED", "FAILED", "SCHEDULED")</p>
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch. (Default=0)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"count\": 1,\n    \"totalCount\": 1,\n    \"offset\": 0,\n    \"msgresult\": [\n        {\n            \"name\": \"Monthly Update\",\n            \"msgId\": \"s-0001-2409\",\n            \"msgType\": \"SENT\",\n            \"timeStamp\": \"1725641452528\",\n            \"timeWhen\": \"Fri Sep 6 9:50 AM PDT\",\n            \"senderName\": \"Jeffrey Coleman\",\n            \"senderId\": \"434330\",\n            \"isTextOnly\": \"false\",\n            \"senderEmail\": \"jeffrey.coleman+gspx@act-on.com\"\n        }\n    ],\n    \"id\": 0\n}"
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  totalCount:
+                    type: integer
+                    example: 1
+                    default: 0
+                  offset:
+                    type: integer
+                    example: 0
+                    default: 0
+                  msgresult:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: Monthly Update
+                        msgId:
+                          type: string
+                          example: s-0001-2409
+                        msgType:
+                          type: string
+                          example: SENT
+                        timeStamp:
+                          type: string
+                          example: '1725641452528'
+                        timeWhen:
+                          type: string
+                          example: Fri Sep 6 9:50 AM PDT
+                        senderName:
+                          type: string
+                          example: Jeffrey Coleman
+                        senderId:
+                          type: string
+                          example: '434330'
+                        isTextOnly:
+                          type: string
+                          example: 'false'
+                        senderEmail:
+                          type: string
+                          example: jeffrey.coleman+gspx@act-on.com
+                  id:
+                    type: integer
+                    example: 0
+                    default: 0
+      deprecated: false
+      tags:
+      - Message
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,269 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Image API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Image
+paths:
+  /api/1/image:
+    get:
+      summary: Get image list
+      description: Get a list of the images in your account.
+      operationId: get-image-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n  {\n    \"entries\": [\n      {\n        \"creation_time\": \"1725391646761\",\n        \"size\": 2728719,\n        \"thumb\": \"http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg\",\n        \"name\": \"Cell Phone Call.jpg\",\n        \"width\": \"2500\",\n        \"id\": \"f-745b73d6-234d-4082-90ed-f0071c51fa36\",\n        \"last_modified\": \"1725391646769\",\n        \"url\": \"http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg\",\n        \"height\": \"2500\"\n      }\n    ],\n    \"name\": \"Default Folder\"\n  }\n]"
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    entries:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          creation_time:
+                            type: string
+                            example: '1725391646761'
+                          size:
+                            type: integer
+                            example: 2728719
+                            default: 0
+                          thumb:
+                            type: string
+                            example: http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg
+                          name:
+                            type: string
+                            example: Cell Phone Call.jpg
+                          width:
+                            type: string
+                            example: '2500'
+                          id:
+                            type: string
+                            example: f-745b73d6-234d-4082-90ed-f0071c51fa36
+                          last_modified:
+                            type: string
+                            example: '1725391646769'
+                          url:
+                            type: string
+                            example: http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg
+                          height:
+                            type: string
+                            example: '2500'
+                    name:
+                      type: string
+                      example: Default Folder
+      deprecated: false
+      tags:
+      - Image
+    post:
+      summary: Add an image
+      description: 'Add a new image to your account. <p>NOTE: This is a "multipart/form-data" post.</p>'
+      operationId: add-an-image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Specify a name for the image
+                file:
+                  type: string
+                  format: binary
+                foldername:
+                  type: string
+                  description: Specify the foler name you would like the image to be added to
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{}{\n    \"status\": \"success\",\n    \"message\": \"The file has been uploaded\",\n    \"id\": \"f-b9305f9e-f90c-416e-b609-51ccffebbb40\"\n}"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid file Type:
+                  value: "{\n    \"errorCode\": 10085,\n    \"message\": \"Invalid file type specified\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10085
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid file type specified
+      deprecated: false
+      tags:
+      - Image
+  /api/1/image/{id}:
+    get:
+      summary: Get an image
+      description: Get the image, specified by Act-On id, from the account. To obtain a list of all images in the account the associated ids, use Get image list.
+      operationId: get-an-image
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the image
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n  \"id\": \"f-745b73d6-234d-4082-90ed-f0071c51fa36\",\n  \"image_url\": \"http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg\",\n  \"thumb_url\": \"http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg\",\n  \"size\": 2728719,\n  \"last_modified\": 1725391646769,\n  \"creation_time\": 1725391646761,\n  \"display_name\": \"Cell Phone Call.jpg\",\n  \"folder_name\": \"Default Folder\",\n  \"version\": 0\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: f-745b73d6-234d-4082-90ed-f0071c51fa36
+                  image_url:
+                    type: string
+                    example: http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg
+                  thumb_url:
+                    type: string
+                    example: http://a46370.actonservice.com/cdnr/forpci4/acton/attachment/46370/f-745b73d6-234d-4082-90ed-f0071c51fa36/1/-/-/-/-/image.jpg
+                  size:
+                    type: integer
+                    example: 2728719
+                    default: 0
+                  last_modified:
+                    type: integer
+                    example: 1725391646769
+                    default: 0
+                  creation_time:
+                    type: integer
+                    example: 1725391646761
+                    default: 0
+                  display_name:
+                    type: string
+                    example: Cell Phone Call.jpg
+                  folder_name:
+                    type: string
+                    example: Default Folder
+                  version:
+                    type: integer
+                    example: 0
+                    default: 0
+      deprecated: false
+      tags:
+      - Image
+    put:
+      summary: Update an image
+      description: Replace an existing image in the image repository.
+      operationId: update-an-image
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the image
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                foldername:
+                  type: string
+                  description: Specify the folder name you would like the image added. If the image does not exist in the specified folder a new image will be uploaded to the specified folder.
+                file:
+                  type: string
+                  format: binary
+                ignorefolder:
+                  type: string
+                  description: Do you want to ignore the foldername parameter? ("Y")
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{}{\n    \"status\": \"success\",\n    \"message\": \"The file has been uploaded\",\n    \"id\": \"f-b9305f9e-f90c-416e-b609-51ccffebbb40\"\n}"
+      deprecated: false
+      tags:
+      - Image
+    delete:
+      summary: Delete an image
+      description: Delete an image (by id) from your account. To obtain a list of all images in the account the associated ids, use Get image list
+      operationId: delete-an-image
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the image
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"File deleted\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: File deleted
+        '404':
+          description: '404'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"errorCode\": 10054,\n    \"message\": \"The id is invalid\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10054
+                    default: 0
+                  message:
+                    type: string
+                    example: The id is invalid
+      deprecated: false
+      tags:
+      - Image
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

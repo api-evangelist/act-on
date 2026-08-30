@@ -1,0 +1,167 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Header API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Header
+paths:
+  /api/1/header:
+    get:
+      summary: Get header list
+      description: Get a list of headers in the account.
+      operationId: get-header-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Header
+  /api/1/header/{id}:
+    get:
+      summary: Get a header
+      description: Get the specified header from your account.
+      operationId: get-a-header
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the header
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Header
+    put:
+      summary: Update a header
+      description: Update the specified header.
+      operationId: update-a-header
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the header
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Name of Header
+                html:
+                  type: string
+                  description: Content of HTML version
+                text:
+                  type: string
+                  description: Content of plain text version
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful  Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Header
+    delete:
+      summary: Delete a header
+      description: Delete the specified header from your account.
+      operationId: delete-a-header
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the header
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Header
+  /api/1/header/:
+    post:
+      summary: Add a header
+      description: Add a new header to your account.
+      operationId: add-a-header
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Header Name
+                html:
+                  type: string
+                  description: Contents of HTML version of header
+                text:
+                  type: string
+                  description: Contents of plain text version of header
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Header
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,167 @@
+openapi: 3.2.0
+info:
+  title: act-on-api-1 Footer API
+  version: '2.0'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: Footer
+paths:
+  /api/1/footer:
+    get:
+      summary: Get footer list
+      description: Get a list of footers in your account.
+      operationId: get-footer-list
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Footer
+  /api/1/footer/{id}:
+    get:
+      summary: Get a footer
+      description: Get the specified footer by ID. Act-On assigns integer IDs to footers in numerical order when added, starting with the default footer with ID of 0 at account initiation.
+      operationId: get-a-footer
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the footer
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Footer
+    delete:
+      summary: Delete a footer
+      description: Delete an existing footer from the account.
+      operationId: delete-a-footer
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the footer to be deleted
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Footer
+    put:
+      summary: Update a footer
+      description: Update an existing footer in the account.
+      operationId: update-a-footer
+      parameters:
+      - name: id
+        in: path
+        description: Specify the ID of the footer
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Name of Footer
+                html:
+                  type: string
+                  description: Specify valid HTML for the footer.
+                text:
+                  type: string
+                  description: Specify the text version of the footer.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Footer
+  /api/1/footer/:
+    post:
+      summary: Add a new footer
+      description: 'Add a new footer to your account. To view default formatting for footers, use the Get footer list API. The default footer (id 0) contains standard elements that you might want to re-use while creating a new footer. <p>When you add a new footer, Act-On automatically assigns an id. You can, however, assign a meaningful footer title of your choosing.</p> <p>NOTE: the request must be URL form encoded.</p>'
+      operationId: add-a-new-footer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Name of footer
+                html:
+                  type: string
+                  description: Content of HTML version
+                text:
+                  type: string
+                  description: Content of plain text version
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Footer
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

@@ -1,0 +1,1118 @@
+openapi: 3.2.0
+info:
+  title: Act On List API
+  version: '2.0'
+  description: 'Operations tagged List across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+servers:
+- url: https://api.actonsoftware.com
+security:
+- sec0: []
+tags:
+- name: List
+paths:
+  /api/1/list/{listid}/record:
+    servers:
+    - url: https://api.actonsoftware.com
+    post:
+      summary: Add a contact
+      description: Add a contact record to the specified list.
+      operationId: add-a-contact
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value <p>"{\n    \"EMAIL\": \"name@domain.com\",\n    \"FIRSTNAME\": \"John\",\n    \"LASTNAME\": \"Smith\"\n}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record inserted\",\n    \"id\": \"l-0001:12\",\n    \"contact_id\": \"l-0001:12\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record inserted
+                  id:
+                    type: string
+                    example: l-0001:12
+                  contact_id:
+                    type: string
+                    example: l-0001:12
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid Column Specified:
+                  value: "{\n    \"errorCode\": \"10010\",\n    \"message\": \"Invalid Column Specified\",\n}"
+      deprecated: false
+      tags:
+      - List
+    put:
+      summary: Upsert a contact record by email
+      description: 'Update an existing record or insert a new contact record using the email address that you specify using the following logic: <p>If the email address exists in the list, only the first record matching that email address is updated with the data you provide.</p><p>If the email address is not already in the list, a new record is added.</p><p>Please take note that this means that any duplicate records are NOT updated.</p>'
+      operationId: upsert-a-contact-record-by-email
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: email
+        in: query
+        description: Specify the email address
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value: <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"John\",\"LASTNAME\":\"Joe\"}" </p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+    delete:
+      summary: Delete records from a list
+      description: Delete multiple records from the specified list.
+      operationId: delete-records-from-a-list
+      parameters:
+      - name: listid
+        in: path
+        description: Specift the list ID
+        schema:
+          type: string
+        required: true
+      - name: contactids
+        in: query
+        description: Up to 100 record ids in the format of l-0001:1,l-0001:2,l-0001:a
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"success_count\": 3,\n    \"fail_count\": 0,\n    \"failedList\": []\n}"
+              schema:
+                type: object
+                properties:
+                  success_count:
+                    type: integer
+                    example: 3
+                    default: 0
+                  fail_count:
+                    type: integer
+                    example: 0
+                    default: 0
+                  failedList:
+                    type: array
+            text/plain:
+              examples:
+                Failed Records:
+                  value: "{\n    \"success_count\": 2,\n    \"fail_count\": 1,\n    \"failedList\": [\n        {\n            \"id\": \"l-0001:a\",\n            \"reason\": \"Invalid contact id\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  success_count:
+                    type: integer
+                    example: 2
+                    default: 0
+                  fail_count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  failedList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: l-0001:a
+                        reason:
+                          type: string
+                          example: Invalid contact id
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/{listid}/record/{recordid}:
+    servers:
+    - url: https://api.actonsoftware.com
+    put:
+      summary: Update a contact by record ID
+      description: 'Update the specified contact record in the specified list. <p>NOTE: This only updates the identified record in list that you specify.</p>'
+      operationId: update-a-contact-by-record-id
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: recordid
+        in: path
+        description: Specify the record id ("{listid}:{recordid}")
+        schema:
+          type: string
+        required: true
+      - name: returncontact
+        in: query
+        description: Return the data of the updated contact in the response? <p>("Y"/"N")</p>
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value : <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"Joe\",\"LASTNAME\":\"Joe\"}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record updated\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record updated
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid List:
+                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10004
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or missing list
+      deprecated: false
+      tags:
+      - List
+    get:
+      summary: Get contact record
+      description: 'Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ</p>'
+      operationId: get-contact-record
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: recordid
+        in: path
+        description: Specify the record id ("{listid}:{recordid}")
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "[\n    \"l-0001:0\",\n    \"Actonio\",\n    \"Clickwell\",\n    \"Manager, Demand Generation\",\n    \"Act-On Software\",\n    \"Portland\",\n    \"aclickwell@act-on.com\",\n    \"Organic Search\",\n    \"2024-09-03 12:47:01 PDT\"\n]"
+              schema:
+                type: array
+                items:
+                  type: string
+                  example: l-0001:0
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid List ID:
+                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10004
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or missing list
+      deprecated: false
+      tags:
+      - List
+    delete:
+      summary: Delete a contact
+      description: Remove the specified contact record from the specified list.
+      operationId: delete-a-contact
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: recordid
+        in: path
+        description: Specify the id of the record ("{listid}:{recordid}")
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record deleted\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record deleted
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid Contact:
+                  value: "{\n    \"errorCode\": 10008,\n    \"message\": \"Invalid contact\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10008
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid contact
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/{listid}/record/{recordid}/facts:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact history and score
+      description: 'Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ</p>'
+      operationId: get-contact-history-and-score
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: recordid
+        in: path
+        description: Specify the record id. ("{listid}:{recordid}")
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/lookup:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact record ID based on cookie value
+      description: Gets a contact record ID from your account based on a cookie ID.
+      operationId: get-contact-record-id-based-on-cookie-value
+      parameters:
+      - name: cookie
+        in: query
+        description: Specify the cookie id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/lookup/{listid}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get contact from list based on cookie ID or e-mail
+      description: Gets a contact record from a list based on a cookie ID and/or email address.
+      operationId: get-contact-from-list-based-on-cookie-id-or-e-mail
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the List ID that contains the record
+        schema:
+          type: string
+        required: true
+      - name: email
+        in: query
+        description: Specify the email address of the record
+        schema:
+          type: string
+      - name: cookieid
+        in: query
+        description: Specify the Cookie id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get list of Act-On Assets
+      description: Get listing of lists
+      operationId: get-list-of-act-on-assets
+      parameters:
+      - name: listingtype
+        in: query
+        description: 'Specify the type of assets to pull using one of the following values: "contact_list", "header", "footer", "sender", "media", "pages", "custom_events", "template_message", "draft_message", "landing_page", "sent_message", "triggered_message", "test_message", "failed_message", "scheduled_message"'
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{}{\n  \"offset\": 0,\n  \"count\": 5,\n  \"totalCount\": 5,\n  \"result\": [\n   \n    {\n      \"id\": \"l-0001\",\n      \"name\": \"API Example List\",\n      \"folderName\": \"Default Folder\",\n      \"sourceId\": \"l-0001\",\n      \"baseId\": \"l-0001\",\n      \"description\": \"Uploaded Marketing List\",\n      \"sourceSize\": \"1\",\n      \"sourceName\": \"API Example List\",\n      \"tsLastModified\": 1724800487518,\n      \"tsLastCounted\": 1724800872322,\n      \"tsSource\": 1724800487518,\n      \"sourceTS\": \"Aug 27 2024 4:14 PM PDT\",\n      \"bIsSingleton\": false,\n      \"bIsList\": true,\n      \"bIsSforce\": false,\n      \"bIsSforceReport\": false,\n      \"bIsSforceAvailable\": true,\n      \"bIsMSDyn\": false,\n      \"bIsMSDynAvailable\": true,\n      \"bIsSugar\": false,\n      \"bIsSugarAvailable\": true,\n      \"bIsSL\": false,\n      \"bIsSLAvailable\": true,\n      \"bIsNsuite\": false,\n      \"bIsNsuiteAvailable\": true\n    }\n  ]\n}"
+      deprecated: false
+      tags:
+      - List
+    post:
+      summary: Create a new list
+      description: Create a new list in your account.
+      operationId: create-a-new-list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                listname:
+                  type: string
+                  description: Specify list name
+                uploadspecs:
+                  type: string
+                  description: A JSON formatted object to describe the structure of the list that is being created.
+                file:
+                  type: string
+                  format: binary
+                quotecharacter:
+                  type: string
+                  description: Set field quote character.<p> ("NONE", "SINGLE_QUOTE", "DOUBLE_QUOTE")</p>
+                fieldseparator:
+                  type: string
+                  description: Set field separator character.<p> ("COMMA", "SEMICOLON" )</p>
+                headings:
+                  type: string
+                  description: Does the first row of the source data contain a heading?<p> ("Y","N")</p>
+                foldername:
+                  type: string
+                  description: Specify the folder name to store the list. Lists are stored in the default folder by default.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/{listid}:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Download List
+      description: Get listing of lists
+      operationId: download-list
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: modbefore
+        in: query
+        description: Filter records modified before the specified date. Unix timestamps
+        schema:
+          type: string
+      - name: modafter
+        in: query
+        description: Filter records modified after the specified date. Unix timestamps
+        schema:
+          type: string
+      - name: createdbefore
+        in: query
+        description: Filter records created before the specified date. Unix timestamps
+        schema:
+          type: string
+      - name: createdafter
+        in: query
+        description: Filter records created after the specified date. Unix timestamps
+        schema:
+          type: string
+      - name: fields
+        in: query
+        description: Using a semicolon as the delimiter specify the fields (URLEncoded Required) you would like returned. <p>The query parameter "datequalifiers" cannot be used in conjunction with this option.</p>
+        schema:
+          type: string
+      - name: datequalifiers
+        in: query
+        description: A "true" values return the dates created and modified. These columns will be headed with the names "created_date" and "modified_date". <p>The query parameter "fields" cannot be used in conjunction with this option.</p>
+        schema:
+          type: string
+      - name: responseformat
+        in: query
+        description: Specify the desired response format. <p>("JSON", "CSV")</p>
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n  \"listId\": \"l-0001\",\n  \"offset\": 0,\n  \"count\": 1,\n  \"totalCount\": 1,\n  \"emailColumn\": 6,\n  \"headers\": [\n    \"_contact_id_\",\n    \"First Name\",\n    \"Last Name\",\n    \"Job Title\",\n    \"Company\",\n    \"Business City\",\n    \"E-mail Address\",\n    \"Lead Source\",\n    \"Timezone\"\n  ],\n  \"data\": [\n    [\n      \"l-0001:0\",\n      \"Actonio\",\n      \"Clickwell\",\n      \"Sr. Manager, Demand Generation\",\n      \"Act-On Software\",\n      \"Portland\",\n      \"aclickwell@act-on.com\",\n      \"Organic Search\",\n      \"America/Los_Angeles\"\n    ]\n  ]\n}"
+              schema:
+                type: object
+                properties:
+                  listId:
+                    type: string
+                    example: l-0001
+                  offset:
+                    type: integer
+                    example: 0
+                    default: 0
+                  count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  totalCount:
+                    type: integer
+                    example: 1
+                    default: 0
+                  emailColumn:
+                    type: integer
+                    example: 6
+                    default: 0
+                  headers:
+                    type: array
+                    items:
+                      type: string
+                      example: _contact_id_
+                  data:
+                    type: array
+                    items:
+                      type: array
+                      items:
+                        type: string
+                        example: l-0001:0
+      deprecated: false
+      tags:
+      - List
+    put:
+      summary: Update or merge a list
+      description: Update or Merge to an existing Act-On list.
+      operationId: update-or-merge-a-list
+      parameters:
+      - name: listid
+        in: path
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quotecharacter:
+                  type: string
+                  description: Set field quote character ("NONE", "SINGLE_QUOTE", "DOUBLE_QUOTE")
+                uploadspecs:
+                  type: string
+                  description: A JSON formatted object to describe the structure of the list that is being uploaded.
+                mergespecs:
+                  type: string
+                  description: A JSON formatted object to describe the structure of how the list is merged.
+                file:
+                  type: string
+                  format: binary
+                headings:
+                  type: string
+                  description: Does the first row of the source data contain a heading? ("Y","N")
+                  default: Y
+                fieldseparator:
+                  type: string
+                  description: Set field separator character ("COMMA", "SEMICOLON" )
+                putEmptyValues:
+                  type: string
+                  description: Do you want values in the destination list to be overwritten by blanks if the source list is blank for the corresponding column? ("Y", "N")
+                  default: N
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Upload completed\",\n    \"jobId\": \"1234567\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Upload completed
+                  jobId:
+                    type: string
+                    example: '1234567'
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid List in Parameter:
+                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n}"
+                Invalid list in mergespec:
+                  value: "{\n    \"errorCode\": 10025,\n    \"message\": \"Invalid or missing merge destination list\"\n}"
+                Missing Column:
+                  value: "{\n    \"errorCode\": 10088,\n    \"message\": \"At least one specified merge column is missing from the uploaded file\"\n}"
+                Input file missing:
+                  value: "{\n    \"errorCode\": 10003,\n    \"message\": \"Input file missing\"\n}"
+              schema:
+                oneOf:
+                - title: Invalid List in Parameter
+                  type: object
+                  properties:
+                    errorCode:
+                      type: integer
+                      example: 10004
+                      default: 0
+                    message:
+                      type: string
+                      example: Invalid or missing list
+                - title: Invalid list in mergespec
+                  type: object
+                  properties:
+                    errorCode:
+                      type: integer
+                      example: 10025
+                      default: 0
+                    message:
+                      type: string
+                      example: Invalid or missing merge destination list
+                - title: Missing Column
+                  type: object
+                  properties:
+                    errorCode:
+                      type: integer
+                      example: 10088
+                      default: 0
+                    message:
+                      type: string
+                      example: At least one specified merge column is missing from the uploaded file
+                - title: Input file missing
+                  type: object
+                  properties:
+                    errorCode:
+                      type: integer
+                      example: 10003
+                      default: 0
+                    message:
+                      type: string
+                      example: Input file missing
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl --location --request PUT 'https://api.actonsoftware.com/api/1/list/l-0001' \\\n--header 'Authorization: Bearer TOKEN' \\\n--form 'quotecharacter=\"DOUBLE_QUOTE\"' \\\n--form 'uploadspecs=\"[\n   {\n      \\\"columnHeading\\\": \\\"E-mail Address\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 5,\n      \\\"columnType\\\": \\\"EMAIL\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"First Name\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 0,\n      \\\"columnType\\\": \\\"FIRSTNAME\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"Last Name\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 1,\n      \\\"columnType\\\": \\\"LASTNAME\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"Job Title\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 2,\n      \\\"columnType\\\": \\\"JOBTITLE\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"Company\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 3,\n      \\\"columnType\\\": \\\"COMPANY\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"Business City\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 4,\n      \\\"columnType\\\": \\\"BIZ_CITY\\\"\n   },\n   {\n      \\\"columnHeading\\\": \\\"Lead Source\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 6\n   },\n   {\n      \\\"columnHeading\\\": \\\"Timezone\\\",\n      \\\"ignoreColumn\\\": \\\"N\\\",\n      \\\"columnIndex\\\": 7\n   }\n]\"' \\\n--form 'mergespecs=\"[\n   {\n      \\\"mergeMode\\\":\\\"REPLACE\\\",\n      \\\"dstListId\\\":\\\"l-0001\\\",\n      \\\"columnMap\\\": []\n   }\n]\"' \\\n--form 'file=@\"list.csv\"' \\\n--form 'headings=\"Y\"' \\\n--form 'fieldseparator=\"COMMA\"' \\\n--form 'putEmptyValues=\"Y\"'"
+        samples-languages:
+        - curl
+      tags:
+      - List
+    delete:
+      summary: Delete a list
+      description: Delete the specified list from your account.
+      operationId: delete-a-list
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list ID
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/{jobid}/status:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get list upload status
+      description: Check on the status of a list upload.
+      operationId: get-list-upload-status
+      parameters:
+      - name: jobid
+        in: path
+        description: Specify the "jobId" of the list being uploaded.
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"jobDetails\": \"{\\\"status\\\":\\\"ok\\\",\\\"listId\\\":\\\"l-0001\\\",\\\"appendCount\\\":10,\\\"updateCount\\\":2,\\\"failedCount\\\":0,\\\"rejectedCount\\\":0}\",\n    \"details\": {\n        \"status\": \"ok\",\n        \"listId\": \"l-0001\",\n        \"appendCount\": 10,\n        \"updateCount\": 2,\n        \"failedCount\": 0,\n        \"rejectedCount\": 0\n    }\n}"
+                Job Running:
+                  value: "{\n    \"status\": \"The job is running\"\n}"
+                Job Pending:
+                  value: "{\n    \"status\": \"The job is pending\"\n}"
+              schema:
+                oneOf:
+                - title: Successful Response
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: success
+                    jobDetails:
+                      type: string
+                      example: '{"status":"ok","listId":"l-0001","appendCount":10,"updateCount":2,"failedCount":0,"rejectedCount":0}'
+                    details:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          example: ok
+                        listId:
+                          type: string
+                          example: l-0001
+                        appendCount:
+                          type: integer
+                          example: 10
+                          default: 0
+                        updateCount:
+                          type: integer
+                          example: 2
+                          default: 0
+                        failedCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                        rejectedCount:
+                          type: integer
+                          example: 0
+                          default: 0
+                - title: Job Running
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: The job is running
+                - title: Job Pending
+                  type: object
+                  properties:
+                    status:
+                      type: string
+                      example: The job is pending
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"errorCode\": 10017,\n    \"message\": \"Invalid or expired Job Id\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10017
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or expired Job Id
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/rejectedUploadRecords:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get rejected records from an upload
+      description: Download CSV file containing rejected upload records.
+      operationId: get-rejected-records-from-an-upload
+      parameters:
+      - name: filename
+        in: query
+        description: Use the name of the file in the response of the endpoint "Get List Upload Status" if there were records to failed.
+        schema:
+          type: string
+      responses:
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/hardbounce:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get hard bounce list
+      description: Get a list of hard bounces associated with the account.
+      operationId: get-hard-bounce-list
+      parameters:
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch.
+        schema:
+          type: string
+          default: '0'
+      - name: createdbefore
+        in: query
+        description: Filter records created before the specified date.
+        schema:
+          type: string
+      - name: createdafter
+        in: query
+        description: Filter records created after the specified date.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/spamcomplaint:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get spam complaint list
+      description: Get a list of spam complaints from your account.
+      operationId: get-spam-complaint-list
+      parameters:
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: createdbefore
+        in: query
+        description: Filter records created before the specified date. UNIX timestamp
+        schema:
+          type: string
+      - name: createdafter
+        in: query
+        description: Filter records created after the specified date. UNIX timestamp
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/optout:
+    servers:
+    - url: https://api.actonsoftware.com
+    get:
+      summary: Get Opt Out List
+      description: Get a list of spam complaints from your account.
+      operationId: get-opt-out-list
+      parameters:
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: integer
+          format: int32
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch.
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - name: createdbefore
+        in: query
+        description: Filter records created before the specified date. UNIX timestamp
+        schema:
+          type: string
+      - name: createdafter
+        in: query
+        description: Filter records created after the specified date. UNIX timestamp
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+    put:
+      summary: Update optout list
+      description: Update or Merge to an existing optout list.
+      operationId: update-optout-list
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: A CSV format file to upload with one column containing emails only.
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+  /api/1/list/optin:
+    servers:
+    - url: https://api.actonsoftware.com
+    put:
+      summary: Remove Opt Outs
+      description: ''
+      operationId: remove-opt-outs-1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: A CSV file to upload with one column containing emails only.
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - List
+components:
+  securitySchemes:
+    sec0:
+      type: apiKey
+      in: header
+      name: Authorization
+      x-bearer-format: bearer
+x-refined-from:
+- act-on-raw-body-api-openapi.yml
+- act-on-rest-api-openapi.yml
+x-readme: {}
