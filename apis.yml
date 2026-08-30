@@ -234,6 +234,8 @@ apis:
   humanURL: https://developer.act-on.com/reference/api-overview
   baseURL: https://api.actonsoftware.com
   tags:
+  - Custom Events
+  tags_raw:
   - Customevents
   properties:
   - type: OpenAPI
