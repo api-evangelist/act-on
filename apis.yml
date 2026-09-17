@@ -228,36 +228,6 @@ apis:
     url: llms/act-on-llms.txt
   - type: Documentation
     url: https://developer.act-on.com/reference/overview
-- aid: act-on:act-on-customevents-api
-  name: Act-On Customevents API
-  description: The Customevents API from Act-On — 2 operation(s) for customevents.
-  humanURL: https://developer.act-on.com/reference/api-overview
-  baseURL: https://api.actonsoftware.com
-  tags:
-  - Custom Events
-  tags_raw:
-  - Customevents
-  properties:
-  - type: OpenAPI
-    url: openapi/act-on-customevents-api-openapi.yml
-  - type: Documentation
-    url: https://developer.act-on.com
-  - type: APIReference
-    url: https://developer.act-on.com/reference/api-overview
-  - type: Authentication
-    url: authentication/act-on-authentication.yml
-  - type: RateLimits
-    url: rate-limits/act-on-rate-limits.yml
-  - type: ErrorCatalog
-    url: errors/act-on-problem-types.yml
-  - type: Conventions
-    url: conventions/act-on-conventions.yml
-  - type: DataModel
-    url: data-model/act-on-data-model.yml
-  - type: LLMsTxt
-    url: llms/act-on-llms.txt
-  - type: Documentation
-    url: https://developer.act-on.com/reference/overview
 - aid: act-on:act-on-ete-api
   name: Act-On Ete API
   description: The Ete API from Act-On — 1 operation(s) for ete.
@@ -773,6 +743,34 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/act-on-user-api-openapi.yml
+  - type: Documentation
+    url: https://developer.act-on.com
+  - type: APIReference
+    url: https://developer.act-on.com/reference/api-overview
+  - type: Authentication
+    url: authentication/act-on-authentication.yml
+  - type: RateLimits
+    url: rate-limits/act-on-rate-limits.yml
+  - type: ErrorCatalog
+    url: errors/act-on-problem-types.yml
+  - type: Conventions
+    url: conventions/act-on-conventions.yml
+  - type: DataModel
+    url: data-model/act-on-data-model.yml
+  - type: LLMsTxt
+    url: llms/act-on-llms.txt
+  - type: Documentation
+    url: https://developer.act-on.com/reference/overview
+- aid: act-on:act-on-custom-events-api
+  name: Act-On Custom Events API
+  description: The Custom Events API from Act-On — 2 operation(s) for custom events.
+  humanURL: https://connect.act-on.com/hc/en-us/sections/20585868662935-Outgoing-Incoming-Webhooks
+  baseURL: https://api.actonsoftware.com
+  tags:
+  - Custom Events
+  properties:
+  - type: OpenAPI
+    url: openapi/act-on-custom-events-api-openapi.yml
   - type: Documentation
     url: https://developer.act-on.com
   - type: APIReference
