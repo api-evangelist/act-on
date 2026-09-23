@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Custom Objects Service Custom Data Schema Custom Data Schema API
+  title: Custom Objects Service Custom Data Schema API
   description: API to manage and import custom objects
   version: 3.4.3
 servers:
@@ -73,7 +73,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Updates a Custom Data schema basic properties
-      description: Updates a Custom Data schema basic properties
       operationId: updateSchema
       parameters:
       - name: accountId
@@ -129,7 +128,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Deletes one Custom Data schema
-      description: Deletes one Custom Data schema
       operationId: deleteSchema
       parameters:
       - name: accountId
@@ -251,7 +249,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Adds fields to Custom Data schemas
-      description: Adds fields to Custom Data schemas
       operationId: addFields
       parameters:
       - name: accountId
@@ -316,7 +313,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Deletes fields from Custom Data schemas
-      description: Deletes fields from Custom Data schemas
       operationId: deleteFields
       parameters:
       - name: accountId
@@ -382,7 +378,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Create a Custom Data schema
-      description: Create a Custom Data schema
       operationId: createSchema
       parameters:
       - name: accountId
@@ -496,7 +491,6 @@ paths:
       tags:
       - Custom Data Schema API
       summary: Deletes all Custom Data schemas
-      description: Deletes all Custom Data schemas
       operationId: deleteAllSchemas
       parameters:
       - name: accountId
@@ -544,6 +538,114 @@ paths:
                 $ref: '#/components/schemas/HttpErrorResponse'
 components:
   schemas:
+    RelationshipDefinitionDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        type:
+          type: string
+        fieldName:
+          type: string
+        fieldValue:
+          type: string
+        otherObject:
+          type: string
+        otherFieldName:
+          type: string
+        otherFieldValue:
+          type: string
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+    HttpErrorResponse:
+      type: object
+      properties:
+        errorId:
+          type: string
+        requestUri:
+          type: string
+        errorMessage:
+          type: string
+        errorList:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum:
+          - 100 CONTINUE
+          - 101 SWITCHING_PROTOCOLS
+          - 102 PROCESSING
+          - 103 EARLY_HINTS
+          - 103 CHECKPOINT
+          - 200 OK
+          - 201 CREATED
+          - 202 ACCEPTED
+          - 203 NON_AUTHORITATIVE_INFORMATION
+          - 204 NO_CONTENT
+          - 205 RESET_CONTENT
+          - 206 PARTIAL_CONTENT
+          - 207 MULTI_STATUS
+          - 208 ALREADY_REPORTED
+          - 226 IM_USED
+          - 300 MULTIPLE_CHOICES
+          - 301 MOVED_PERMANENTLY
+          - 302 FOUND
+          - 302 MOVED_TEMPORARILY
+          - 303 SEE_OTHER
+          - 304 NOT_MODIFIED
+          - 305 USE_PROXY
+          - 307 TEMPORARY_REDIRECT
+          - 308 PERMANENT_REDIRECT
+          - 400 BAD_REQUEST
+          - 401 UNAUTHORIZED
+          - 402 PAYMENT_REQUIRED
+          - 403 FORBIDDEN
+          - 404 NOT_FOUND
+          - 405 METHOD_NOT_ALLOWED
+          - 406 NOT_ACCEPTABLE
+          - 407 PROXY_AUTHENTICATION_REQUIRED
+          - 408 REQUEST_TIMEOUT
+          - 409 CONFLICT
+          - 410 GONE
+          - 411 LENGTH_REQUIRED
+          - 412 PRECONDITION_FAILED
+          - 413 PAYLOAD_TOO_LARGE
+          - 413 REQUEST_ENTITY_TOO_LARGE
+          - 414 URI_TOO_LONG
+          - 414 REQUEST_URI_TOO_LONG
+          - 415 UNSUPPORTED_MEDIA_TYPE
+          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+          - 417 EXPECTATION_FAILED
+          - 418 I_AM_A_TEAPOT
+          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+          - 420 METHOD_FAILURE
+          - 421 DESTINATION_LOCKED
+          - 422 UNPROCESSABLE_ENTITY
+          - 423 LOCKED
+          - 424 FAILED_DEPENDENCY
+          - 425 TOO_EARLY
+          - 426 UPGRADE_REQUIRED
+          - 428 PRECONDITION_REQUIRED
+          - 429 TOO_MANY_REQUESTS
+          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+          - 500 INTERNAL_SERVER_ERROR
+          - 501 NOT_IMPLEMENTED
+          - 502 BAD_GATEWAY
+          - 503 SERVICE_UNAVAILABLE
+          - 504 GATEWAY_TIMEOUT
+          - 505 HTTP_VERSION_NOT_SUPPORTED
+          - 506 VARIANT_ALSO_NEGOTIATES
+          - 507 INSUFFICIENT_STORAGE
+          - 508 LOOP_DETECTED
+          - 509 BANDWIDTH_LIMIT_EXCEEDED
+          - 510 NOT_EXTENDED
+          - 511 NETWORK_AUTHENTICATION_REQUIRED
     FieldDefinitionDTO:
       type: object
       description: A custom object field definition
@@ -630,114 +732,6 @@ components:
           description: List of relationships of the custom object
           items:
             $ref: '#/components/schemas/RelationshipDefinitionDTO'
-    HttpErrorResponse:
-      type: object
-      properties:
-        errorId:
-          type: string
-        requestUri:
-          type: string
-        errorMessage:
-          type: string
-        errorList:
-          type: array
-          items:
-            type: string
-        status:
-          type: string
-          enum:
-          - 100 CONTINUE
-          - 101 SWITCHING_PROTOCOLS
-          - 102 PROCESSING
-          - 103 EARLY_HINTS
-          - 103 CHECKPOINT
-          - 200 OK
-          - 201 CREATED
-          - 202 ACCEPTED
-          - 203 NON_AUTHORITATIVE_INFORMATION
-          - 204 NO_CONTENT
-          - 205 RESET_CONTENT
-          - 206 PARTIAL_CONTENT
-          - 207 MULTI_STATUS
-          - 208 ALREADY_REPORTED
-          - 226 IM_USED
-          - 300 MULTIPLE_CHOICES
-          - 301 MOVED_PERMANENTLY
-          - 302 FOUND
-          - 302 MOVED_TEMPORARILY
-          - 303 SEE_OTHER
-          - 304 NOT_MODIFIED
-          - 305 USE_PROXY
-          - 307 TEMPORARY_REDIRECT
-          - 308 PERMANENT_REDIRECT
-          - 400 BAD_REQUEST
-          - 401 UNAUTHORIZED
-          - 402 PAYMENT_REQUIRED
-          - 403 FORBIDDEN
-          - 404 NOT_FOUND
-          - 405 METHOD_NOT_ALLOWED
-          - 406 NOT_ACCEPTABLE
-          - 407 PROXY_AUTHENTICATION_REQUIRED
-          - 408 REQUEST_TIMEOUT
-          - 409 CONFLICT
-          - 410 GONE
-          - 411 LENGTH_REQUIRED
-          - 412 PRECONDITION_FAILED
-          - 413 PAYLOAD_TOO_LARGE
-          - 413 REQUEST_ENTITY_TOO_LARGE
-          - 414 URI_TOO_LONG
-          - 414 REQUEST_URI_TOO_LONG
-          - 415 UNSUPPORTED_MEDIA_TYPE
-          - 416 REQUESTED_RANGE_NOT_SATISFIABLE
-          - 417 EXPECTATION_FAILED
-          - 418 I_AM_A_TEAPOT
-          - 419 INSUFFICIENT_SPACE_ON_RESOURCE
-          - 420 METHOD_FAILURE
-          - 421 DESTINATION_LOCKED
-          - 422 UNPROCESSABLE_ENTITY
-          - 423 LOCKED
-          - 424 FAILED_DEPENDENCY
-          - 425 TOO_EARLY
-          - 426 UPGRADE_REQUIRED
-          - 428 PRECONDITION_REQUIRED
-          - 429 TOO_MANY_REQUESTS
-          - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
-          - 451 UNAVAILABLE_FOR_LEGAL_REASONS
-          - 500 INTERNAL_SERVER_ERROR
-          - 501 NOT_IMPLEMENTED
-          - 502 BAD_GATEWAY
-          - 503 SERVICE_UNAVAILABLE
-          - 504 GATEWAY_TIMEOUT
-          - 505 HTTP_VERSION_NOT_SUPPORTED
-          - 506 VARIANT_ALSO_NEGOTIATES
-          - 507 INSUFFICIENT_STORAGE
-          - 508 LOOP_DETECTED
-          - 509 BANDWIDTH_LIMIT_EXCEEDED
-          - 510 NOT_EXTENDED
-          - 511 NETWORK_AUTHENTICATION_REQUIRED
-    RelationshipDefinitionDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-        fieldName:
-          type: string
-        fieldValue:
-          type: string
-        otherObject:
-          type: string
-        otherFieldName:
-          type: string
-        otherFieldValue:
-          type: string
-        properties:
-          type: object
-          additionalProperties:
-            type: string
   securitySchemes:
     bearerAuth:
       type: http

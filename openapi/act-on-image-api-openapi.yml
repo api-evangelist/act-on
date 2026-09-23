@@ -68,7 +68,9 @@ paths:
       - Image
     post:
       summary: Add an image
-      description: 'Add a new image to your account. <p>NOTE: This is a "multipart/form-data" post.</p>'
+      description: 'Add a new image to your account.
+
+        NOTE: This is a "multipart/form-data" post.'
       operationId: add-an-image
       requestBody:
         content:

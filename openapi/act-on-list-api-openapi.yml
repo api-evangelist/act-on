@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Act On List API
   version: '2.0'
-  description: 'Operations tagged List across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged List across 2 of this provider''s published API definitions: act-on-api-1.json, act-on-api-raw-body.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.actonsoftware.com
 security:
@@ -10,13 +10,13 @@ security:
 tags:
 - name: List
 paths:
-  /api/1/list/{listid}/record:
-    servers:
-    - url: https://api.actonsoftware.com
-    post:
-      summary: Add a contact
-      description: Add a contact record to the specified list.
-      operationId: add-a-contact
+  /api/1/list/{listid}/record/{recordid}/facts:
+    get:
+      summary: Get contact history and score
+      description: 'Download a contact record from your account.
+
+        For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ'
+      operationId: get-contact-history-and-score
       parameters:
       - name: listid
         in: path
@@ -24,73 +24,12 @@ paths:
         schema:
           type: string
         required: true
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                RAW_BODY:
-                  type: string
-                  description: 'Use Example Value <p>"{\n    \"EMAIL\": \"name@domain.com\",\n    \"FIRSTNAME\": \"John\",\n    \"LASTNAME\": \"Smith\"\n}"</p>'
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Successful Response:
-                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record inserted\",\n    \"id\": \"l-0001:12\",\n    \"contact_id\": \"l-0001:12\"\n}"
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Record inserted
-                  id:
-                    type: string
-                    example: l-0001:12
-                  contact_id:
-                    type: string
-                    example: l-0001:12
-        '400':
-          description: '400'
-          content:
-            application/json:
-              examples:
-                Invalid Column Specified:
-                  value: "{\n    \"errorCode\": \"10010\",\n    \"message\": \"Invalid Column Specified\",\n}"
-      deprecated: false
-      tags:
-      - List
-    put:
-      summary: Upsert a contact record by email
-      description: 'Update an existing record or insert a new contact record using the email address that you specify using the following logic: <p>If the email address exists in the list, only the first record matching that email address is updated with the data you provide.</p><p>If the email address is not already in the list, a new record is added.</p><p>Please take note that this means that any duplicate records are NOT updated.</p>'
-      operationId: upsert-a-contact-record-by-email
-      parameters:
-      - name: listid
+      - name: recordid
         in: path
-        description: Specify the list id
+        description: Specify the record id. ("{listid}:{recordid}")
         schema:
           type: string
         required: true
-      - name: email
-        in: query
-        description: Specify the email address
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                RAW_BODY:
-                  type: string
-                  description: 'Use Example Value: <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"John\",\"LASTNAME\":\"Joe\"}" </p>'
       responses:
         '200':
           description: '200'
@@ -105,146 +44,14 @@ paths:
       deprecated: false
       tags:
       - List
-    delete:
-      summary: Delete records from a list
-      description: Delete multiple records from the specified list.
-      operationId: delete-records-from-a-list
-      parameters:
-      - name: listid
-        in: path
-        description: Specift the list ID
-        schema:
-          type: string
-        required: true
-      - name: contactids
-        in: query
-        description: Up to 100 record ids in the format of l-0001:1,l-0001:2,l-0001:a
-        schema:
-          type: string
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Successful Response:
-                  value: "{\n    \"success_count\": 3,\n    \"fail_count\": 0,\n    \"failedList\": []\n}"
-              schema:
-                type: object
-                properties:
-                  success_count:
-                    type: integer
-                    example: 3
-                    default: 0
-                  fail_count:
-                    type: integer
-                    example: 0
-                    default: 0
-                  failedList:
-                    type: array
-            text/plain:
-              examples:
-                Failed Records:
-                  value: "{\n    \"success_count\": 2,\n    \"fail_count\": 1,\n    \"failedList\": [\n        {\n            \"id\": \"l-0001:a\",\n            \"reason\": \"Invalid contact id\"\n        }\n    ]\n}"
-              schema:
-                type: object
-                properties:
-                  success_count:
-                    type: integer
-                    example: 2
-                    default: 0
-                  fail_count:
-                    type: integer
-                    example: 1
-                    default: 0
-                  failedList:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: string
-                          example: l-0001:a
-                        reason:
-                          type: string
-                          example: Invalid contact id
-      deprecated: false
-      tags:
-      - List
-  /api/1/list/{listid}/record/{recordid}:
     servers:
     - url: https://api.actonsoftware.com
-    put:
-      summary: Update a contact by record ID
-      description: 'Update the specified contact record in the specified list. <p>NOTE: This only updates the identified record in list that you specify.</p>'
-      operationId: update-a-contact-by-record-id
-      parameters:
-      - name: listid
-        in: path
-        description: Specify the list id
-        schema:
-          type: string
-        required: true
-      - name: recordid
-        in: path
-        description: Specify the record id ("{listid}:{recordid}")
-        schema:
-          type: string
-        required: true
-      - name: returncontact
-        in: query
-        description: Return the data of the updated contact in the response? <p>("Y"/"N")</p>
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                RAW_BODY:
-                  type: string
-                  description: 'Use Example Value : <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"Joe\",\"LASTNAME\":\"Joe\"}"</p>'
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Successful Response:
-                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record updated\"\n}"
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  message:
-                    type: string
-                    example: Record updated
-        '400':
-          description: '400'
-          content:
-            application/json:
-              examples:
-                Invalid List:
-                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n}"
-              schema:
-                type: object
-                properties:
-                  errorCode:
-                    type: integer
-                    example: 10004
-                    default: 0
-                  message:
-                    type: string
-                    example: Invalid or missing list
-      deprecated: false
-      tags:
-      - List
+  /api/1/list/{listid}/record/{recordid}:
     get:
       summary: Get contact record
-      description: 'Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ</p>'
+      description: 'Download a contact record from your account.
+
+        For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ'
       operationId: get-contact-record
       parameters:
       - name: listid
@@ -346,13 +153,12 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/{listid}/record/{recordid}/facts:
-    servers:
-    - url: https://api.actonsoftware.com
-    get:
-      summary: Get contact history and score
-      description: 'Download a contact record from your account. <p>For information about how to get a contact record when you do not know the record''s recID and only have their email address, please review question #8 on our API FAQ</p>'
-      operationId: get-contact-history-and-score
+    put:
+      summary: Update a contact by record ID
+      description: 'Update the specified contact record in the specified list.
+
+        NOTE: This only updates the identified record in list that you specify.'
+      operationId: update-a-contact-by-record-id
       parameters:
       - name: listid
         in: path
@@ -362,10 +168,216 @@ paths:
         required: true
       - name: recordid
         in: path
-        description: Specify the record id. ("{listid}:{recordid}")
+        description: Specify the record id ("{listid}:{recordid}")
         schema:
           type: string
         required: true
+      - name: returncontact
+        in: query
+        description: Return the data of the updated contact in the response? <p>("Y"/"N")</p>
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value : <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"Joe\",\"LASTNAME\":\"Joe\"}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record updated\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record updated
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid List:
+                  value: "{\n    \"errorCode\": 10004,\n    \"message\": \"Invalid or missing list\"\n}"
+              schema:
+                type: object
+                properties:
+                  errorCode:
+                    type: integer
+                    example: 10004
+                    default: 0
+                  message:
+                    type: string
+                    example: Invalid or missing list
+      deprecated: false
+      tags:
+      - List
+    servers:
+    - url: https://api.actonsoftware.com
+  /api/1/list/{listid}/record:
+    delete:
+      summary: Delete records from a list
+      description: Delete multiple records from the specified list.
+      operationId: delete-records-from-a-list
+      parameters:
+      - name: listid
+        in: path
+        description: Specift the list ID
+        schema:
+          type: string
+        required: true
+      - name: contactids
+        in: query
+        description: Up to 100 record ids in the format of l-0001:1,l-0001:2,l-0001:a
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"success_count\": 3,\n    \"fail_count\": 0,\n    \"failedList\": []\n}"
+              schema:
+                type: object
+                properties:
+                  success_count:
+                    type: integer
+                    example: 3
+                    default: 0
+                  fail_count:
+                    type: integer
+                    example: 0
+                    default: 0
+                  failedList:
+                    type: array
+            text/plain:
+              examples:
+                Failed Records:
+                  value: "{\n    \"success_count\": 2,\n    \"fail_count\": 1,\n    \"failedList\": [\n        {\n            \"id\": \"l-0001:a\",\n            \"reason\": \"Invalid contact id\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  success_count:
+                    type: integer
+                    example: 2
+                    default: 0
+                  fail_count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  failedList:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: l-0001:a
+                        reason:
+                          type: string
+                          example: Invalid contact id
+      deprecated: false
+      tags:
+      - List
+    post:
+      summary: Add a contact
+      description: Add a contact record to the specified list.
+      operationId: add-a-contact
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value <p>"{\n    \"EMAIL\": \"name@domain.com\",\n    \"FIRSTNAME\": \"John\",\n    \"LASTNAME\": \"Smith\"\n}"</p>'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"status\": \"success\",\n    \"message\": \"Record inserted\",\n    \"id\": \"l-0001:12\",\n    \"contact_id\": \"l-0001:12\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Record inserted
+                  id:
+                    type: string
+                    example: l-0001:12
+                  contact_id:
+                    type: string
+                    example: l-0001:12
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Invalid Column Specified:
+                  value: "{\n    \"errorCode\": \"10010\",\n    \"message\": \"Invalid Column Specified\",\n}"
+      deprecated: false
+      tags:
+      - List
+    put:
+      summary: Upsert a contact record by email
+      description: 'Update an existing record or insert a new contact record using the email address that you specify using the following logic:
+
+        If the email address exists in the list, only the first record matching that email address is updated with the data you provide.
+
+
+        If the email address is not already in the list, a new record is added.
+
+
+        Please take note that this means that any duplicate records are NOT updated.'
+      operationId: upsert-a-contact-record-by-email
+      parameters:
+      - name: listid
+        in: path
+        description: Specify the list id
+        schema:
+          type: string
+        required: true
+      - name: email
+        in: query
+        description: Specify the email address
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'Use Example Value: <p>"{\"EMAIL\":\"name@domain.com\",\"FIRSTNAME\":\"John\",\"LASTNAME\":\"Joe\"}" </p>'
       responses:
         '200':
           description: '200'
@@ -380,9 +392,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/lookup:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/lookup:
     get:
       summary: Get contact record ID based on cookie value
       description: Gets a contact record ID from your account based on a cookie ID.
@@ -407,9 +419,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/lookup/{listid}:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/lookup/{listid}:
     get:
       summary: Get contact from list based on cookie ID or e-mail
       description: Gets a contact record from a list based on a cookie ID and/or email address.
@@ -455,9 +467,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list:
     get:
       summary: Get list of Act-On Assets
       description: Get listing of lists
@@ -537,9 +549,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/{listid}:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/{listid}:
     get:
       summary: Download List
       description: Get listing of lists
@@ -792,9 +804,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/{jobid}/status:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/{jobid}/status:
     get:
       summary: Get list upload status
       description: Check on the status of a list upload.
@@ -886,9 +898,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/rejectedUploadRecords:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/rejectedUploadRecords:
     get:
       summary: Get rejected records from an upload
       description: Download CSV file containing rejected upload records.
@@ -913,9 +925,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/hardbounce:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/hardbounce:
     get:
       summary: Get hard bounce list
       description: Get a list of hard bounces associated with the account.
@@ -956,9 +968,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/spamcomplaint:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/spamcomplaint:
     get:
       summary: Get spam complaint list
       description: Get a list of spam complaints from your account.
@@ -1001,9 +1013,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/optout:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/optout:
     get:
       summary: Get Opt Out List
       description: Get a list of spam complaints from your account.
@@ -1074,9 +1086,9 @@ paths:
       deprecated: false
       tags:
       - List
-  /api/1/list/optin:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/list/optin:
     put:
       summary: Remove Opt Outs
       description: ''
@@ -1105,6 +1117,8 @@ paths:
       deprecated: false
       tags:
       - List
+    servers:
+    - url: https://api.actonsoftware.com
 components:
   securitySchemes:
     sec0:
@@ -1113,6 +1127,10 @@ components:
       name: Authorization
       x-bearer-format: bearer
 x-refined-from:
-- act-on-raw-body-api-openapi.yml
-- act-on-rest-api-openapi.yml
-x-readme: {}
+- act-on-api-1.json
+- act-on-api-raw-body.json
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

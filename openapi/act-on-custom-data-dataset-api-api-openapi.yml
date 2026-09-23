@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Custom Objects Service Custom Data Dataset Custom Data Dataset API
+  title: Custom Objects Service Custom Data Dataset API
   description: API to manage and import custom objects
   version: 3.4.3
 servers:
@@ -761,7 +761,6 @@ paths:
       tags:
       - Custom Data Dataset API
       summary: Delete records from a dataset based on the provided IDs or ID range
-      description: Delete records from a dataset based on the provided IDs or ID range
       operationId: deleteIds
       parameters:
       - name: accountId
@@ -821,32 +820,6 @@ paths:
                 $ref: '#/components/schemas/HttpErrorResponse'
 components:
   schemas:
-    CreateDatasetRequestDTO:
-      type: object
-      description: The dataset creation details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
-    UpdateDatasetRequestDTO:
-      type: object
-      description: The dataset update details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
     HttpErrorResponse:
       type: object
       properties:
@@ -932,6 +905,32 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
+    UpdateDatasetRequestDTO:
+      type: object
+      description: The dataset update details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
+    CreateDatasetRequestDTO:
+      type: object
+      description: The dataset creation details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
     ValidationRequestDTO:
       type: object
       description: The validation request details

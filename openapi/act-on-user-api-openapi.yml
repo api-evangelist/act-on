@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Act On User API
   version: '2.0'
-  description: 'Operations tagged User across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged User across 2 of this provider''s published API definitions: act-on-api-1.json, act-on-api-raw-body.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.actonsoftware.com
 security:
@@ -10,9 +10,35 @@ security:
 tags:
 - name: User
 paths:
-  /api/1/user:
+  /api/1/user/{email}:
+    delete:
+      summary: Delete account user
+      description: Delete one user from an account.
+      operationId: delete-account-user
+      parameters:
+      - name: email
+        in: path
+        description: Enter the email address of the user
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - User
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/user:
     post:
       summary: Create new account user
       description: Create one or more users for an account.
@@ -56,9 +82,9 @@ paths:
         - text
       tags:
       - User
-  /api/1/user/delete:
     servers:
     - url: https://api.actonsoftware.com
+  /api/1/user/delete:
     post:
       summary: Delete account users
       description: Delete one or more users from an account.
@@ -86,34 +112,8 @@ paths:
       deprecated: false
       tags:
       - User
-  /api/1/user/{email}:
     servers:
     - url: https://api.actonsoftware.com
-    delete:
-      summary: Delete account user
-      description: Delete one user from an account.
-      operationId: delete-account-user
-      parameters:
-      - name: email
-        in: path
-        description: Enter the email address of the user
-        schema:
-          type: string
-        required: true
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Successful Response:
-                  value: '{}'
-              schema:
-                type: object
-                properties: {}
-      deprecated: false
-      tags:
-      - User
 components:
   securitySchemes:
     sec0:
@@ -122,6 +122,10 @@ components:
       name: Authorization
       x-bearer-format: bearer
 x-refined-from:
-- act-on-raw-body-api-openapi.yml
-- act-on-rest-api-openapi.yml
-x-readme: {}
+- act-on-api-1.json
+- act-on-api-raw-body.json
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true

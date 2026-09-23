@@ -12,7 +12,9 @@ paths:
   /api/1/medialink:
     post:
       summary: Add a media link
-      description: 'Add a new URL as a trackable link in your media library. <p>NOTE: This is a "x-www-form-urlencoded" post </p>'
+      description: 'Add a new URL as a trackable link in your media library.
+
+        NOTE: This is a "x-www-form-urlencoded" post'
       operationId: add-a-media-link
       requestBody:
         content:

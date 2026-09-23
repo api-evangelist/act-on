@@ -2,7 +2,7 @@ openapi: 3.2.0
 info:
   title: Act On Ucl API
   version: '2.0'
-  description: 'Operations tagged Ucl across 2 of this provider''s published API definitions: act-on-raw-body-api-openapi.yml, act-on-rest-api-openapi.yml. Each path carries the servers of the definition it was published in.'
+  description: 'Operations tagged Ucl across 2 of this provider''s published API definitions: act-on-api-1.json, act-on-api-raw-body.json. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.actonsoftware.com
 security:
@@ -10,114 +10,7 @@ security:
 tags:
 - name: Ucl
 paths:
-  /ucl/v2/ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
-    servers:
-    - url: https://api.actonsoftware.com
-    post:
-      summary: Import Contacts
-      description: Create one or more users for an account. Each user is sent as an element in a JSON array.
-      operationId: test-api
-      parameters:
-      - name: accountId
-        in: path
-        schema:
-          type: integer
-          format: int32
-        required: true
-      - name: importDefinitionId
-        in: path
-        schema:
-          type: integer
-          format: int32
-        required: true
-      requestBody:
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              type: object
-              properties:
-                RAW_BODY:
-                  type: string
-                  description: 'JSON object with the following required keys: userType, email, firstName, lastName, password.'
-                filter:
-                  type: object
-                  required:
-                  - type
-                  - expressionEvaluationType
-                  properties:
-                    type:
-                      type: string
-                    expressionEvaluationType:
-                      type: string
-                      enum:
-                      - AND
-                      - OR
-                      - CUSTOM
-                    customBooleanExpression:
-                      type: string
-                      default: 'NULL'
-                    expressions:
-                      type: array
-                      items:
-                        properties:
-                          type:
-                            type: string
-                            enum:
-                            - profile
-                            - system
-                          id:
-                            type: string
-                          field:
-                            type: string
-                          condition:
-                            type: object
-                            properties:
-                              type:
-                                type: string
-                              comparison:
-                                type: string
-                              values:
-                                type: array
-                                items:
-                                  type: string
-                        type: object
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{\n    \"status\": \"success\",\n    \"keyPoint\": \"blank\"\n}"
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: success
-                  keyPoint:
-                    type: string
-                    example: blank
-        '400':
-          description: '400'
-          content:
-            text/plain:
-              examples:
-                Result:
-                  value: '{boo}'
-      deprecated: false
-      x-readme:
-        code-samples:
-        - language: curl
-          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n    {\n        \"userType\": \"Marketing\",\n        \"email\": \"name3@act-on.net\",\n        \"firstName\": \"fName1\",\n        \"lastName\": \"Surname1\",\n        \"password\": \"pwxxx123\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\": \"111-111-1111\",\n        \"mobileNumber\": \"111-111-1111\",\n        \"faxNumber\": \"111-111-1111\",\n        \"timeZone\": \"PT\",\n        \"sendEmailConfirmation\": \"Y\"\n    }\n]'"
-          name: Example 1
-        samples-languages:
-        - curl
-      tags:
-      - Ucl
   /ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
-    servers:
-    - url: https://api.actonsoftware.com
     post:
       summary: Import Contacts
       description: ''
@@ -258,9 +151,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/import/definition:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/import/definition:
     get:
       summary: Get Import Definitions
       description: ''
@@ -481,9 +374,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/import/definition/{importDefinitionId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/import/definition/{importDefinitionId}:
     get:
       summary: Get Import Definition by Id
       description: ''
@@ -701,9 +594,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/import/status/{importId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/import/status/{importId}:
     get:
       summary: Get Import status
       description: ''
@@ -807,9 +700,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/:
     get:
       summary: Get contacts from the Act-On Contacts List
       description: ''
@@ -1067,9 +960,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/byFields:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/byFields:
     post:
       summary: Get contacts from the Act-On Contacts List specifying the fields to be returned
       description: ''
@@ -1149,9 +1042,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/cookieId/{cookieId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/cookieId/{cookieId}:
     get:
       summary: Get contact in the Act-On Contacts List by cookie id
       description: ''
@@ -1214,9 +1107,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/email/{emailAddress}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/email/{emailAddress}:
     get:
       summary: Get contacts from the Act-On Contacts List by email address
       description: ''
@@ -1531,9 +1424,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/emails:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/emails:
     delete:
       summary: Delete contacts in the Act-On Contacts List by emails
       description: ''
@@ -1599,9 +1492,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/externalId/{objectType}/{externalId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/externalId/{objectType}/{externalId}:
     get:
       summary: Get contact in the Act-On Contacts List by externalId and object type
       description: ''
@@ -1671,7 +1564,7 @@ paths:
       tags:
       - Ucl
     put:
-      summary: Update contact in the Act-On Contacts list by externalId & objectType, fallback to email match
+      summary: Update contact in the Act-On Contacts list by externalId & objectType, fallback…
       description: ''
       operationId: update-contact-in-the-act-on-contacts-list-by-externalid-objecttype-fallback-to-email-match
       parameters:
@@ -1921,9 +1814,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/id/{id}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/id/{id}:
     get:
       summary: Get contact in the Act-On Contacts List by id
       description: ''
@@ -2157,9 +2050,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contact/ids:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contact/ids:
     delete:
       summary: Delete contacts in the Act-On Contacts List by ids
       description: ''
@@ -2205,9 +2098,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/activity:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/activity:
     get:
       summary: Get contact history by email address
       description: ''
@@ -2268,9 +2161,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/scores:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/scores:
     get:
       summary: Get all scores for a contact by email address
       description: ''
@@ -2326,9 +2219,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/segments:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/email/{emailAddress}/segments:
     get:
       summary: Get all segments that the contact belong by email address
       description: ''
@@ -2384,9 +2277,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/activity:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/activity:
     get:
       summary: Get contact history by externalId and object type
       description: ''
@@ -2453,9 +2346,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/scores:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/scores:
     get:
       summary: Get all scores for a contact by externalId and object type
       description: ''
@@ -2517,9 +2410,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/segments:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/externalId/{objectType}/{externalId}/segments:
     get:
       summary: Get all segments that the contact belong by externalId and object type
       description: ''
@@ -2581,9 +2474,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/id/{id}/activity:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/id/{id}/activity:
     get:
       summary: Get contact history by id
       description: ''
@@ -2644,9 +2537,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/id/{id}/scores:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/id/{id}/scores:
     get:
       summary: Get all scores for a contact by id
       description: ''
@@ -2702,9 +2595,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/contactReport/id/{id}/segments:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/contactReport/id/{id}/segments:
     get:
       summary: Get all segments that the contact belong by id
       description: ''
@@ -2760,9 +2653,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/schema/:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/schema/:
     get:
       summary: Get Schema
       description: ''
@@ -2947,9 +2840,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/schema/field/:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/schema/field/:
     post:
       summary: Add Field
       description: ''
@@ -3162,9 +3055,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/schema/field/{fieldId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/schema/field/{fieldId}:
     put:
       summary: Update FieldDefinition
       description: ''
@@ -3313,9 +3206,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/segment/:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/segment/:
     get:
       summary: Get Segments
       description: ''
@@ -3486,9 +3379,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/segment/{segmentId}:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/segment/{segmentId}:
     get:
       summary: Get Segment by Id
       description: ''
@@ -3552,7 +3445,7 @@ paths:
       tags:
       - Ucl
     put:
-      summary: Update Segment. If it's a Direct Select Segment, only the name can be updated.
+      summary: Update Segment. If it's a Direct Select Segment, only the name can be updated
       description: ''
       operationId: update-segment-if-its-a-direct-select-segment-only-the-name-can-be-updated
       parameters:
@@ -3699,9 +3592,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/segment/{segmentId}/contacts:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/segment/{segmentId}/contacts:
     get:
       summary: Get Contacts from a Segment
       description: ''
@@ -3909,9 +3802,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/segment/{segmentId}/email/contact:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/segment/{segmentId}/email/contact:
     delete:
       summary: Remove Contacts from Direct Select Segment by email
       description: ''
@@ -3987,9 +3880,9 @@ paths:
       deprecated: false
       tags:
       - Ucl
-  /ucl/v2/{accountId}/segment/{segmentId}/externalId/contacts:
     servers:
     - url: https://api.actonsoftware.com
+  /ucl/v2/{accountId}/segment/{segmentId}/externalId/contacts:
     put:
       summary: Add Contacts to a Direct Select Segment By External id
       description: ''
@@ -4116,6 +4009,113 @@ paths:
       deprecated: false
       tags:
       - Ucl
+    servers:
+    - url: https://api.actonsoftware.com
+  /ucl/v2/ucl/v2/{accountId}/import/contacts/{importDefinitionId}:
+    post:
+      summary: Import Contacts
+      description: Create one or more users for an account. Each user is sent as an element in a JSON array.
+      operationId: test-api
+      parameters:
+      - name: accountId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      - name: importDefinitionId
+        in: path
+        schema:
+          type: integer
+          format: int32
+        required: true
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                RAW_BODY:
+                  type: string
+                  description: 'JSON object with the following required keys: userType, email, firstName, lastName, password.'
+                filter:
+                  type: object
+                  required:
+                  - type
+                  - expressionEvaluationType
+                  properties:
+                    type:
+                      type: string
+                    expressionEvaluationType:
+                      type: string
+                      enum:
+                      - AND
+                      - OR
+                      - CUSTOM
+                    customBooleanExpression:
+                      type: string
+                      default: 'NULL'
+                    expressions:
+                      type: array
+                      items:
+                        properties:
+                          type:
+                            type: string
+                            enum:
+                            - profile
+                            - system
+                          id:
+                            type: string
+                          field:
+                            type: string
+                          condition:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                              comparison:
+                                type: string
+                              values:
+                                type: array
+                                items:
+                                  type: string
+                        type: object
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"status\": \"success\",\n    \"keyPoint\": \"blank\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  keyPoint:
+                    type: string
+                    example: blank
+        '400':
+          description: '400'
+          content:
+            text/plain:
+              examples:
+                Result:
+                  value: '{boo}'
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl --location 'https://api.actonsoftware.com/api/1/user' \\\n--header 'Content-Type: application/json' \\\n--header 'Authorization: Bearer TOKEN_HERE' \\\n--data-raw '[\n    {\n        \"userType\": \"Marketing\",\n        \"email\": \"name3@act-on.net\",\n        \"firstName\": \"fName1\",\n        \"lastName\": \"Surname1\",\n        \"password\": \"pwxxx123\",\n        \"title\": \"Marketing Manager\",\n        \"phoneNumber\": \"111-111-1111\",\n        \"mobileNumber\": \"111-111-1111\",\n        \"faxNumber\": \"111-111-1111\",\n        \"timeZone\": \"PT\",\n        \"sendEmailConfirmation\": \"Y\"\n    }\n]'"
+          name: Example 1
+        samples-languages:
+        - curl
+      tags:
+      - Ucl
+    servers:
+    - url: https://api.actonsoftware.com
 components:
   securitySchemes:
     sec0:
@@ -4124,6 +4124,10 @@ components:
       name: Authorization
       x-bearer-format: bearer
 x-refined-from:
-- act-on-raw-body-api-openapi.yml
-- act-on-rest-api-openapi.yml
-x-readme: {}
+- act-on-api-1.json
+- act-on-api-raw-body.json
+x-readme:
+  headers: []
+  explorer-enabled: true
+  proxy-enabled: true
+x-readme-fauxas: true
