@@ -300,6 +300,47 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
+    JoinStrategyDTO:
+      type: object
+      description: Configuration for join operations between Act-On Contacts and Custom Objects
+      properties:
+        useDefaults:
+          type: boolean
+          description: When set to true, other parameters are ignored and the defaults are used based on the relationship type of the custom object. Defaults to false
+        joinEnabled:
+          type: boolean
+          description: Enable or disable join with other data. Defaults to true
+        onlyMatching:
+          type: boolean
+          description: If true, only matching records will be joined. Defaults to false
+        duplicates:
+          type: string
+          description: Strategy for handling duplicates. If not provided, defaults to 'noJoinFieldsDuplicates for Custom Objects with 'one-to-one' relationship and 'noActOnContactsJoinFieldsDuplicates' for 'one-to-many' relationship
+          enum:
+          - allow
+          - noOtherJoinFieldsDuplicates
+          - noBaseJoinFieldsDuplicates
+          - noJoinFieldsDuplicates
+        otherOrderByField:
+          type: string
+          description: Field name to order joined data by. If not provided, defaults to 'updatedDate'
+          example: updatedDate
+        otherSelector:
+          type: string
+          description: Selection strategy for joined data when duplicates exist. If not provided, defaults to 'last'
+          enum:
+          - first
+          - last
+        baseOrderByField:
+          type: string
+          description: Field name to order base data by. If not provided, defaults to 'sys.createdAt'
+          example: sys.createdAt
+        baseSelector:
+          type: string
+          description: Selection strategy for the base data when duplicates exist. If not provided, defaults to 'last'
+          enum:
+          - first
+          - last
     PaginationDTO:
       type: object
       description: Pagination information for data query requests
@@ -382,47 +423,6 @@ components:
         datetimeFieldsTimezone:
           type: string
           description: Override timezone for all DATETIME fields in the query. Must be a valid timezone identifier (e.g., 'US/Eastern', 'Europe/London', 'UTC'). If specified, this overrides both account-level and field-level timezone settings.
-    JoinStrategyDTO:
-      type: object
-      description: Configuration for join operations between Act-On Contacts and Custom Objects
-      properties:
-        useDefaults:
-          type: boolean
-          description: When set to true, other parameters are ignored and the defaults are used based on the relationship type of the custom object. Defaults to false
-        joinEnabled:
-          type: boolean
-          description: Enable or disable join with other data. Defaults to true
-        onlyMatching:
-          type: boolean
-          description: If true, only matching records will be joined. Defaults to false
-        duplicates:
-          type: string
-          description: Strategy for handling duplicates. If not provided, defaults to 'noJoinFieldsDuplicates for Custom Objects with 'one-to-one' relationship and 'noActOnContactsJoinFieldsDuplicates' for 'one-to-many' relationship
-          enum:
-          - allow
-          - noOtherJoinFieldsDuplicates
-          - noBaseJoinFieldsDuplicates
-          - noJoinFieldsDuplicates
-        otherOrderByField:
-          type: string
-          description: Field name to order joined data by. If not provided, defaults to 'updatedDate'
-          example: updatedDate
-        otherSelector:
-          type: string
-          description: Selection strategy for joined data when duplicates exist. If not provided, defaults to 'last'
-          enum:
-          - first
-          - last
-        baseOrderByField:
-          type: string
-          description: Field name to order base data by. If not provided, defaults to 'sys.createdAt'
-          example: sys.createdAt
-        baseSelector:
-          type: string
-          description: Selection strategy for the base data when duplicates exist. If not provided, defaults to 'last'
-          enum:
-          - first
-          - last
     SortFieldDTO:
       type: object
       description: Sort field configuration

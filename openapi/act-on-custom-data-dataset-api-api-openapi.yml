@@ -905,32 +905,6 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
-    UpdateDatasetRequestDTO:
-      type: object
-      description: The dataset update details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
-    CreateDatasetRequestDTO:
-      type: object
-      description: The dataset creation details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
     ValidationRequestDTO:
       type: object
       description: The validation request details
@@ -957,6 +931,32 @@ components:
         lastId:
           type: string
           description: The last unique identifier for a range of records to delete
+    UpdateDatasetRequestDTO:
+      type: object
+      description: The dataset update details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
+    CreateDatasetRequestDTO:
+      type: object
+      description: The dataset creation details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
   securitySchemes:
     bearerAuth:
       type: http

@@ -538,29 +538,6 @@ paths:
                 $ref: '#/components/schemas/HttpErrorResponse'
 components:
   schemas:
-    RelationshipDefinitionDTO:
-      type: object
-      properties:
-        name:
-          type: string
-        description:
-          type: string
-        type:
-          type: string
-        fieldName:
-          type: string
-        fieldValue:
-          type: string
-        otherObject:
-          type: string
-        otherFieldName:
-          type: string
-        otherFieldValue:
-          type: string
-        properties:
-          type: object
-          additionalProperties:
-            type: string
     HttpErrorResponse:
       type: object
       properties:
@@ -646,47 +623,29 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
-    FieldDefinitionDTO:
+    RelationshipDefinitionDTO:
       type: object
-      description: A custom object field definition
       properties:
-        id:
-          type: string
-          description: ID of the field
         name:
           type: string
-          description: Name of the field
-        type:
-          type: string
-          description: Data type of the field
         description:
           type: string
-          description: Description of the field
-        displayName:
+        type:
           type: string
-          description: Display name of the field
+        fieldName:
+          type: string
+        fieldValue:
+          type: string
+        otherObject:
+          type: string
+        otherFieldName:
+          type: string
+        otherFieldValue:
+          type: string
         properties:
           type: object
           additionalProperties:
             type: string
-          description: 'Field specific set of properties. Supported properties vary by field type:
-
-            JSON: ''format'' (json|base64)
-
-            ENUM: ''enumName'' (string), ''enumValues'' (string), ''enumValuesCaseSensitive'' (true|false)
-
-            STRING_ARRAY: ''CSVSeparator'' (comma, semicolon, pipe, or tab)
-
-            DATE: ''format'' (date format pattern), ''formatHint'' (hint string)
-
-            DATETIME: ''format'' (datetime format pattern), ''formatHint'' (hint string), ''timezone'' (timezone identifier)
-
-            CURRENCY: ''currencyCode'' (ISO currency code like USD, EUR, etc.)'
-          example:
-            timezone: US/Eastern
-        extraData:
-          type: string
-          description: Extra data
     CreateSchemaRequestDTO:
       type: object
       description: The schema creation details
@@ -732,6 +691,47 @@ components:
           description: List of relationships of the custom object
           items:
             $ref: '#/components/schemas/RelationshipDefinitionDTO'
+    FieldDefinitionDTO:
+      type: object
+      description: A custom object field definition
+      properties:
+        id:
+          type: string
+          description: ID of the field
+        name:
+          type: string
+          description: Name of the field
+        type:
+          type: string
+          description: Data type of the field
+        description:
+          type: string
+          description: Description of the field
+        displayName:
+          type: string
+          description: Display name of the field
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Field specific set of properties. Supported properties vary by field type:
+
+            JSON: ''format'' (json|base64)
+
+            ENUM: ''enumName'' (string), ''enumValues'' (string), ''enumValuesCaseSensitive'' (true|false)
+
+            STRING_ARRAY: ''CSVSeparator'' (comma, semicolon, pipe, or tab)
+
+            DATE: ''format'' (date format pattern), ''formatHint'' (hint string)
+
+            DATETIME: ''format'' (datetime format pattern), ''formatHint'' (hint string), ''timezone'' (timezone identifier)
+
+            CURRENCY: ''currencyCode'' (ISO currency code like USD, EUR, etc.)'
+          example:
+            timezone: US/Eastern
+        extraData:
+          type: string
+          description: Extra data
   securitySchemes:
     bearerAuth:
       type: http

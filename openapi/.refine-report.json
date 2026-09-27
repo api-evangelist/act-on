@@ -30,11 +30,10 @@
     "act-on-token-api-openapi.yml",
     "act-on-custom-data-dataset-api-api-openapi.yml",
     "act-on-custom-data-query-api-api-openapi.yml",
-    "act-on-custom-data-schema-api-api-openapi.yml",
-    "act-on-token-grant-type-password-api-openapi.yml"
+    "act-on-custom-data-schema-api-api-openapi.yml"
   ],
   "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
+    "deleted 2 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
@@ -88,7 +87,7 @@
     "act-on-api-1.json: tagged paths GET /api/1/media/{id}/report/timeline -> Media",
     "act-on-api-1.json: tagged paths GET /api/1/form/{id}/report -> Form",
     "act-on-api-1.json: tagged paths GET /api/1/page/{id}/report -> Page",
-    "act-on-api-1.json: tagged paths GET /api/1/message? -> Message?",
+    "act-on-api-1.json: tagged paths GET /api/1/message? -> Message",
     "act-on-api-1.json: tagged paths POST /api/1/message -> Message",
     "act-on-api-1.json: tagged paths GET /api/1/campaigns/{id} -> Campaigns",
     "act-on-api-1.json: tagged paths GET /api/1/campaigns -> Campaigns",
@@ -180,7 +179,6 @@
     "act-on-api-1.json: declared missing tag: Media",
     "act-on-api-1.json: declared missing tag: Medialink",
     "act-on-api-1.json: declared missing tag: Message",
-    "act-on-api-1.json: declared missing tag: Message?",
     "act-on-api-1.json: declared missing tag: Page",
     "act-on-api-1.json: declared missing tag: Program",
     "act-on-api-1.json: declared missing tag: Seokeywords",
@@ -202,16 +200,15 @@
     "act-on-api-raw-body.json: declared missing tag: User",
     "act-on-custom-objects-service-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "act-on-oauth-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "act-on-oauth-openapi.yml: tagged paths POST /token?grant_type=password -> Token?grant Type=password",
+    "act-on-oauth-openapi.yml: tagged paths POST /token?grant_type=password -> Token",
     "act-on-oauth-openapi.yml: tagged paths POST /token -> Token",
     "act-on-oauth-openapi.yml: declared missing tag: Token",
-    "act-on-oauth-openapi.yml: declared missing tag: Token?grant Type=password",
     "tag 'List' spans 2 source specs (act-on-api-1.json, act-on-api-raw-body.json): per-path servers applied",
     "tag 'Ucl' spans 2 source specs (act-on-api-1.json, act-on-api-raw-body.json): per-path servers applied",
     "tag 'User' spans 2 source specs (act-on-api-1.json, act-on-api-raw-body.json): per-path servers applied",
     "tag 'Token' spans 2 source specs (act-on-api-raw-body.json, act-on-oauth-openapi.yml): per-path servers applied",
-    "superseded outputs removed: act-on-custom-events-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 26 total)"
+    "superseded outputs removed: act-on-custom-events-api-openapi.yml, act-on-token-grant-type-password-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 25 total)"
   ],
   "skipped": [
     "_original/act-on-rest-api-openapi.yml: archived document superseded by a larger archived document",

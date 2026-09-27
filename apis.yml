@@ -681,35 +681,6 @@ apis:
     url: llms/act-on-llms.txt
   - type: Documentation
     url: https://developer.act-on.com/reference/overview
-- aid: act-on:act-on-token-grant-type-password-api
-  name: Act-On Token?grant Type=password API
-  description: >-
-    The Token?grant Type=password API from Act-On — 1 operation(s) for token?grant type=password.
-  humanURL: https://developer.act-on.com/reference/api-overview
-  baseURL: https://api.actonsoftware.com
-  tags:
-  - Token?grant Type=password
-  properties:
-  - type: OpenAPI
-    url: openapi/act-on-token-grant-type-password-api-openapi.yml
-  - type: Documentation
-    url: https://developer.act-on.com
-  - type: APIReference
-    url: https://developer.act-on.com/reference/api-overview
-  - type: Authentication
-    url: authentication/act-on-authentication.yml
-  - type: RateLimits
-    url: rate-limits/act-on-rate-limits.yml
-  - type: ErrorCatalog
-    url: errors/act-on-problem-types.yml
-  - type: Conventions
-    url: conventions/act-on-conventions.yml
-  - type: DataModel
-    url: data-model/act-on-data-model.yml
-  - type: LLMsTxt
-    url: llms/act-on-llms.txt
-  - type: Documentation
-    url: https://developer.act-on.com/reference/overview
 - aid: act-on:act-on-ucl-api
   name: Act-On Ucl API
   description: The Ucl API from Act-On — 30 operation(s) for ucl.

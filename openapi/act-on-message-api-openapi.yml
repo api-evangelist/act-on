@@ -283,6 +283,89 @@ paths:
       deprecated: false
       tags:
       - Message
+  /api/1/message?:
+    get:
+      summary: Get message list
+      description: Use to retrieve a listing of emails by type.
+      operationId: get-message-list
+      parameters:
+      - name: type
+        in: query
+        description: Specify the type of message to return. <p>("DRAFT", "TEMPLATE", "SENT", "TRIGGERED", "FAILED", "SCHEDULED")</p>
+        schema:
+          type: string
+      - name: count
+        in: query
+        description: Specify the number of elements to fetch. (Maximum=1000)
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specify the element offset to begin the fetch. (Default=0)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Successful Response:
+                  value: "{\n    \"count\": 1,\n    \"totalCount\": 1,\n    \"offset\": 0,\n    \"msgresult\": [\n        {\n            \"name\": \"Monthly Update\",\n            \"msgId\": \"s-0001-2409\",\n            \"msgType\": \"SENT\",\n            \"timeStamp\": \"1725641452528\",\n            \"timeWhen\": \"Fri Sep 6 9:50 AM PDT\",\n            \"senderName\": \"Jeffrey Coleman\",\n            \"senderId\": \"434330\",\n            \"isTextOnly\": \"false\",\n            \"senderEmail\": \"jeffrey.coleman+gspx@act-on.com\"\n        }\n    ],\n    \"id\": 0\n}"
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+                    default: 0
+                  totalCount:
+                    type: integer
+                    example: 1
+                    default: 0
+                  offset:
+                    type: integer
+                    example: 0
+                    default: 0
+                  msgresult:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          example: Monthly Update
+                        msgId:
+                          type: string
+                          example: s-0001-2409
+                        msgType:
+                          type: string
+                          example: SENT
+                        timeStamp:
+                          type: string
+                          example: '1725641452528'
+                        timeWhen:
+                          type: string
+                          example: Fri Sep 6 9:50 AM PDT
+                        senderName:
+                          type: string
+                          example: Jeffrey Coleman
+                        senderId:
+                          type: string
+                          example: '434330'
+                        isTextOnly:
+                          type: string
+                          example: 'false'
+                        senderEmail:
+                          type: string
+                          example: jeffrey.coleman+gspx@act-on.com
+                  id:
+                    type: integer
+                    example: 0
+                    default: 0
+      deprecated: false
+      tags:
+      - Message
   /api/1/message:
     post:
       summary: Add new template or draft message
@@ -606,89 +689,6 @@ paths:
               schema:
                 type: object
                 properties: {}
-      deprecated: false
-      tags:
-      - Message
-  /api/1/message?:
-    get:
-      summary: Get message list
-      description: Use to retrieve a listing of emails by type.
-      operationId: get-message-list
-      parameters:
-      - name: type
-        in: query
-        description: Specify the type of message to return. <p>("DRAFT", "TEMPLATE", "SENT", "TRIGGERED", "FAILED", "SCHEDULED")</p>
-        schema:
-          type: string
-      - name: count
-        in: query
-        description: Specify the number of elements to fetch. (Maximum=1000)
-        schema:
-          type: string
-      - name: offset
-        in: query
-        description: Specify the element offset to begin the fetch. (Default=0)
-        schema:
-          type: string
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Successful Response:
-                  value: "{\n    \"count\": 1,\n    \"totalCount\": 1,\n    \"offset\": 0,\n    \"msgresult\": [\n        {\n            \"name\": \"Monthly Update\",\n            \"msgId\": \"s-0001-2409\",\n            \"msgType\": \"SENT\",\n            \"timeStamp\": \"1725641452528\",\n            \"timeWhen\": \"Fri Sep 6 9:50 AM PDT\",\n            \"senderName\": \"Jeffrey Coleman\",\n            \"senderId\": \"434330\",\n            \"isTextOnly\": \"false\",\n            \"senderEmail\": \"jeffrey.coleman+gspx@act-on.com\"\n        }\n    ],\n    \"id\": 0\n}"
-              schema:
-                type: object
-                properties:
-                  count:
-                    type: integer
-                    example: 1
-                    default: 0
-                  totalCount:
-                    type: integer
-                    example: 1
-                    default: 0
-                  offset:
-                    type: integer
-                    example: 0
-                    default: 0
-                  msgresult:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        name:
-                          type: string
-                          example: Monthly Update
-                        msgId:
-                          type: string
-                          example: s-0001-2409
-                        msgType:
-                          type: string
-                          example: SENT
-                        timeStamp:
-                          type: string
-                          example: '1725641452528'
-                        timeWhen:
-                          type: string
-                          example: Fri Sep 6 9:50 AM PDT
-                        senderName:
-                          type: string
-                          example: Jeffrey Coleman
-                        senderId:
-                          type: string
-                          example: '434330'
-                        isTextOnly:
-                          type: string
-                          example: 'false'
-                        senderEmail:
-                          type: string
-                          example: jeffrey.coleman+gspx@act-on.com
-                  id:
-                    type: integer
-                    example: 0
-                    default: 0
       deprecated: false
       tags:
       - Message
