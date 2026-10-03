@@ -33,7 +33,7 @@
     "act-on-custom-data-schema-api-api-openapi.yml"
   ],
   "archived": [
-    "deleted 2 superseded output(s) from the previous generation"
+    "deleted 1 superseded output(s) from the previous generation"
   ],
   "errors": [],
   "warnings": [],
@@ -207,7 +207,7 @@
     "tag 'Ucl' spans 2 source specs (act-on-api-1.json, act-on-api-raw-body.json): per-path servers applied",
     "tag 'User' spans 2 source specs (act-on-api-1.json, act-on-api-raw-body.json): per-path servers applied",
     "tag 'Token' spans 2 source specs (act-on-api-raw-body.json, act-on-oauth-openapi.yml): per-path servers applied",
-    "superseded outputs removed: act-on-custom-events-api-openapi.yml, act-on-token-grant-type-password-api-openapi.yml",
+    "superseded outputs removed: act-on-custom-events-api-openapi.yml",
     "apis.yml register: written (+1 apis, 25 total)"
   ],
   "skipped": [
@@ -237,7 +237,6 @@
     "act-on-seoreport-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "act-on-subscription-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "act-on-token-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "act-on-token-grant-type-password-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "act-on-ucl-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "act-on-user-api-openapi.yml: previously refined output, superseded by openapi/_original/"
   ]

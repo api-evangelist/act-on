@@ -820,6 +820,58 @@ paths:
                 $ref: '#/components/schemas/HttpErrorResponse'
 components:
   schemas:
+    DeleteRecordsRequestDTO:
+      type: object
+      description: The record deletion details
+      properties:
+        ids:
+          type: string
+          description: One or more unique identifiers for the records to delete separated by comas
+        firstId:
+          type: string
+          description: The first unique identifier for a range of records to delete
+        lastId:
+          type: string
+          description: The last unique identifier for a range of records to delete
+    ValidationRequestDTO:
+      type: object
+      description: The validation request details
+      properties:
+        file:
+          type: string
+          format: binary
+          description: The file to validate.
+        fileType:
+          type: string
+          description: The type of file being ingested. Either csv or json. Default is csv.
+      required:
+      - file
+    UpdateDatasetRequestDTO:
+      type: object
+      description: The dataset update details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
+    CreateDatasetRequestDTO:
+      type: object
+      description: The dataset creation details
+      properties:
+        name:
+          type: string
+          description: Name of the dataset
+        description:
+          type: string
+          description: Description of the dataset
+        isDefault:
+          type: boolean
+          description: Whether to set the dataset as the default for the custom object
     HttpErrorResponse:
       type: object
       properties:
@@ -905,58 +957,6 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
-    ValidationRequestDTO:
-      type: object
-      description: The validation request details
-      properties:
-        file:
-          type: string
-          format: binary
-          description: The file to validate.
-        fileType:
-          type: string
-          description: The type of file being ingested. Either csv or json. Default is csv.
-      required:
-      - file
-    DeleteRecordsRequestDTO:
-      type: object
-      description: The record deletion details
-      properties:
-        ids:
-          type: string
-          description: One or more unique identifiers for the records to delete separated by comas
-        firstId:
-          type: string
-          description: The first unique identifier for a range of records to delete
-        lastId:
-          type: string
-          description: The last unique identifier for a range of records to delete
-    UpdateDatasetRequestDTO:
-      type: object
-      description: The dataset update details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
-    CreateDatasetRequestDTO:
-      type: object
-      description: The dataset creation details
-      properties:
-        name:
-          type: string
-          description: Name of the dataset
-        description:
-          type: string
-          description: Description of the dataset
-        isDefault:
-          type: boolean
-          description: Whether to set the dataset as the default for the custom object
   securitySchemes:
     bearerAuth:
       type: http
