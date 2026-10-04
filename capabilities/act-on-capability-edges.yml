@@ -1,0 +1,73 @@
+slug: act-on
+provider: Act-On
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 6
+edges:
+- tag: Page
+  spec_file: act-on-page-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.8
+  evidence: GET /api/1/page  get-landing-page-list; GET /api/1/page/{id}/report  get-landing-page-report
+  reason: Explicitly landing-page listing, retrieval, URLs and performance reporting — web/landing-page
+    asset management and measurement, squarely digital marketing.
+- tag: Message
+  spec_file: act-on-message-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: POST /api/1/message/{msgid}/send  send-a-message; GET /api/1/message/{id}/report  get-message-report
+  reason: Creates email templates/drafts, sends and resends messages, and retrieves message performance
+    reports — email marketing execution and measurement, the core of digital/automated marketing. 'Message'
+    here is a marketing email, not a support or queue message.
+- tag: Seokeywords
+  spec_file: act-on-seokeywords-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: GET /api/1/seokeywords  get-seo-keywords  Get SEO keywords
+  reason: Retrieves SEO keyword data, which is explicitly within web/SEO digital marketing. Single operation,
+    so confidence is capped.
+- tag: Seoreport
+  spec_file: act-on-seoreport-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.78
+  evidence: GET /api/1/seoreport  get-a-new-seo-report  Get a new SEO report
+  reason: Generates an SEO report for the marketer's website — SEO measurement is named directly in the
+    Digital Marketing Management sub-capability. Single operation limits confidence.
+- tag: List
+  spec_file: act-on-list-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: GET /api/1/list/{listid}/record/{recordid}  get-contact-record; PUT /api/1/list/{listid}/record  upsert-a-contact-record-by-email
+  reason: Operations create, read, upsert and delete contact records keyed by email within marketing lists,
+    including contact history and score — this is contact/customer record mastering rather than a generic
+    'list' data structure.
+- tag: Ucl
+  spec_file: act-on-ucl-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /ucl/v2/{accountId}/contact/ 'Add a single contact to the Act-On Contacts List'; 'Import
+    Contacts'; 'Get contacts from the Act-On Contacts List by email address'
+  reason: The UCL (unified contact list) tag's operations create, retrieve and bulk-import contact records
+    keyed by email/cookie id in the marketing platform's contact database — i.e. maintenance of the customer/contact
+    master record, not a marketing execution capability.

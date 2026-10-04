@@ -771,6 +771,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/act-on-capability-edges.yml
+  name: Act-On Business Capability Map
 - type: Overlay
   url: overlays/act-on-rest-api-overlay.yaml
 - type: Overlay
