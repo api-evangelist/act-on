@@ -538,47 +538,6 @@ paths:
                 $ref: '#/components/schemas/HttpErrorResponse'
 components:
   schemas:
-    FieldDefinitionDTO:
-      type: object
-      description: A custom object field definition
-      properties:
-        id:
-          type: string
-          description: ID of the field
-        name:
-          type: string
-          description: Name of the field
-        type:
-          type: string
-          description: Data type of the field
-        description:
-          type: string
-          description: Description of the field
-        displayName:
-          type: string
-          description: Display name of the field
-        properties:
-          type: object
-          additionalProperties:
-            type: string
-          description: 'Field specific set of properties. Supported properties vary by field type:
-
-            JSON: ''format'' (json|base64)
-
-            ENUM: ''enumName'' (string), ''enumValues'' (string), ''enumValuesCaseSensitive'' (true|false)
-
-            STRING_ARRAY: ''CSVSeparator'' (comma, semicolon, pipe, or tab)
-
-            DATE: ''format'' (date format pattern), ''formatHint'' (hint string)
-
-            DATETIME: ''format'' (datetime format pattern), ''formatHint'' (hint string), ''timezone'' (timezone identifier)
-
-            CURRENCY: ''currencyCode'' (ISO currency code like USD, EUR, etc.)'
-          example:
-            timezone: US/Eastern
-        extraData:
-          type: string
-          description: Extra data
     RelationshipDefinitionDTO:
       type: object
       properties:
@@ -602,51 +561,6 @@ components:
           type: object
           additionalProperties:
             type: string
-    CreateSchemaRequestDTO:
-      type: object
-      description: The schema creation details
-      properties:
-        name:
-          type: string
-          description: Name of the custom object
-        description:
-          type: string
-          description: Description of the custom object
-        dataType:
-          type: string
-          description: Data type of the custom object
-        fields:
-          type: array
-          description: List of fields in the custom object
-          items:
-            $ref: '#/components/schemas/FieldDefinitionDTO'
-        requiredFields:
-          type: array
-          description: List of required fields in the custom object
-          items:
-            type: string
-        uniqueFieldSet:
-          type: array
-          description: List of unique fields in the custom object
-          items:
-            type: string
-        eventTimestampField:
-          type: string
-          description: Field name that contains the event timestamp
-        primaryEmailField:
-          type: string
-          description: Field name that contains the primary email
-        externalIdField:
-          type: string
-          description: Field name that contains the external id
-        objectTypeField:
-          type: string
-          description: Field name that contains the object type
-        relationships:
-          type: array
-          description: List of relationships of the custom object
-          items:
-            $ref: '#/components/schemas/RelationshipDefinitionDTO'
     HttpErrorResponse:
       type: object
       properties:
@@ -732,6 +646,92 @@ components:
           - 509 BANDWIDTH_LIMIT_EXCEEDED
           - 510 NOT_EXTENDED
           - 511 NETWORK_AUTHENTICATION_REQUIRED
+    FieldDefinitionDTO:
+      type: object
+      description: A custom object field definition
+      properties:
+        id:
+          type: string
+          description: ID of the field
+        name:
+          type: string
+          description: Name of the field
+        type:
+          type: string
+          description: Data type of the field
+        description:
+          type: string
+          description: Description of the field
+        displayName:
+          type: string
+          description: Display name of the field
+        properties:
+          type: object
+          additionalProperties:
+            type: string
+          description: 'Field specific set of properties. Supported properties vary by field type:
+
+            JSON: ''format'' (json|base64)
+
+            ENUM: ''enumName'' (string), ''enumValues'' (string), ''enumValuesCaseSensitive'' (true|false)
+
+            STRING_ARRAY: ''CSVSeparator'' (comma, semicolon, pipe, or tab)
+
+            DATE: ''format'' (date format pattern), ''formatHint'' (hint string)
+
+            DATETIME: ''format'' (datetime format pattern), ''formatHint'' (hint string), ''timezone'' (timezone identifier)
+
+            CURRENCY: ''currencyCode'' (ISO currency code like USD, EUR, etc.)'
+          example:
+            timezone: US/Eastern
+        extraData:
+          type: string
+          description: Extra data
+    CreateSchemaRequestDTO:
+      type: object
+      description: The schema creation details
+      properties:
+        name:
+          type: string
+          description: Name of the custom object
+        description:
+          type: string
+          description: Description of the custom object
+        dataType:
+          type: string
+          description: Data type of the custom object
+        fields:
+          type: array
+          description: List of fields in the custom object
+          items:
+            $ref: '#/components/schemas/FieldDefinitionDTO'
+        requiredFields:
+          type: array
+          description: List of required fields in the custom object
+          items:
+            type: string
+        uniqueFieldSet:
+          type: array
+          description: List of unique fields in the custom object
+          items:
+            type: string
+        eventTimestampField:
+          type: string
+          description: Field name that contains the event timestamp
+        primaryEmailField:
+          type: string
+          description: Field name that contains the primary email
+        externalIdField:
+          type: string
+          description: Field name that contains the external id
+        objectTypeField:
+          type: string
+          description: Field name that contains the object type
+        relationships:
+          type: array
+          description: List of relationships of the custom object
+          items:
+            $ref: '#/components/schemas/RelationshipDefinitionDTO'
   securitySchemes:
     bearerAuth:
       type: http
