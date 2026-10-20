@@ -28,6 +28,19 @@
     builder: unknown (not in the directory record)
   status: not-a-workflow
   arazzo: null
+- slug: act-on-zendesk-own
+  label: Zendesk (own)
+  partner: zendesk
+  partner_name: Zendesk (own)
+  category: CRM and Marketing
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.zendesk.com/marketplace/apps/support/565684/act-on-software/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
 - slug: act-on-zoom-own
   label: Zoom (own)
   partner: zoom
