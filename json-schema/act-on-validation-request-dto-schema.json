@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/act-on/main/json-schema/act-on-validation-request-dto-schema.json",
+  "title": "ValidationRequestDTO",
+  "description": "The validation request details",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/ValidationRequestDTO",
+  "type": "object",
+  "properties": {
+    "file": {
+      "type": "string",
+      "format": "binary",
+      "description": "The file to validate."
+    },
+    "fileType": {
+      "type": "string",
+      "description": "The type of file being ingested. Either csv or json. Default is csv."
+    }
+  },
+  "required": [
+    "file"
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "@context": {
+    "@vocab": "https://act-on.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "act": "https://act-on.com/schema#",
+    "CreateDatasetRequestDTO": "act:CreateDatasetRequestDTO",
+    "name": {
+      "@id": "act:name",
+      "@type": "xsd:string"
+    },
+    "description": {
+      "@id": "act:description",
+      "@type": "xsd:string"
+    },
+    "isDefault": {
+      "@id": "act:isDefault",
+      "@type": "xsd:boolean"
+    },
+    "ValidationRequestDTO": "act:ValidationRequestDTO",
+    "file": {
+      "@id": "act:file",
+      "@type": "xsd:string"
+    },
+    "fileType": {
+      "@id": "act:fileType",
+      "@type": "xsd:string"
+    },
+    "DeleteRecordsRequestDTO": "act:DeleteRecordsRequestDTO",
+    "ids": {
+      "@id": "act:ids",
+      "@type": "xsd:string"
+    },
+    "firstId": {
+      "@id": "act:firstId",
+      "@type": "xsd:string"
+    },
+    "lastId": {
+      "@id": "act:lastId",
+      "@type": "xsd:string"
+    },
+    "HttpErrorResponse": "act:HttpErrorResponse",
+    "errorId": {
+      "@id": "act:errorId",
+      "@type": "xsd:string"
+    },
+    "requestUri": {
+      "@id": "act:requestUri",
+      "@type": "xsd:string"
+    },
+    "errorMessage": {
+      "@id": "act:errorMessage",
+      "@type": "xsd:string"
+    },
+    "errorList": {
+      "@id": "act:errorList",
+      "@container": "@list"
+    },
+    "status": {
+      "@id": "act:status",
+      "@type": "xsd:string"
+    },
+    "UpdateDatasetRequestDTO": "act:UpdateDatasetRequestDTO",
+    "DataQueryRequestDTO": "act:DataQueryRequestDTO",
+    "otherObject": {
+      "@id": "act:otherObject",
+      "@type": "xsd:string"
+    },
+    "otherDataset": {
+      "@id": "act:otherDataset",
+      "@type": "xsd:string"
+    },
+    "selectFields": {
+      "@id": "act:selectFields",
+      "@container": "@list"
+    },
+    "page": {
+      "@id": "act:page",
+      "@type": "xsd:integer"
+    },
+    "size": {
+      "@id": "act:size",
+      "@type": "xsd:integer"
+    },
+    "pagination": {
+      "@id": "act:pagination",
+      "@type": "@id"
+    },
+    "sortBy": {
+      "@id": "act:sortBy",
+      "@type": "xsd:string"
+    },
+    "sortByDirection": {
+      "@id": "act:sortByDirection",
+      "@type": "xsd:string"
+    },
+    "sortFields": {
+      "@id": "act:sortFields",
+      "@container": "@list"
+    },
+    "filterExpression": {
+      "@id": "act:filterExpression",
+      "@type": "xsd:string"
+    },
+    "joinStrategy": {
+      "@id": "act:joinStrategy",
+      "@type": "@id"
+    },
+    "searchTerm": {
+      "@id": "act:searchTerm",
+      "@type": "xsd:string"
+    },
+    "datetimeFieldsTimezone": {
+      "@id": "act:datetimeFieldsTimezone",
+      "@type": "xsd:string"
+    },
+    "PaginationDTO": "act:PaginationDTO",
+    "nextPageToken": {
+      "@id": "act:nextPageToken",
+      "@type": "xsd:string"
+    },
+    "pageStrategy": {
+      "@id": "act:pageStrategy",
+      "@type": "xsd:string"
+    },
+    "JoinStrategyDTO": "act:JoinStrategyDTO",
+    "useDefaults": {
+      "@id": "act:useDefaults",
+      "@type": "xsd:boolean"
+    },
+    "joinEnabled": {
+      "@id": "act:joinEnabled",
+      "@type": "xsd:boolean"
+    },
+    "onlyMatching": {
+      "@id": "act:onlyMatching",
+      "@type": "xsd:boolean"
+    },
+    "duplicates": {
+      "@id": "act:duplicates",
+      "@type": "xsd:string"
+    },
+    "otherOrderByField": {
+      "@id": "act:otherOrderByField",
+      "@type": "xsd:string"
+    },
+    "otherSelector": {
+      "@id": "act:otherSelector",
+      "@type": "xsd:string"
+    },
+    "baseOrderByField": {
+      "@id": "act:baseOrderByField",
+      "@type": "xsd:string"
+    },
+    "baseSelector": {
+      "@id": "act:baseSelector",
+      "@type": "xsd:string"
+    },
+    "SortFieldDTO": "act:SortFieldDTO",
+    "field": {
+      "@id": "act:field",
+      "@type": "xsd:string"
+    },
+    "direction": {
+      "@id": "act:direction",
+      "@type": "xsd:string"
+    },
+    "RelationshipDefinitionDTO": "act:RelationshipDefinitionDTO",
+    "type": {
+      "@id": "act:type",
+      "@type": "xsd:string"
+    },
+    "fieldName": {
+      "@id": "act:fieldName",
+      "@type": "xsd:string"
+    },
+    "fieldValue": {
+      "@id": "act:fieldValue",
+      "@type": "xsd:string"
+    },
+    "otherFieldName": {
+      "@id": "act:otherFieldName",
+      "@type": "xsd:string"
+    },
+    "otherFieldValue": {
+      "@id": "act:otherFieldValue",
+      "@type": "xsd:string"
+    },
+    "properties": {
+      "@id": "act:properties"
+    },
+    "CreateSchemaRequestDTO": "act:CreateSchemaRequestDTO",
+    "dataType": {
+      "@id": "act:dataType",
+      "@type": "xsd:string"
+    },
+    "fields": {
+      "@id": "act:fields",
+      "@container": "@list"
+    },
+    "requiredFields": {
+      "@id": "act:requiredFields",
+      "@container": "@list"
+    },
+    "uniqueFieldSet": {
+      "@id": "act:uniqueFieldSet",
+      "@container": "@list"
+    },
+    "eventTimestampField": {
+      "@id": "act:eventTimestampField",
+      "@type": "xsd:string"
+    },
+    "primaryEmailField": {
+      "@id": "act:primaryEmailField",
+      "@type": "xsd:string"
+    },
+    "externalIdField": {
+      "@id": "act:externalIdField",
+      "@type": "xsd:string"
+    },
+    "objectTypeField": {
+      "@id": "act:objectTypeField",
+      "@type": "xsd:string"
+    },
+    "relationships": {
+      "@id": "act:relationships",
+      "@container": "@list"
+    },
+    "FieldDefinitionDTO": "act:FieldDefinitionDTO",
+    "id": {
+      "@id": "act:id",
+      "@type": "xsd:string"
+    },
+    "displayName": {
+      "@id": "act:displayName",
+      "@type": "xsd:string"
+    },
+    "extraData": {
+      "@id": "act:extraData",
+      "@type": "xsd:string"
+    }
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Act-On API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Act-On's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-20) from openapi/act-on-account-api-openapi.yml, openapi/act-on-campaigns-api-openapi.yml, openapi/act-on-custom-data-dataset-api-api-openapi.yml.",
+  "dcterms:created": "2026-10-20",
+  "dcterms:source": [
+    "openapi/act-on-account-api-openapi.yml",
+    "openapi/act-on-campaigns-api-openapi.yml",
+    "openapi/act-on-custom-data-dataset-api-api-openapi.yml",
+    "openapi/act-on-custom-data-query-api-api-openapi.yml",
+    "openapi/act-on-custom-data-schema-api-api-openapi.yml"
+  ]
+}

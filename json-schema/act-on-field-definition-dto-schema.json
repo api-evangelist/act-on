@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/act-on/main/json-schema/act-on-field-definition-dto-schema.json",
+  "title": "FieldDefinitionDTO",
+  "description": "A custom object field definition",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/act-on-custom-data-schema-api-api-openapi.yml#/components/schemas/FieldDefinitionDTO",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "ID of the field"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the field"
+    },
+    "type": {
+      "type": "string",
+      "description": "Data type of the field"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the field"
+    },
+    "displayName": {
+      "type": "string",
+      "description": "Display name of the field"
+    },
+    "properties": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Field specific set of properties. Supported properties vary by field type:\nJSON: 'format' (json|base64)\nENUM: 'enumName' (string), 'enumValues' (string), 'enumValuesCaseSensitive' (true|false)\nSTRING_ARRAY: 'CSVSeparator' (comma, semicolon, pipe, or tab)\nDATE: 'format' (date format pattern), 'formatHint' (hint string)\nDATETIME: 'format' (datetime format pattern), 'formatHint' (hint string), 'timezone' (timezone identifier)\nCURRENCY: 'currencyCode' (ISO currency code like USD, EUR, etc.)"
+    },
+    "extraData": {
+      "type": "string",
+      "description": "Extra data"
+    }
+  }
+}

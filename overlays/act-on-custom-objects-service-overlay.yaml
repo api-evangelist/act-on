@@ -3,7 +3,7 @@ info:
   title: API Evangelist enrichment overlay — Act-On Custom Objects Service 3.4.3 — /custom-objects/v1
     (BETA, request-only)
   version: 1.0.0
-extends: openapi/act-on-custom-objects-service-openapi.yml
+extends: ../openapi/_original/act-on-custom-objects-service-openapi.yml
 x-provenance:
   generated: '2026-08-13'
   method: generated

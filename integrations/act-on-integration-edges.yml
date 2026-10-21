@@ -1,4 +1,45 @@
-generated: '2026-10-15'
+generated: '2026-10-20'
+method: searched
+source:
+- https://zapier.com/api/v4/apps/
+- https://zapier.com/apps/act-on/integrations
+checked:
+- https://zapier.com/api/v4/apps/
+- zendesk/integrations/zendesk-integration-edges.yml
+- zoom/integrations/zoom-integration-edges.yml
+- https://composio.dev/toolkits/act-on
+- https://monid.ai/tools/act-on
+- https://n8n.io/integrations/act-on/
+- https://zapier.com/apps/act-on/integrations
+summary: null
+marketplace_apps:
+- marketplace: zapier
+  channel: ipaas-listing
+  app: act-on
+  url: https://zapier.com/apps/act-on/integrations
+  external_url: http://act-on.com/
+  partner_tier: SILVER
+  triggers:
+  - key: new_record_AP
+    label: Act-On Outgoing Webhooks
+  - key: new_record_AP_v2
+    label: New Automated Program External Call
+  - key: new_record_v2
+    label: New Form Submission
+  actions:
+  - key: add_contact_dss
+    label: Add Contact to Direct Select Segment in All Contacts
+  - key: add_new_record
+    label: Add Contact to Marketing List
+  - key: post_to_a_form_v2
+    label: Create Form Submission
+  - key: upsert_contact
+    label: Update or Create Contact in All Contacts by Email
+  - key: upsert_contact_external_id
+    label: Update or Create Contact in All Contacts by External ID
+  - key: upsert_record
+    label: Update or Create Contact in Marketing List by Email
+  searches: []
 edges:
 - partner_name: Zapier
   partner: zapier
@@ -59,10 +100,425 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
-method: searched
-checked:
-- https://zapier.com/api/v4/apps/
-- zendesk/integrations/zendesk-integration-edges.yml
-- zoom/integrations/zoom-integration-edges.yml
-source:
-- https://zapier.com/api/v4/apps/
+- partner_name: LinkedIn Ads
+  partner: linkedin-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/linkedin-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.linkedin.com/
+- partner_name: SimpleTexting
+  partner: simpletexting
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/simpletexting
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://simpletexting.com/
+- partner_name: Kudosity
+  partner: kudosity
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/kudosity
+  direction: third-party
+  category: Phone & SMS
+  partner_url: https://kudosity.com/start-trial
+- partner_name: WebinarGeek
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/webinargeek
+  direction: third-party
+  category: Webinars
+  partner_url: https://www.webinargeek.com/
+- partner_name: Gravity Forms
+  partner: gravity-forms
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/gravity-forms
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: https://www.gravityforms.com/?utm_campaign=partners&utm_source=zapier-listing-learn-more&utm_medium=free-placement
+- partner_name: Facebook Lead Ads
+  partner: facebook-lead-ads
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/facebook-lead-ads
+  direction: third-party
+  category: Ads & Conversion
+  partner_url: https://www.facebook.com/business/ads/lead-ads
+- partner_name: Microsoft Outlook
+  partner: microsoft-outlook
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/microsoft-outlook
+  direction: third-party
+  category: Calendar
+  partner_url: https://outlook.live.com/
+- partner_name: PlanSo Forms for WordPress
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/planso
+  direction: third-party
+  category: Forms & Surveys
+  partner_url: http://forms.planso.de/
+- partner_name: Klipfolio
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/klipfolio
+  direction: third-party
+  category: Dashboards
+  partner_url: https://zapier.com/klipfolio.com
+- partner_name: OnceHub
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/oncehub
+  direction: third-party
+  category: Scheduling & Booking
+  partner_url: https://www.oncehub.com/scheduleonce/home
+- partner_name: Podio
+  partner: podio
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/podio
+  direction: third-party
+  category: Project Management
+  partner_url: https://podio.com/
+- partner_name: Google Calendar
+  partner: google-calendar
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/google-calendar
+  direction: third-party
+  category: Calendar
+  partner_url: https://calendar.google.com/
+- partner_name: Drift
+  partner: null
+  partner_match: null
+  partner_candidate: zapier
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/drift
+  direction: third-party
+  category: Customer Support
+  partner_url: https://zapier.com/www.drift.com
+- partner_name: ViralSweep
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/viralsweep
+  direction: third-party
+  category: eCommerce
+  partner_url: http://viralsweep.com/
+- partner_name: Clearbit
+  partner: clearbit
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/clearbit
+  direction: third-party
+  category: Contact Management
+  partner_url: https://clearbit.com/zapier?utm_source=zapier&utm_medium=referral&utm_campaign=partner
+- partner_name: SQL Server
+  partner: microsoft-sql-server
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/sql-server
+  direction: third-party
+  category: Databases
+  partner_url: https://www.microsoft.com/sql-server
+- partner_name: Continually
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/continually
+  direction: third-party
+  category: Support
+  partner_url: https://continual.ly/
+- partner_name: MySQL
+  partner: mysql
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/mysql
+  direction: third-party
+  category: Databases
+  partner_url: https://www.mysql.com/
+- partner_name: Pipeline CRM
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/pipelinedeals
+  direction: third-party
+  category: CRM (Customer Relationship Management)
+  partner_url: https://pipelinecrm.com/
+- partner_name: Esendex
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/esendex
+  direction: third-party
+  category: Phone & SMS
+  partner_url: http://www.esendex.com/
+- partner_name: Xero
+  partner: xero
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/xero
+  direction: third-party
+  category: Accounting
+  partner_url: https://xero5440.partnerlinks.io/uvwuuwrxyoi8
+- partner_name: Wistia
+  partner: wistia
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/wistia
+  direction: third-party
+  category: Video & Audio
+  partner_url: https://wistia.com/
+- partner_name: Eventzilla
+  partner: eventzilla
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/eventzilla
+  direction: third-party
+  category: Event Management
+  partner_url: https://www.eventzilla.net/
+- partner_name: Picreel
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/picreel
+  direction: third-party
+  category: eCommerce
+  partner_url: http://www.picreel.com/
+- partner_name: GitHub
+  partner: github
+  partner_match: domain+name-among-holders
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/github
+  direction: third-party
+  category: Developer Tools
+  partner_url: https://github.com/
+- partner_name: PostgreSQL
+  partner: postgresql
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/postgresql
+  direction: third-party
+  category: Databases
+  partner_url: http://www.postgresql.org/
+- partner_name: Agents
+  partner: agents
+  partner_match: name-exact
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/agents
+  direction: third-party
+  category: AI Agents
+  partner_url: https://zapier.com/agents
+- partner_name: RightSignature
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/rightsignature
+  direction: third-party
+  category: Signatures
+  partner_url: https://rightsignature.com/
+- partner_name: People Data Labs
+  partner: peopledatalabs
+  partner_match: domain
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/people-data-labs
+  direction: third-party
+  category: Contact Management
+  partner_url: https://www.peopledatalabs.com/
+- partner_name: Fyrebox
+  partner: null
+  partner_match: null
+  partner_candidate: null
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  relationship: ipaas-bridge
+  evidence: https://zapier.com/apps/act-on/integrations/fyrebox
+  direction: third-party
+  category: Marketing
+  partner_url: https://www.fyrebox.com/
+templates:
+- title: Update or create Act-On contacts from new or updated Google Sheets rows on team drive
+  url: https://zapier.com/apps/act-on/integrations/google-sheets/1597431/update-or-create-act-on-contacts-from-new-or-updated-google-sheets-rows-on-team-drive
+  apps:
+  - google-sheets
+  - act-on
+- title: Create Google Sheets rows with new Act-On form submissions
+  url: https://zapier.com/apps/act-on/integrations/google-sheets/12445/create-google-sheets-rows-with-new-act-on-form-submissions
+  apps:
+  - act-on
+  - google-sheets
+- title: Add new Shopify customers to a list on Act-On
+  url: https://zapier.com/apps/act-on/integrations/shopify/12432/add-new-shopify-customers-to-a-list-on-act-on
+  apps:
+  - shopify
+  - act-on
+- title: Send Twilio SMS alerts when new Act-On forms are submitted
+  url: https://zapier.com/apps/act-on/integrations/twilio/12433/send-twilio-sms-alerts-when-new-act-on-forms-are-submitted
+  apps:
+  - act-on
+  - twilio
+- title: Create people on Pipedrive from Act-On contacts that complete an automated program step
+  url: https://zapier.com/apps/act-on/integrations/pipedrive/12434/create-people-on-pipedrive-from-act-on-contacts-that-complete-an-automated-program-step
+  apps:
+  - act-on
+  - pipedrive
+- title: Copy new Survey Monkey survey responses into an Act-On form
+  url: https://zapier.com/apps/act-on/integrations/surveymonkey/12435/add-new-survey-monkey-survey-responses-to-act-on-form
+  apps:
+  - surveymonkey
+  - act-on
+- title: Submit new Zendesk tickets to an Act-On Form
+  url: https://zapier.com/apps/act-on/integrations/zendesk/12436/submit-new-zendesk-tickets-to-an-act-on-form
+  apps:
+  - zendesk
+  - act-on
+- title: Add new Eventbrite attendees to Act-On lists
+  url: https://zapier.com/apps/act-on/integrations/eventbrite/12442/add-new-eventbrite-attendees-to-act-on-lists
+  apps:
+  - eventbrite
+  - act-on
+- title: Send Twilio SMS messages to Act-On contacts that complete an automated program step
+  url: https://zapier.com/apps/act-on/integrations/twilio/12447/send-twilio-sms-messages-to-act-on-contacts-that-complete-an-automated-program-step
+  apps:
+  - act-on
+  - twilio
+- title: Send Thankster cards to Act-On contacts that complete an automated program step
+  url: https://zapier.com/apps/act-on/integrations/thankster/12459/send-thankster-cards-to-act-on-contacts-that-complete-an-automated-program-step
+  apps:
+  - act-on
+  - thankster
+- title: Add new Facebook Lead Ad leads as contacts ion Act-On
+  url: https://zapier.com/apps/act-on/integrations/facebook-lead-ads/13472/add-new-facebook-lead-ad-leads-as-contacts-ion-act-on
+  apps:
+  - facebook-lead-ads
+  - act-on
+- title: Add new contacts checked-in with Event Farm to a list in Act-On
+  url: https://zapier.com/apps/act-on/integrations/event-farm/24066/add-contacts-checked-in-with-event-farm-to-a-list-in-act-on
+  apps:
+  - event-farm
+  - act-on
+template_total: 193

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/act-on/main/json-schema/act-on-delete-records-request-dto-schema.json",
+  "title": "DeleteRecordsRequestDTO",
+  "description": "The record deletion details",
+  "x-generated": "2026-10-20",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/DeleteRecordsRequestDTO",
+  "type": "object",
+  "properties": {
+    "ids": {
+      "type": "string",
+      "description": "One or more unique identifiers for the records to delete separated by comas"
+    },
+    "firstId": {
+      "type": "string",
+      "description": "The first unique identifier for a range of records to delete"
+    },
+    "lastId": {
+      "type": "string",
+      "description": "The last unique identifier for a range of records to delete"
+    }
+  }
+}

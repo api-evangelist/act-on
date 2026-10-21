@@ -1,78 +1,300 @@
-generated: '2026-08-13'
+generated: '2026-10-20'
 method: probed
-source: live HTTP probes of every Act-On host in apis.yml and in openapi/ servers[]
-note: >-
-  NO /.well-known/ resource returned a real document on any Act-On host. This file
-  records a measured ABSENCE, not a presence — no WellKnown, SecurityTxt or
-  AgentCard pointer is emitted in apis.yml on the strength of it.
-  IMPORTANT SOFT-200: act-on.com answers HTTP 200 with the 415,734-byte marketing
-  homepage for EVERY unknown path, including every /.well-known/* path and a control
-  path (/nonexistent-zzz-test/) that returned the identical byte count and the
-  identical <title>Marketing Automation Platform - Act-On</title>. Those 200s are
-  the WordPress catch-all, not documents, and are recorded as misses.
-hosts_probed:
-- api.actonsoftware.com
-- restapi.actonsoftware.com
-- developer.act-on.com
-- act-on.com
-real_documents_found: 0
-probes:
+generator: harvest-well-known.py
+source: Live GET of the named /.well-known/ path list on every host the record knows; every row is a request that
+  was issued.
+summary:
+  hosts_probed: 7
+  paths_probed: 77
+  documents_served: 3
+hosts:
 - host: api.actonsoftware.com
-  note: canonical API host declared in every published OpenAPI servers[] block
-  results:
-  - {path: /.well-known/security.txt, status: 404, file: null}
-  - {path: /.well-known/openid-configuration, status: 404, file: null}
-  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
-  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
-  - {path: /.well-known/api-catalog, status: 404, file: null}
-  - {path: /.well-known/ai-plugin.json, status: 404, file: null}
-  - {path: /.well-known/agent-card.json, status: 404, file: null}
-  - {path: /.well-known/agent.json, status: 404, file: null}
-- host: restapi.actonsoftware.com
-  results:
-  - {path: /.well-known/security.txt, status: 404, file: null}
-  - {path: /.well-known/openid-configuration, status: 404, file: null}
-  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
-  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
-  - {path: /.well-known/api-catalog, status: 404, file: null}
-  - {path: /.well-known/ai-plugin.json, status: 404, file: null}
-  - {path: /.well-known/agent-card.json, status: 404, file: null}
-  - {path: /.well-known/agent.json, status: 404, file: null}
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 403
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 403
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 403
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 403
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 403
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 403
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 403
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 403
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 403
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 403
+    standard: MCP server card
+- host: connect.act-on.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
 - host: developer.act-on.com
-  results:
-  - {path: /.well-known/security.txt, status: 404, file: null}
-  - {path: /.well-known/openid-configuration, status: 404, file: null}
-  - {path: /.well-known/oauth-authorization-server, status: 404, file: null}
-  - {path: /.well-known/oauth-protected-resource, status: 404, file: null}
-  - {path: /.well-known/api-catalog, status: 404, file: null}
-  - {path: /.well-known/ai-plugin.json, status: 404, file: null}
-  - {path: /.well-known/agent-card.json, status: 404, file: null}
-  - {path: /.well-known/agent.json, status: 404, file: null}
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: success.act-on.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
 - host: act-on.com
-  soft_404: true
-  soft_404_evidence: 'control probe https://act-on.com/nonexistent-zzz-test/ -> 200,
-    415734 bytes, <title>Marketing Automation Platform - Act-On</title> — byte-identical
-    to every /.well-known/* response below'
-  results:
-  - {path: /.well-known/security.txt, status: 404, file: null}
-  - {path: /.well-known/openid-configuration, status: 200, file: null, verdict: soft-404
-      HTML shell, not a document}
-  - {path: /.well-known/oauth-authorization-server, status: 200, file: null, verdict: soft-404
-      HTML shell, not a document}
-  - {path: /.well-known/oauth-protected-resource, status: 200, file: null, verdict: soft-404
-      HTML shell, not a document}
-  - {path: /.well-known/api-catalog, status: 200, file: null, verdict: soft-404 HTML
-      shell, not a document}
-  - {path: /.well-known/ai-plugin.json, status: 200, file: null, verdict: soft-404
-      HTML shell, not a document}
-  - {path: /.well-known/agent-card.json, status: 200, file: null, verdict: soft-404
-      HTML shell, not a document}
-  - {path: /.well-known/agent.json, status: 200, file: null, verdict: soft-404 HTML
-      shell, not a document}
-oauth_discovery:
-  published: false
-  note: >-
-    Act-On runs OAuth 2.0 (password, refresh_token and authorization_code grants at
-    POST /token) but publishes no RFC 8414 authorization-server metadata and no RFC
-    9728 protected-resource metadata. An agent cannot discover the token endpoint;
-    it has to read the prose docs.
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    standard: RFC 9116
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    standard: RFC 8414
+    content_type: application/json; charset=UTF-8
+    file: act-on-oauth-authorization-server.json
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    standard: RFC 9728
+    content_type: application/json; charset=UTF-8
+    file: act-on-oauth-protected-resource.json
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: status.act-on.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: 404
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    standard: RFC 9116
+    content_type: text/plain
+    file: act-on-status-security.txt
+  - path: /.well-known/openid-configuration
+    status: 404
+    standard: OpenID Connect Discovery 1.0
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    standard: RFC 8414
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    standard: RFC 9728
+  - path: /.well-known/api-catalog
+    status: 404
+    standard: RFC 9727
+  - path: /.well-known/apis.json
+    status: 404
+    standard: APIs.json
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    standard: OpenAI plugin manifest
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    standard: AAuth
+  - path: /.well-known/ucp.json
+    status: 404
+    standard: UCP
+  - path: /.well-known/acp.json
+    status: 404
+    standard: ACP
+  - path: /.well-known/mcp/server-card.json
+    status: 404
+    standard: MCP server card
+- host: api.act-on.com
+  control:
+    path: /.well-known/apis-io-negative-control-7f3ab91c.json
+    status: null
+    bytes: 0
+  documents:
+  - path: /.well-known/security.txt
+    status: null
+    standard: RFC 9116
+    note: 'unreachable: URLError'
+  - path: /.well-known/openid-configuration
+    status: null
+    standard: OpenID Connect Discovery 1.0
+    note: 'unreachable: URLError'
+  - path: /.well-known/oauth-authorization-server
+    status: null
+    standard: RFC 8414
+    note: 'unreachable: URLError'
+  - path: /.well-known/oauth-protected-resource
+    status: null
+    standard: RFC 9728
+    note: 'unreachable: URLError'
+  - path: /.well-known/api-catalog
+    status: null
+    standard: RFC 9727
+    note: 'unreachable: URLError'
+  - path: /.well-known/apis.json
+    status: null
+    standard: APIs.json
+    note: 'unreachable: URLError'
+  - path: /.well-known/ai-plugin.json
+    status: null
+    standard: OpenAI plugin manifest
+    note: 'unreachable: URLError'
+  - path: /.well-known/aauth-resource.json
+    status: null
+    standard: AAuth
+    note: 'unreachable: URLError'
+  - path: /.well-known/ucp.json
+    status: null
+    standard: UCP
+    note: 'unreachable: URLError'
+  - path: /.well-known/acp.json
+    status: null
+    standard: ACP
+    note: 'unreachable: URLError'
+  - path: /.well-known/mcp/server-card.json
+    status: null
+    standard: MCP server card
+    note: 'unreachable: URLError'

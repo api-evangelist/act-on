@@ -1,0 +1,66 @@
+arazzo: 1.0.1
+info:
+  title: Add new Facebook Lead Ad leads as contacts in Act-On
+  version: 1.0.0
+  description: >-
+    Recreates the Zapier template "Add new Facebook Lead Ad leads as contacts in Act-On". A lead id (delivered
+    by the Facebook leadgen webhook) is read from the Graph API, then posted as a record into an Act-On list.
+    Act-On's legacy add-a-contact operation takes a form-encoded RAW_BODY, so mapping the lead's field_data
+    into that body is left to the caller.
+sourceDescriptions:
+- name: facebookLeadAds
+  url: https://raw.githubusercontent.com/api-evangelist/facebook-lead-ads/refs/heads/main/openapi/facebook-lead-ads-meta-marketing-api-lead-ads-api-openapi.yml
+  type: openapi
+- name: actOnList
+  url: https://raw.githubusercontent.com/api-evangelist/act-on/refs/heads/main/openapi/act-on-list-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: facebookLeadToActOnContact
+  summary: Fetch a Facebook lead and add it to an Act-On list.
+  inputs:
+    type: object
+    required: [leadId, listId, contactBody]
+    properties:
+      leadId: {type: string, description: Lead id from the leadgen webhook.}
+      listId: {type: string, description: Act-On list id to add the contact to.}
+      contactBody: {type: string, description: Form-encoded contact fields mapped from the lead's field_data.}
+  steps:
+  - stepId: getLead
+    operationId: $sourceDescriptions.facebookLeadAds.getLead
+    parameters:
+    - name: lead-id
+      in: path
+      value: $inputs.leadId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      fieldData: $response.body#/field_data
+  - stepId: addContact
+    operationId: $sourceDescriptions.actOnList.add-a-contact
+    parameters:
+    - name: listid
+      in: path
+      value: $inputs.listId
+    requestBody:
+      contentType: application/x-www-form-urlencoded
+      payload:
+        RAW_BODY: $inputs.contactBody
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      response: $response.body
+  outputs:
+    leadFields: $steps.getLead.outputs.fieldData
+    actOnResult: $steps.addContact.outputs.response
+x-integration:
+  partner: facebook-lead-ads
+  template: https://zapier.com/apps/act-on/integrations/facebook-lead-ads/13472/add-new-facebook-lead-ad-leads-as-contacts-ion-act-on
+  edge_evidence: https://zapier.com/apps/act-on/integrations/facebook-lead-ads/13472/add-new-facebook-lead-ad-leads-as-contacts-ion-act-on
+  edge_type: marketplace
+  method: generated
+  generated: '2026-10-20'
+  generator: provider-integrations-arazzo
+  guessed_steps:
+  - step: addContact
+    cause: provider-contract
+    why: add-a-contact declares only an opaque RAW_BODY form field, so the lead-to-contact field mapping cannot be wired from the spec.

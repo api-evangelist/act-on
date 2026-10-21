@@ -1,0 +1,199 @@
+generated: '2026-10-20'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/act-on-account-api-openapi.yml
+- openapi/act-on-campaigns-api-openapi.yml
+- openapi/act-on-custom-data-dataset-api-api-openapi.yml
+- openapi/act-on-custom-data-query-api-api-openapi.yml
+- openapi/act-on-custom-data-schema-api-api-openapi.yml
+vocabulary:
+  name: Act-On Domain Vocabulary
+  description: 'Terms declared by Act-On''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-20'
+  terms:
+  - term: Custom Data Dataset API
+    definition: Custom Data Dataset API
+    tags:
+    - Resource Group
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml
+  - term: Custom Data Query API
+    definition: Custom Data Query API
+    tags:
+    - Resource Group
+    source: openapi/act-on-custom-data-query-api-api-openapi.yml
+  - term: Custom Data Schema API
+    definition: Custom Data Schema API
+    tags:
+    - Resource Group
+    source: openapi/act-on-custom-data-schema-api-api-openapi.yml
+  - term: CreateDatasetRequestDTO
+    definition: The dataset creation details
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/CreateDatasetRequestDTO
+  - term: ValidationRequestDTO
+    definition: The validation request details
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/ValidationRequestDTO
+  - term: DeleteRecordsRequestDTO
+    definition: The record deletion details
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/DeleteRecordsRequestDTO
+  - term: HttpErrorResponse
+    definition: 'Object declared by the contract with fields: errorId, requestUri, errorMessage, errorList, status.'
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/HttpErrorResponse
+  - term: UpdateDatasetRequestDTO
+    definition: The dataset update details
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-dataset-api-api-openapi.yml#/components/schemas/UpdateDatasetRequestDTO
+  - term: DataQueryRequestDTO
+    definition: The data query specification
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-query-api-api-openapi.yml#/components/schemas/DataQueryRequestDTO
+  - term: PaginationDTO
+    definition: Pagination information for data query requests
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-query-api-api-openapi.yml#/components/schemas/PaginationDTO
+  - term: JoinStrategyDTO
+    definition: Configuration for join operations between Act-On Contacts and Custom Objects
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-query-api-api-openapi.yml#/components/schemas/JoinStrategyDTO
+  - term: SortFieldDTO
+    definition: Sort field configuration
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-query-api-api-openapi.yml#/components/schemas/SortFieldDTO
+  - term: RelationshipDefinitionDTO
+    definition: 'Object declared by the contract with fields: name, description, type, fieldName, fieldValue, otherObject, otherFieldName, otherFieldValue,
+      properties.'
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-schema-api-api-openapi.yml#/components/schemas/RelationshipDefinitionDTO
+  - term: CreateSchemaRequestDTO
+    definition: The schema creation details
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-schema-api-api-openapi.yml#/components/schemas/CreateSchemaRequestDTO
+  - term: FieldDefinitionDTO
+    definition: A custom object field definition
+    tags:
+    - Object
+    source: openapi/act-on-custom-data-schema-api-api-openapi.yml#/components/schemas/FieldDefinitionDTO
+  - term: Account
+    definition: 'Resource group in the contract; its operation GET /api/1/account/senders: Get a list of all defined email senders for the account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-account-api-openapi.yml
+  - term: Campaigns
+    definition: 'Resource group in the contract; its operation GET /api/1/campaigns/{id}: Use to retrieve a listing of emails by type.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-campaigns-api-openapi.yml
+  - term: Custom Events
+    definition: 'Resource group in the contract; its operation POST /api/1/customevents: Upload a set of custom events with a simple HTTP POST
+      to the Fact API.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-custom-events-api-openapi.yml
+  - term: Ete
+    definition: 'Resource group in the contract; its operation POST /ete/v1/email/{accountid}/{templateid}: ETE Request'
+    tags:
+    - Resource Group
+    source: openapi/act-on-ete-api-openapi.yml
+  - term: Footer
+    definition: 'Resource group in the contract; its operation GET /api/1/footer: Get a list of footers in your account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-footer-api-openapi.yml
+  - term: Form
+    definition: 'Resource group in the contract; its operation GET /api/1/form: Get a list of the forms in your Forms repository.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-form-api-openapi.yml
+  - term: Header
+    definition: 'Resource group in the contract; its operation GET /api/1/header: Get a list of headers in the account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-header-api-openapi.yml
+  - term: Image
+    definition: 'Resource group in the contract; its operation GET /api/1/image: Get a list of the images in your account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-image-api-openapi.yml
+  - term: List
+    definition: 'Resource group in the contract; its operation GET /api/1/list/{listid}/record/{recordid}/facts: Download a contact record from
+      your account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-list-api-openapi.yml
+  - term: Logo
+    definition: 'Resource group in the contract; its operation GET /api/1/logo: Get a list of the logos in the account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-logo-api-openapi.yml
+  - term: Media
+    definition: 'Resource group in the contract; its operation GET /api/1/media/: Get a listing of media objects stored in your account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-media-api-openapi.yml
+  - term: Medialink
+    definition: 'Resource group in the contract; its operation POST /api/1/medialink: Add a new URL as a trackable link in your media library.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-medialink-api-openapi.yml
+  - term: Message
+    definition: 'Resource group in the contract; its operation GET /api/1/message/{id}/report: Get a report on the specified message.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-message-api-openapi.yml
+  - term: Page
+    definition: 'Resource group in the contract; its operation GET /api/1/page: Get a list of pages in the account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-page-api-openapi.yml
+  - term: Program
+    definition: 'Resource group in the contract; its operation GET /api/1/program: Get a list of all programs of a specified type.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-program-api-openapi.yml
+  - term: Seokeywords
+    definition: 'Resource group in the contract; its operation GET /api/1/seokeywords: Fetch the SEO keywords defined in your account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-seokeywords-api-openapi.yml
+  - term: Seoreport
+    definition: 'Resource group in the contract; its operation GET /api/1/seoreport: Run an SEO report on a website that you specify.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-seoreport-api-openapi.yml
+  - term: Subscription
+    definition: 'Resource group in the contract; its operation PUT /api/1/subscription/setcategories: Add/remove individual records from a subscription
+      category by email address.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-subscription-api-openapi.yml
+  - term: Token
+    definition: 'Resource group in the contract; its operation POST /token: Grant-Type Password (Scott)'
+    tags:
+    - Resource Group
+    source: openapi/act-on-token-api-openapi.yml
+  - term: Ucl
+    definition: 'Resource group in the contract; its operation POST /ucl/v2/{accountId}/import/contacts/{importDefinitionId}: Import Contacts'
+    tags:
+    - Resource Group
+    source: openapi/act-on-ucl-api-openapi.yml
+  - term: User
+    definition: 'Resource group in the contract; its operation DELETE /api/1/user/{email}: Delete one user from an account.'
+    tags:
+    - Resource Group
+    source: openapi/act-on-user-api-openapi.yml

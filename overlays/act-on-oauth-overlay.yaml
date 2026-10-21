@@ -2,7 +2,7 @@ overlay: 1.0.0
 info:
   title: API Evangelist enrichment overlay — Act-On OAuth 2.0 token endpoint
   version: 1.0.0
-extends: openapi/act-on-oauth-openapi.yml
+extends: ../openapi/_original/act-on-oauth-openapi.yml
 x-provenance:
   generated: '2026-08-13'
   method: generated
